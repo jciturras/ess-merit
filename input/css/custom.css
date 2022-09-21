@@ -1,0 +1,18 @@
+
+
+body{
+  text-align: justify;
+}
+
+.right {
+  text-align: right;
+  line-height: 0.25;
+}
+
+.left {
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+}

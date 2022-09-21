@@ -1,0 +1,599 @@
+---
+title: "Preparación de datos"
+date: "`r format(Sys.time(), '%A %d %B %Y %X')`"
+output:
+  html_document:
+    toc: yes
+    toc_float:
+      collapsed: yes
+      smooth_scroll: no
+      number_sections: yes
+    code_folding: hide
+    number_sections: yes
+editor_options:
+  chunk_output_type: console
+---
+
+# Setup
+
+```{r setup}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+options(scipen=9999) # desactivar notacion cientifica
+remove(list = ls()) #limpieza del entorno de trabajo
+```
+
+```{css, echo=FALSE}
+# /* expandir el espacio del documento*/
+body .main-container {
+      max-width: 1600px !important;
+      width: 1600px !important;
+    }
+#/* expandir width de la TOC*/
+div.tocify {
+    width: 22% !important;
+    max-width: 331px !important;
+    max-height: 102% !important;
+}
+```
+
+## Librerías
+
+```{r}
+if (!require("pacman")) install.packages("pacman") # instalar pacman
+                            # cargar librerias
+pacman::p_load(dplyr,       # Manipulacion de datos
+               car,         # recodificar variables
+               sjlabelled,  # etiquetado de variables
+               sjmisc,      # descriptivos y frecuencias
+               sjPlot,      # tablas, plots y descriptivos
+               summarytools,# resumen de dataframe
+               stringr,     # manejo de vector de caracteres
+               survey,      # diseno muestral complejo
+               ggrepel,     # etiquetas en ggplo2
+               tidyverse,    # ggplot2 + librerias complementarias
+               mice
+               )
+```
+
+## Datos
+
+```{r}
+load(file = here::here("input/data/original/ELSOC_W03_v1.00_R.RData"))
+elsoc <- elsoc_2018
+```
+
+
+```{r}
+for (i in 1:ncol(elsoc)) {
+  elsoc[,i][elsoc[,i] == c(-888)]  <- NA #Missing 
+  elsoc[,i][elsoc[,i] == c(-999)]  <- NA #Missing   
+  }
+```
+
+
+# Variables
+
+## Percepción meritocracia
+
+```{r}
+# Recodificación Variables meritocracia -----------------------------------#
+elsoc$d05_01 <- sjlabelled::as_numeric(elsoc$d05_01)# Salir Adelante:
+elsoc$d05_02 <- sjlabelled::as_numeric(elsoc$d05_02)# Salir Adelante:
+elsoc$d05_03 <- sjlabelled::as_numeric(elsoc$d05_03)# Salir Adelante:
+elsoc$d05_04 <- sjlabelled::as_numeric(elsoc$d05_04)# Salir Adelante:
+elsoc$c18_09 <- sjlabelled::as_numeric(elsoc$c18_09)
+elsoc$c18_10 <- sjlabelled::as_numeric(elsoc$c18_10) 
+
+# Variables meritocracia promedio -----------------------------------------#
+elsoc <- elsoc %>% mutate(salirad=(d05_02+d05_03+d05_04)/3) # Salir adelante
+elsoc <- elsoc %>% mutate(recompe=(c18_09+c18_10)/2)        # Recompensa percibida
+elsoc <- elsoc %>% mutate(recompe.sum=(c18_09+c18_10))      # Recompensa percibida suma
+
+elsoc <- rename(elsoc,meffort=c18_09,mtalent=c18_10) # cambio de nombre
+
+elsoc$meffort1 <- (elsoc$meffort -min(elsoc$meffort ))/(max(elsoc$meffort )-min(elsoc$meffort ))*100 #re-scale 1 a 5 -> 1 a 100
+elsoc$mtalent1 <- (elsoc$mtalent -min(elsoc$mtalent ))/(max(elsoc$mtalent )-min(elsoc$mtalent ))*100 #re-scale 1 a 5 -> 1 a 100
+
+elsoc$meffort <- ordered(elsoc$meffort)
+elsoc$meffort3 <- car::recode(elsoc$meffort,recodes = "c(1,2)=1;3=2;c(4,5)=3")
+elsoc$meffort3 <- factor(elsoc$meffort3,levels = 1:3,labels = c("Desacuerdo","Ni desacuerdo, Ni de acuerdo", "De acuerdo"),ordered = T)
+
+elsoc$mtalent <- ordered(elsoc$mtalent)
+elsoc$mtalent3 <- car::recode(elsoc$mtalent,recodes = "c(1,2)=1;3=2;c(4,5)=3")
+elsoc$mtalent3 <- factor(elsoc$mtalent3,levels = 1:3,labels = c("Desacuerdo","Ni desacuerdo, Ni de acuerdo", "De acuerdo"),ordered = T)
+
+
+sjlabelled::set_label(elsoc$meffort) <- "People are rewarded for their efforts"
+sjlabelled::set_label(elsoc$mtalent) <- "People are rewarded for their intelligence and ability"
+elsoc$meffort <- 
+  sjlabelled::set_labels(elsoc$meffort,
+                       labels = c("Strongly disagree"=1,"Disagree"=2,"Neither agree nor disagree"=3, "Agree"=4, "Strongly agree"=5)) 
+
+elsoc$mtalent <- 
+  sjlabelled::set_labels(elsoc$mtalent,
+                       labels = c("Strongly disagree"=1,"Disagree"=2,"Neither agree nor disagree"=3, "Agree"=4, "Strongly agree"=5)) 
+```
+
+## Estatus subjetivo
+
+```{r}
+elsoc$ess      <- as.numeric(elsoc$d01_01) #Estatus Social Subjetivo
+elsoc$essfam   <- as.numeric(elsoc$d01_02) #Estatus Social Subjetivo familiar
+elsoc$esshijos <- as.numeric(elsoc$d01_03) #Estatus Social Subjetivo Hijos
+
+sjlabelled::set_label(elsoc$ess) <- "Subjective Social Status"
+```
+
+## Brecha salarial percibida
+
+```{r}
+elsoc <- elsoc %>% rename("salperger"= d03_01,
+                          "salperobr"= d03_02) 
+  # mutate(salperobr=replace(salperobr, salperobr <= 40000  | salperobr>= 1000000, NA)) %>%
+  # mutate(salperger=replace(salperger, salperger <= 250000 | salperger>= 100000001, NA))
+
+
+elsoc$gap_perc   <-  as.numeric(elsoc$salperger/elsoc$salperobr) # brecha total
+elsoc$lngap_perc <-  as.numeric(log(elsoc$gap_perc))             # brecha log
+
+sjlabelled::set_label(elsoc$lngap_perc) <- "Perceived Salary Gap (ln)"
+```
+
+
+
+## Educación
+
+```{r}
+elsoc$edcine2 <- car::recode(elsoc$m01, "c(1,2)=1; c(3)=2;c(4,5)=3;c(6,7)=4;c(8,9,10)=5")
+round(prop.table(table(elsoc$edcine2)), 3)
+
+elsoc$edcine2 <- factor(elsoc$edcine2,
+                        levels = c(1,2,3,4,5), 
+                        labels=c("cine0",
+                                 "cine12",
+                                 "cine34",
+                                 "cine5",
+                                 "cine678"))
+# c("Incomplete Primary or lower",
+#    Primary & Lower secondary", 
+#    Upper secondary ",
+#    Short-cycle tertiary",
+#    Tertiary or higher")
+
+sjlabelled::set_label(elsoc$edcine2) <- "Educational level"
+sjmisc::frq(elsoc$edcine2)
+```
+
+
+## Ocupación
+
+```{r}
+# Ocupación u oficio actual ISCO 88
+elsoc$cod_m03 
+elsoc$isco88 <- as.numeric(elsoc$cod_m03)
+
+# recodificar isco 08 a isco88 --------------------------------------------#
+recode <- ("0110=0110;0210=0110;0310=0110;0100=0110;0200=0110;
+0300=0110;1000=1000;
+1100=1100;110=1100;1111=1110;1112=1120;1113=1130;1114=1140;1120=1210;1200=1200;
+1210=1230;1211=1231;1212=1232;1213=1239;1219=1229;1220=1230;1221=1233;1222=1234;1223=1237;1300=1220;
+1310=1221;1311=1221;1312=1221;1320=1220;1321=1222;1322=1222;1323=1223;1324=1235;1330=1236;1340=1229;1341=1229;1342=1229;1343=1229;1344=1229;1345=1229;1346=1227;1349=1229;
+1400=1310;1410=1315;1411=1315;1412=1315;1420=1314;1430=1319;1431=1319;1439=1319;2000=2000;
+2100=2100;2110=2110;2111=2111;2112=2112;2113=2113;2114=2114;2120=2120;2130=2210;2131=2211;2132=2213;2133=2200;2140=2140;2141=2149;2142=2142;2143=2149;2144=2145;2145=2146;2146=2147;2149=2149;2150=2140;2151=2143;2152=2144;2153=2144;2160=2140;2161=2141;2162=2141;2163=3471;2164=2141;2165=2148;2166=3471;2200=2200;
+2210=2220;2211=2221;2212=2221;2220=2230;2221=2230;2222=2230;2230=3229;2240=3221;2250=2223;2260=3210;2261=2222;2262=2224;2263=2229;2264=3226;2265=3223;2266=3229;2267=3224;2269=2229;
+2310=2310;2320=2320;2330=2320;2300=2300;2340=2330;2341=2331;2342=2332;2350=2350;2351=2351;2351=2352;2352=2340;2353=2359;2354=2359;2355=2359;2356=2359;2359=2359;2400=2400;
+2410=2410;2411=2411;2412=2419;2413=2419;2420=2419;2421=2419;2422=2419;2423=2412;2424=2412;2430=2410;2431=2419;2432=2419;2433=3415;2434=3415;2500=2100;
+2510=2130;2511=2131;2512=2131;2513=2131;2513=2139;2514=2132;2519=2131;2520=2131;2521=2131;2522=2131;2523=2131;2529=2139;2600=2400;
+2610=2420;2611=2421;2612=2422;2619=2429;2620=2430;2621=2431;2622=2432;2630=2440;2631=2441;2632=2442;2633=2443;2634=2445;2635=2446;2636=2460;2640=2450;2641=2451;2642=2451;2643=2444;2650=2450;2651=2452;2652=2453;2653=2454;2654=2455;2655=2455;2656=3472;2659=3474;3000=3000;
+3100=3100;3110=3110;3111=3111;3112=3112;3113=3113;3114=3114;3115=3115;3116=3116;3117=3117;3118=3118;3119=3119;3120=1220;3121=1229;3122=1222;3123=1223;3130=8160;3131=8161;3132=8163;3133=8150;3134=8155;3135=8120;3139=8290;3140=3210;3141=3211;3142=3212;3143=3212;3150=3140;3151=3141;3152=3142;3153=3143;3154=3144;3155=3145;3200=3100;
+3210=3130;3211=3133;3212=3211;3213=3228;3214=7311;3220=3230;3221=3231;3222=3232;3230=3241;3240=3227;3250=3220;3251=3225;3252=3229;3253=3229;3254=3224;3255=3226;3256=3221;3257=3152;3258=3152;3259=3229;3300=3300;
+3310=3410;3311=3411;3312=3419;3313=3433;3314=3434;3315=3417;3320=3410;3321=3412;3322=3415;3323=3416;3324=3421;3330=3420;3331=3422;3332=3414;3332=3439;3333=3423;3334=3413;3339=3429;3340=3430;3341=3431;3342=3431;3343=3431;3344=3431;3350=3440;3351=3441;3352=3442;3353=3443;3354=3444;3355=3450;3359=3449;3400=3400;
+3410=3430;3411=3432;3412=3460;3413=3480;3420=3470;3421=3475;3422=3475;3423=3340;3423=3475;3430=3470;3431=3131;3432=3471;3433=3470;3434=5122;3435=3470;3500=3100;
+3510=3120;3511=3122;3512=3121;3513=2139;3514=3121;3520=3130;3521=3130;3522=3114;3522=3132;4000=4000;
+4110=4100;4120=4115;4100=4100;4130=4110;4131=4112;4132=4113;4200=4200;
+4210=4210;4211=4211;4212=4213;4213=4214;4214=4215;4220=4220;4221=3414;4222=4222;4223=4223;4224=4222;4225=4222;4226=4222;4227=4190;4229=4222;4300=4100;
+4310=4120;4311=4121;4312=4122;4313=4121;4320=4130;4321=4131;4322=4132;4323=4133;4400=4100;
+4410=4140;4411=4141;4412=4142;4413=4143;4414=4144;4415=4141;4416=4190;4419=4190;5000=5000;
+5100=5100;5110=5110;5111=5111;5112=5112;5113=5113;5120=5122;5130=5120;5131=5123;5132=5123;5140=5140;5141=5141;5142=5141;5150=5120;5151=5121;5152=5121;5153=9141;5160=5140;5161=5152;5162=5142;5163=5143;5164=5149;5165=3340;5169=5149;5200=5200;
+5210=5230;5211=5230;5212=9111;5220=1314;5221=1314;5222=1314;5223=5220;5230=4211;5240=5220;5241=5210;5242=5220;5243=9113;5244=9113;5245=5220;5246=5123;5249=5220;5300=5100;
+5310=5130;5311=5131;5312=5131;5320=5130;5321=5132;5322=5133;5329=5139;5400=5100;
+5410=5160;5411=5161;5412=5162;5413=5163;5414=5169;5419=5169;6000=6000;
+6100=6100;6110=6110;6111=6111;6112=6112;6113=6113;6114=6114;6120=6120;6121=6124;6122=6122;6123=6123;6129=6129;6130=6130;6210=6141;
+6200=6150;6220=6150;6221=6151;6222=6152;6223=6153;6224=6154;6300=6200;
+6310=6210;6320=6210;6330=6210;6340=6210;7000=7000;
+7100=7100;7110=7120;7111=7129;7112=7122;7113=7113;7114=7123;7115=7124;7119=7129;7120=7130;7121=7131;7122=7132;7123=7133;7124=7134;7125=7135;7126=7136;7127=7240;7130=7140;7131=7141;7132=7142;7133=7143;7200=7200;7210=7210;
+7211=7211;7212=7212;7213=7213;7214=7214;7215=7215;7220=7220;7221=7221;7222=7222;7223=7223;7224=7224;7230=7230;7231=7231;7232=7232;7233=7233;7234=7231;7300=7300;
+7310=7310;7311=7311;7312=7312;7313=7313;7314=7321;7315=7322;7316=3471;7317=7331;7318=7332;7319=7330;7320=7340;7321=7340;7322=7340;7323=7345;7400=7200;
+7410=7240;7411=7137;7412=7241;7413=7245;7420=7240;7421=7242;7421=7243;7422=7243;7500=7400;
+7510=7410;7511=7411;7512=7412;7513=7413;7514=7414;7515=7415;7516=7416;7520=7420;7521=7421;7522=7422;7523=7423;7530=7430;7531=7434;7532=7435;7533=7436;7534=7437;7535=7441;7536=7442;7540=7200;7541=7216;7542=7112;7543=3152;7544=7143;7549=7000;8000=8000;
+8100=8100;8110=8110;8111=7111;8112=8112;8113=8113;8114=8212;8120=8120;8121=8120;8122=8223;8130=8220;8131=8220;8132=8224;8140=8230;8141=8231;8142=8232;8143=8253;8150=8260;8151=8261;8152=8262;8153=8263;8154=8264;8155=8265;8156=8266;8157=8264;8159=8269;8160=8270;8170=8140;8171=8140;8172=8141;8180=8290;8181=8131;8182=8162;8183=8290;8189=8290;8200=8200;
+8210=8280;8211=8281;8212=8283;8219=8290;8300=8300;
+8310=8310;8311=8311;8312=8312;8320=8320;8321=8321;8322=8322;8330=8320;8331=8323;8332=8324;8340=8330;8341=8331;8342=8332;8343=8333;8344=8334;8350=8340;9000=9000;
+9100=9100;9110=9130;9111=9131;9112=9132;9120=9140;9121=9133;9122=9142;9123=9142;9129=9140;9200=9200;
+9210=9210;9211=9211;9212=9211;9213=9211;9214=9211;9215=9212;9216=9213;9300=9300;
+9310=9310;9311=9311;9312=9312;9313=9313;9320=9320;9321=9322;9329=9320;9330=9330;9331=9331;9332=9332;9333=9333;9334=9333;9400=9100;
+9410=9130;9411=5122;9412=9132;9500=9100;
+9510=9120;9520=9112;9600=9100;
+9610=9160;9611=9161;9612=9161;9613=9162;9620=9140;9621=9151;9622=9160;9623=9153;9624=9160;9629=9100;9999=0000")
+class(elsoc$isco88)
+elsoc$isco88 <- car::recode(elsoc$isco88,recodes = recode)
+```
+
+## Clase Social (EGP)
+
+```{r}
+# Cargar base con Esquema EGP ---------------------------------------------#
+egp01 <- 
+  sjlabelled::read_stata(path = 
+                           here::here("input/data/proc/ELSOC_egp-siops-isei2018.dta"))
+egp01 <- egp01 %>% dplyr::select(idencuesta,egp,egptorche,isei,siops)
+
+elsoc <- left_join(elsoc,egp01,"idencuesta") #Pegar ELSOC con EGP 
+egplab  <- sjlabelled::get_labels(elsoc$egp) # Etiquetas de clase EGP10
+egptlab <- sjlabelled::get_labels(elsoc$egptorche) # Etiquetas de clase EGP7
+egp10   <- sjlabelled::get_labels(elsoc$egp) # Etiquetas de clase EGP7
+
+
+# EGP 05 categorias (Adaptado de EGP07) --------------------------#
+
+# [1] "Servicio (I+II)"            
+# [2] "Rutinas no manuales(III)"   
+# [3] "Auto Empleo(IVab+IVc)"          
+# [4] "Obrero calificado (V+VI)"   
+# [5] "Obrero no calificado (VIIa+VIIb)"
+
+# recode 6 a 4 = Autoempleo agro en Autoempleo 
+# recode 7 a 5 = Labores agricolas a trabajo no calificado
+
+elsoc$egp05 <- car::recode(elsoc$egptorche, "6=4;7=5",as.factor = TRUE)
+elsoc$egp05 <- factor(elsoc$egp05,
+                         levels =c(1:5), 
+                         labels =c("Servicio (I+II)",
+                                   "Rutinas no manuales(III)",
+                                   "Auto Empleo(IVab+IVc)",
+                                   "Obrero calificado (V+VI)",
+                                   "Obrero no calificado (VIIa+VIIb)"))
+knitr::kable(table(elsoc$egp05),format = "markdown")
+
+elsoc$egp05 <- factor(x = elsoc$egp05,levels = c("Obrero no calificado (VIIa+VIIb)",
+                                                       "Obrero calificado (V+VI)",
+                                                       "Auto Empleo(IVab+IVc)",
+                                                       "Rutinas no manuales(III)",
+                                                       "Servicio (I+II)"))
+
+sjlabelled::set_label(elsoc$egp05) <- "Social Class (EGP-05)"
+knitr::kable(table(elsoc$egp05),format = "markdown")
+
+# EGP 06 categorias (Adaptado de EGP10)
+
+# [1] "I Alto control"  (1)                   
+# [2] "II Bajo control" (2)                 
+# [3] "III Rutinas no manuales" (3)         
+# [4] "IVa Auto-empleo con empleados" (4)   
+# [5] "IVb Auto-empleo sin empleados" (4)  
+# [6] "V Supervisor de labores manuales" (5)
+# [7] "VI Obrero calificado" (5)            
+# [8] "VIIa Obrero semicalificado" (6)      
+# [9] "VIIb Labores agrícolas" (6)          
+# [10] "IVc Autoempleo agrícola" (4)
+
+elsoc$egp <- as.numeric(elsoc$egp)
+knitr::kable(table(elsoc$egp),format = "markdown")
+
+# recode 4,5,10 = Autoempleo (IVa, IVb, IVc)  (4)
+# recode 6,5    = Obrero calificado (V, VI) (5)
+# recode 8,9    = Obrero no calificado (VIIab) (6)
+
+elsoc$egp06 <- elsoc$egp
+elsoc$egp06[elsoc$egp06 %in% c(4,5,10)] <- 4 
+elsoc$egp06[elsoc$egp06 %in% c(6,7)]    <- 5 
+elsoc$egp06[elsoc$egp06 %in% c(8,9)]    <- 6 
+
+elsoc$egp06 <- factor(elsoc$egp06,
+                         levels =c(1:6), 
+                         labels =c("Servicio I",
+                                   "Servicio II",
+                                   "Rutinas no manuales(III)",
+                                   "Autoempleo(IVabc)",
+                                   "Obrero calificado (V+VI)",
+                                   "Obrero no calificado (VIIabc)"))
+knitr::kable(table(elsoc$egp06),format = "markdown")
+
+
+# EGP 03 categorias (Adaptado de EGP05)
+
+# [1] "Servicio (I+II)" 1           
+# [2] "Rutinas no manuales(III)"  1 
+# [3] "Auto Empleo(IVab+IVc)"     2     
+# [4] "Obrero calificado (V+VI)"  3 
+# [5] "Obrero no calificado (VIIa+VIIb)" 3
+
+# recode 6 a 4 = Autoempleo agro en Autoempleo 
+# recode 7 a 5 = Labores agricolas a trabajo no calificado
+
+elsoc$egp03 <- car::recode(as.numeric(elsoc$egp05), "c(1,2)=1;3=2;c(4,5)=3",as.factor = TRUE)
+
+elsoc$egp03 <- factor(elsoc$egp03,
+                         levels =c(1:3), 
+                         labels =c("No manual (I+II+III)",
+                                   "Auto Empleo(IVab+IVc)",
+                                   "Trabajo Manual (V+VI+VIIa+VIIb)"))
+knitr::kable(table(elsoc$egp03))
+
+
+# EGP 10 categorias
+elsoc$egp <- factor(x = elsoc$egp,
+                       levels = c(1,2,3,4,5,6,7,8,9,10),
+                       labels = egplab)
+# EGP 07 categorias (Torche, 2007)
+elsoc$egptorche <- factor(x = elsoc$egptorche,
+                       levels = c(1,2,3,4,5,6,7),
+                       labels = egptlab)
+```
+
+## Ingreso del hogar
+
+```{r}
+# Pareto corrected formula  (Hout, 2004)--------------------------------------#
+Ltop_1<- 1850001
+Ltop  <- 2700000
+
+ftop_1 <- 14
+ftop   <- 10
+
+V  = (log(ftop_1 + ftop) - log(ftop)) / (log(Ltop) -log(Ltop_1))
+M_top = 0.5* Ltop *(1+(V/(V-1))) # = $ 3.726.106
+
+elsoc$mean_tramos[elsoc$m30==1] <-110000
+elsoc$mean_tramos[elsoc$m30==2] <-250000.5
+elsoc$mean_tramos[elsoc$m30==3] <-305000.5
+elsoc$mean_tramos[elsoc$m30==4] <-355000.5
+elsoc$mean_tramos[elsoc$m30==5] <-400000.5
+elsoc$mean_tramos[elsoc$m30==6] <-445000.5
+elsoc$mean_tramos[elsoc$m30==7] <-490000.5
+elsoc$mean_tramos[elsoc$m30==8] <-535000.5
+elsoc$mean_tramos[elsoc$m30==9] <-585000.5
+elsoc$mean_tramos[elsoc$m30==10]<-640000.5
+elsoc$mean_tramos[elsoc$m30==11]<-700000.5
+elsoc$mean_tramos[elsoc$m30==12]<-765000.5
+elsoc$mean_tramos[elsoc$m30==13]<-845000.5
+elsoc$mean_tramos[elsoc$m30==14]<-935000.5
+elsoc$mean_tramos[elsoc$m30==15]<-1040000.5
+elsoc$mean_tramos[elsoc$m30==16]<-1180000.5
+elsoc$mean_tramos[elsoc$m30==17]<-1375000.5
+elsoc$mean_tramos[elsoc$m30==18]<-1670000.5
+elsoc$mean_tramos[elsoc$m30==19]<-2275000.5
+elsoc$mean_tramos[elsoc$m30==20]<-M_top
+table(elsoc$mean_tramos)
+
+elsoc$m29 <- ifelse(test = (is.na(elsoc$m29)),yes = elsoc$mean_tramos,no = elsoc$m29)
+summary(elsoc$m29)
+
+elsoc <- rename(elsoc, inghogar=m29, nhogar=m54) 
+elsoc$ingneto   <- as.numeric(elsoc$inghogar/elsoc$nhogar) # ingreso neto
+elsoc$lningneto <- log(elsoc$ingneto)                      # logaritmo del ingreso neto
+
+
+#---Ingresos individuales ---------------------------------------------------#
+#Remplazar NA por media de categorías Ingreso -------------------------------#
+
+summary(elsoc$m13) # Ingreso individual; NA = 1716
+summary(elsoc$m14) # Ingreso individual por tramos
+
+Ltop_1<- 850001
+Ltop  <- 1300001 
+
+ftop_1 <- 16
+ftop   <- 9
+
+V  = (log(ftop_1 + ftop) - log(ftop)) / (log(Ltop) -log(Ltop_1))
+M_top = 0.5* Ltop *(1+(V/(V-1))) # = $1.762.784
+
+elsoc$mean_tramos.ind <- NA
+elsoc$mean_tramos.ind[elsoc$m14 == 1]  <- 40000
+elsoc$mean_tramos.ind[elsoc$m14 == 2]  <- 62501
+elsoc$mean_tramos.ind[elsoc$m14 == 3]  <- 105001
+elsoc$mean_tramos.ind[elsoc$m14 == 4]  <- 147501
+elsoc$mean_tramos.ind[elsoc$m14 == 5]  <- 190001
+elsoc$mean_tramos.ind[elsoc$m14 == 6]  <- 220001
+elsoc$mean_tramos.ind[elsoc$m14 == 7]  <- 255001
+elsoc$mean_tramos.ind[elsoc$m14 == 8]  <- 300001
+elsoc$mean_tramos.ind[elsoc$m14 == 9]  <- 340001
+elsoc$mean_tramos.ind[elsoc$m14 == 10] <- 380001
+elsoc$mean_tramos.ind[elsoc$m14 == 11] <- 432501
+elsoc$mean_tramos.ind[elsoc$m14 == 12] <- 502501
+elsoc$mean_tramos.ind[elsoc$m14 == 13] <- 602501
+elsoc$mean_tramos.ind[elsoc$m14 == 14] <- 757501
+elsoc$mean_tramos.ind[elsoc$m14 == 15] <- 1075001
+elsoc$mean_tramos.ind[elsoc$m14 == 16] <- M_top
+table(elsoc$mean_tramos.ind)
+elsoc$m13 <- ifelse(test = (is.na(elsoc$m13)),yes = elsoc$mean_tramos.ind,no = elsoc$m13)
+summary(elsoc$m13) # NA = 1523
+
+elsoc$ingreso <- as.numeric(elsoc$m13)
+
+#---Deciles (ingreso individual)-----------------------------------------------#
+elsoc <- elsoc %>% mutate(inc10 = ntile(ingreso, 10)) #Crear Deciles de ingreso
+elsoc$inc10 <- car::recode(elsoc$inc10, "NA=99") #Deciles de ingreso + "no responde"
+elsoc$D10 <- factor(elsoc$inc10, levels = c(1,2,3,4,5,6,7,8,9,10,99), 
+                    labels = c("D01","D02","D03","D04","D05",
+                               "D06","D07","D08","D09","D10","No responde"));table(elsoc$D10)
+
+
+
+#---Deciles (ingreso per capita hogar)-----------------------------------------#
+elsoc <- elsoc %>% mutate(inc10h = ntile(ingneto, 10)) #Crear Deciles de ingreso neto
+elsoc$inc10h <- car::recode(elsoc$inc10h, "NA=99") #Deciles de ingreso + "no responde"
+elsoc$D10h <- factor(elsoc$inc10h, levels = c(1,2,3,4,5,6,7,8,9,10,99), 
+                    labels = c("D01","D02","D03","D04","D05", 
+                               "D06","D07","D08","D09","D10","No responde"));table(elsoc$D10h)
+
+
+
+elsoc <- elsoc %>% mutate(inc05h = ntile(ingneto, 5)) #Crear Quintiles de ingreso neto
+elsoc$inc05h <- car::recode(elsoc$inc05h, "NA=99") #Deciles de ingreso + "no responde"
+elsoc$Q05h <- factor(elsoc$inc05h, levels = c(1,2,3,4,5,99), 
+                     labels = c("Q01","Q02","Q03","Q04","Q05","No responde"));table(elsoc$Q05h)
+```
+
+## Sexo, Edad, Política
+
+```{r}
+#---Sexo----#
+elsoc$sexo <- car::recode(elsoc$m0_sexo, "1=1;2=0")
+elsoc$sexo <- factor(elsoc$sexo, levels = c(0,1), labels = c("Male","Female")) #Sexo
+sjlabelled::set_label(elsoc$sexo) <- "Gender"
+
+
+#---Edad----#
+elsoc$edad  <- as.numeric(elsoc$m0_edad) #Edad
+sjlabelled::set_label(elsoc$edad) <- "Age"
+elsoc$edad2 <-elsoc$edad^2 
+
+#---Posición Política----#
+elsoc$ppolcat  <- car::recode(elsoc$c15, "c(0,1,2,3,4)=1;5=2;c(6,7,8,9,10)=3;11=4;12=5") 
+elsoc$ppolcat  <- factor(elsoc$ppolcat, levels = c(1,2,3,4,5), labels = c("Left/Center-Left",
+                                                      "Center",
+                                                      "Right/Center-Right",
+                                                      "independent",
+                                                      "None"))
+
+sjlabelled::set_label(elsoc$ppolcat) <- "Left-Right Position"
+#---Estatus laboral---#
+estlabels <- c("Full time",
+               "Partial",
+               "Study and work",
+               "Study",
+               "Retired",
+               "Unemployed /active ",
+               "Reproductive work",
+               "Unable to work (sick or disabled)",
+               "Not Working/Not active")
+
+elsoc$estlab <-  factor(elsoc$m02,levels = c(1:9),labels = estlabels)
+
+sjlabelled::set_label(elsoc$estlab) <- "Labor status"
+
+#---numero de hijos---#
+summary(elsoc$m37_01)
+summary(elsoc$m37_02)
+elsoc$nhijos <- elsoc$m37_01 + elsoc$m37_02
+table(elsoc$nhijos)
+elsoc$nhijos[is.na(elsoc$nhijos)] <- 0
+```
+
+# Imputación
+
+```{r, cache=TRUE}
+set.seed(1234)
+data02 <- elsoc %>% dplyr::select(inghogar,"edcine2","egp05","sexo","edad","edad2","ess","region","estlab","estrato")
+
+imp1 <- mice(data02, m = 5)
+dat.imp1<- complete(imp1)
+summary(dat.imp1$inghogar)
+
+summary(complete(imp1,1)$inghogar)
+summary(complete(imp1,2)$inghogar)
+summary(complete(imp1,3)$inghogar)
+summary(complete(imp1,4)$inghogar)
+summary(complete(imp1,5)$inghogar)
+
+
+# - guardamos el promedio del ingreso imputado de las 5 bases en data02 
+data02$fit.mimp <-(complete(imp1,1)$inghogar+complete(imp1,2)$inghogar+complete(imp1,3)$inghogar+complete(imp1,4)$inghogar+complete(imp1,5)$inghogar)/5
+summary(data02$fit.mimp)
+
+#check de missing
+data02$inghogar.imp <- ifelse(test = is.na(data02$inghogar),
+                              yes = data02$fit.mimp,
+                              no = data02$inghogar) 
+
+#calcular ingreso percapita del hogar
+elsoc$inghogar.imp <- data02$inghogar.imp 
+elsoc$ingneto.imp <- elsoc$inghogar.imp/elsoc$nhogar
+summary(elsoc$ingneto.imp)
+
+#crear deciles y quintiles de ingreso percapita del hogar
+elsoc <- elsoc %>% mutate(inc10h.imp = ntile(ingneto.imp, 10)) 
+elsoc <- elsoc %>% mutate(inc05h.imp = ntile(ingneto.imp, 5)) 
+elsoc$inc05h.imp <- factor(elsoc$inc05h.imp,levels = 1:5,
+                           labels = c("Q01","Q02","Q03","Q04","Q05"))
+
+
+sjlabelled::set_label(elsoc$inc10h.imp) <- "Household Income Decile"
+```
+
+```{r}
+# IPW para mercado laboral-----------------------------------------------#
+# Dummy mercado trabajo | dentro = 0, fuera =1
+elsoc$work <-
+  ifelse(test = (elsoc$estlab %in% c("jornada_completa",
+                                     "jornada_parcial",
+                                     "estudia_trabaja")),
+         yes = 0,
+         no = 1)
+table(elsoc$work)
+prop.table(table(elsoc$work))
+
+prop01 <- glm(work~sexo+edad+edad2+edcine2+region+ess,data = elsoc,family = "binomial",na.action = na.exclude)
+summary(prop01)
+summary(prop01$fitted.values)
+
+elsoc$prob <- predict.glm(object = prop01,newdata = elsoc[,c("sexo","edad","edad2","edcine2","region","ess","nhijos")],type = "response")
+
+# En base a esto : http://sites.utexas.edu/prc/files/IPWRA.pdf
+# * Revisar:
+  # https://stats.stackexchange.com/questions/411711/why-do-stabilized-ipw-weights-give-the-same-estimates-and-ses-as-unstabilized-we
+  # http://www.rebeccabarter.com/blog/2017-07-05-ip-weighting/
+
+summary(elsoc$work/elsoc$prob + (1-elsoc$work)/(1-elsoc$prob)) # weights segun clases de LM (inferencia causal)
+
+elsoc$ipw01 <- ifelse(test = (elsoc$work ==1),yes = (1/elsoc$prob),no = 1/ (1-elsoc$prob))
+summary(elsoc$ipw01)
+
+(elsoc$work) / (elsoc$prob)         # Treated = 1 = Fuera de mercado laboral
+(1 - elsoc$work) / (1 - elsoc$prob) # Control = 0 = Dentro de mercado laboral
+
+elsoc$ipw_s <- ifelse(test = (elsoc$work ==1),yes = (elsoc$work) / (elsoc$prob),no = (1 - elsoc$work) / (1 - elsoc$prob))
+summary(elsoc$ipw_s) # stabilized ipw
+
+
+table(elsoc$ipw_s>7.463204)
+table(elsoc$ipw_s<1.038734)
+
+elsoc$ipw_s[elsoc$ipw_s>7.463204] <- 7.463204
+elsoc$ipw_s[elsoc$ipw_s<1.038734] <- 1.038734
+summary(elsoc$ipw_s)
+
+#- Ver P99 y remplazara todos los que sean > valor
+#- ver P01 y remplazar todos los que sean <  valor
+```
+
+```{r}
+elsoc_w03 <- elsoc %>% dplyr::select(idencuesta,ponderador02,region,
+                                     meffort3,mtalent3,
+                                     ess,lngap_perc,edcine2,
+                                     egptorche,egp05,egp03,
+                                     inc10h.imp,inc05h.imp,
+                                     meffort,mtalent,recompe.sum,recompe,
+                                     sexo,edad,edad2,
+                                     ppolcat,estlab,ipw01,ipw_s,Q05h)
+```
+
+# Guardar datos
+
+```{r}
+# Generar codebook
+sjPlot::view_df(x = elsoc_w03,
+                show.frq = T,
+                show.prc = T,
+                file = here::here("output/codebook_ess-merit.html"))
+
+
+# Guardar datos en RData
+save(elsoc_w03,file = here::here("input/data/proc/elsoc_w03.RData"))
+```

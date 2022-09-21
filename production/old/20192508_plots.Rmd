@@ -1,0 +1,344 @@
+---
+author: "Julio Iturra - jciturra@uc.cl"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r librerias, message=FALSE, warning=FALSE, include=FALSE}
+library(lavaan)
+library(dplyr)
+library(knitr)
+library(texreg)
+library(here)
+library(ggplot2)
+library(gridExtra)
+library(grid)
+here()
+```
+
+```{r base de datos, message=FALSE, warning=FALSE, include=FALSE}
+knitr::opts_chunk$set(message=FALSE, warning=FALSE, results='asis')
+options(scipen=999)
+rm(list=ls())
+load(here("code","data","ELSOC_ess_merit2018.RData"))
+# load(here("code","data","elsocW123.RData"))
+# elsoc_18<- elsocw
+names(elsoc_18)
+elsoc_gini <- elsoc_18 %>% select(idencuesta,region,comuna,d05_01,d05_02, d05_03, d05_04, c18_09, c18_10,
+                                  ID02,ID03,ID04,ID05,ID06,ID07,ID08,ID09,ID10,IDNR,
+                                  ecin0,ecin1.2,ecin3.4,ecin5,ecin6.7.8,educ,
+                                  isco09,isco08,isco07,isco06,isco05,isco04,isco03,isco02,isco01,isco_nr,
+                                  ess,essfam,esshijos,
+                                  ppol_izq,ppol_cen,ppol_der,ppol_ind,ppol_ninguno,sexo,edad,
+                                  egp10_rutnomanuales_III:egp05_servicioI_II) %>% na.omit
+
+elsoc_gini <- rename(elsoc_gini,
+                     mfami=d05_01,   
+                     meduc=d05_02,
+                     mambi=d05_03,
+                     mtdur=d05_04,
+                     resfu=c18_09,
+                     rinte=c18_10)
+
+# class1 <- elsoc_18 %>% select(idencuesta,isco88,semp,nempleados)
+# haven::write_dta(data = class1,path = here("data","ELSOC_ess_merit2018.dta"))
+```
+
+```{r MODELO 7b EDUC + INCO + EGP + ESSpropio + ESSfam + ESShijos + CONTROLS,include=FALSE, cache=TRUE}
+elsoc_gini$sexo <- as.numeric(elsoc_gini$sexo)
+sem<-'
+salirad =~meduc+mambi+mtdur
+recompe =~resfu+rinte
+salirad~ID02+ID03+ID04+ID05+ID06+ID07+ID08+ID09+ID10+IDNR+ecin1.2+ecin3.4+ecin5+ecin6.7.8+egp05_obrcalV_VI+egp05_autoemp_IVab_IV_c+egp05_rutnomanualIII+egp05_servicioI_II+egp05_na+ess+essfam+esshijos+ppol_cen+ppol_der+ppol_ind+ppol_ninguno+ sexo + edad
+recompe~ID02+ID03+ID04+ID05+ID06+ID07+ID08+ID09+ID10+IDNR+ecin1.2+ecin3.4+ecin5+ecin6.7.8+egp05_obrcalV_VI+egp05_autoemp_IVab_IV_c+egp05_rutnomanualIII+egp05_servicioI_II+egp05_na+ess+essfam+esshijos+ppol_cen+ppol_der+ppol_ind+ppol_ninguno+ sexo + edad
+'
+#EGP 05 clases
+# egp05_rutnomanualIII+egp05_autoemp_IVab_IV_c+egp05_obrcalV_VI+egp05_obnocalVIIa_VIIb+egp05_na               
+
+fit.sem <-sem(sem,data=elsoc_gini,ordered=c("meduc","mambi","mtdur","resfu","rinte"))
+
+fitMeasures(fit.sem,c("chisq","df","pvalue","cfi","rmsea"))
+summary(fit.sem,  fit.measures=TRUE)
+
+salirad.est <- as.data.frame(parameterEstimates(fit.sem)[6:33, ])
+recompe.est <- as.data.frame(parameterEstimates(fit.sem)[34:61,])
+
+s1est <- salirad.est
+r1est <- recompe.est
+
+
+#----Crear la tabla-----
+m7salir <- texreg::createTexreg(coef.names  = salirad.est$rhs ,
+                                       coef = salirad.est$est,
+                                         se = salirad.est$z,
+                                    pvalues = salirad.est$pvalue,
+                     gof = c(fitmeasures(fit.sem)[[c(3)]],
+                             fitmeasures(fit.sem)[[c(4)]],
+                             fitmeasures(fit.sem)[[c(18)]],
+                             fitmeasures(fit.sem)[[c(36)]],
+                                    nobs(fit.sem)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+m7reco <-  texreg::createTexreg(coef.names  = recompe.est$rhs ,
+                                       coef = recompe.est$est,
+                                         se = recompe.est$z,
+                                    pvalues = recompe.est$pvalue,
+                     gof = c(fitmeasures(fit.sem)[[c(3)]],
+                             fitmeasures(fit.sem)[[c(4)]],
+                             fitmeasures(fit.sem)[[c(18)]],
+                             fitmeasures(fit.sem)[[c(36)]],
+                                    nobs(fit.sem)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+``` 
+
+
+```{r Gráficos coeficientes(SIN CONTROLES), eval=FALSE, include=FALSE}
+salirad.est <- as.data.frame(parameterEstimates(fit.sem)[c(6:14,16:23,25:27),])
+recompe.est <- as.data.frame(parameterEstimates(fit.sem)[c(34:42,44:51,53:55),])
+s1est <- salirad.est
+r1est <- recompe.est
+
+
+
+a <- c("ID02","ID03","ID04","ID05","ID06","ID07","ID08","ID09","ID10","ecin1.2","ecin3.4","ecin5","ecin6.7.8","egp05_obrcalV_VI","egp05_autoemp_IVab_IV_c","egp05_rutnomanualIII","egp05_servicioI_II","ess","essfam","esshijos")
+
+
+# Gráfico coeficientes Salir adelante  --------------------------------------------------------
+
+coef   <- c("Decil 2",
+            "Decil 3",
+            "Decil 4",
+            "Decil 5",
+            "Decil 6",
+            "Decil 7",
+            "Decil 8",
+            "Decil 9",
+            "Decil 10",
+            "Primaria y secundaria baja",
+            "Secundaria alta",
+            "Terciaria ciclo corto",
+            "Terciaria y Postgrado",
+            "Obrero calificado (V+VI)",
+            "Auto Empleo(IVab+IVc)",
+            "Rutinas no manuales(III)",
+            "Servicio (I+II)",
+            "Estatus Subjetivo propio",
+            "Estatus Subjetivo familia",
+            "Estatus Subjetivo hijos")
+
+s1est$sig05 <- as.numeric(s1est$pvalue<0.05)
+s1est$sig01 <- as.numeric(s1est$pvalue<0.01)
+s1est$sig001<- as.numeric(s1est$pvalue<0.001)
+s1est$sig00 <- as.numeric(s1est$pvalue>0.05)
+
+s1est$sig[s1est$sig00 ==1] <- 1
+s1est$sig[s1est$sig05 ==1] <- 2
+s1est$sig[s1est$sig01 ==1] <- 3
+s1est$sig[s1est$sig001==1] <- 4
+s1est$sig <- factor(s1est$sig, levels = c(1,2,3,4),ordered = T)
+
+s1est$rhs  <- factor(s1est$rhs, ordered = TRUE,levels = a, labels =coef)
+s1est$hipo <- as.character(s1est$rhs)  
+
+
+s1est$hipo <- car::recode(var = s1est$hipo,recodes = "c('Decil 2','Decil 3','Decil 4','Decil 5','Decil 6','Decil 7','Decil 8','Decil 9','Decil 10')='H1a'")
+
+s1est$hipo <- car::recode(var = s1est$hipo,recodes = "c('Primaria y secundaria baja','Secundaria alta','Terciaria ciclo corto','Terciaria y Postgrado')='H1b'")
+
+
+s1est$hipo <- car::recode(var = s1est$hipo,recodes = "c('Obrero calificado (V+VI)','Auto Empleo(IVab+IVc)','Rutinas no manuales(III)','Servicio (I+II)')='H1c'")
+
+s1est$hipo <- car::recode(var = s1est$hipo,recodes = "'Estatus Subjetivo propio'='H2a'")
+
+s1est$hipo <- car::recode(var = s1est$hipo,recodes = "c('Estatus Subjetivo familia','Estatus Subjetivo hijos')='H2b'")
+
+
+
+
+pd <- position_dodge(width=0.25)
+
+coefsa <- ggplot(s1est,aes(y = rhs,x = est, color=sig)) +
+  geom_point(size = 2, position = pd) +
+  geom_errorbarh(aes(xmin = ci.lower, xmax= ci.upper), height=0.5, position = pd)+
+  scale_y_discrete(name =" ",limits = rev(levels(s1est$rhs)))+
+  scale_color_manual(values = c("grey","black","purple"), labels = c("p>.05","p<.05","p<.001"), name ="")+
+  geom_vline(xintercept=c(0), color ="red")+
+  scale_x_continuous(name="Coeficiente no estandarizado", breaks = seq(-0.5, 0.5, by = 0.1), limits = c(-0.5,0.5))+
+  labs(title = "Importancia del mérito para salir adelante",
+       caption = "Fuente: ELSOC 2018")+
+  theme_bw() +
+  theme(legend.position = "bottom") + theme(axis.text.y = element_text(hjust = 0)) +
+  theme(strip.text.x     = element_text(size   = 18, face = "bold"),
+            axis.title       = element_text(size  = 12,face   = "plain"),
+            axis.text.x      = element_text(size  = 10,face   = "plain"),
+            axis.text.y      = element_text(size  = 10,face   = "plain"),
+            plot.title       = element_text(size  = 12,face   = "bold",hjust = 0.5,family = "Lato"),
+            plot.caption     = element_text(size  = 10,family = "Lato", hjust = 1   ,face = "plain"))
+
+coefsa
+ggsave(plot = coefsa,filename = here("images","coef_sad.png"),dpi = 320,units = "cm", width = 28, height = 20)
+
+  
+ # ggsave("C:/Users/JC/Google Drive/1.Magister/2. Segundo año/Tesis Magister/Primer Semestre/5. Defensa/images/coef_sad.pdf",dpi = 320,units = "cm", width = 28, height = 20)
+
+
+# Gráfico coeficientes Recompensa percibida --------------------------------------------------------
+
+texreg::coefplot(labels = s1est$rhs,estimates = r1est$est,
+                 lower.outer = r1est$ci.lower,
+                 upper.outer = r1est$ci.upper,main = "Recompensa percibida")
+
+r1est$sig05 <- as.numeric(r1est$pvalue<0.05)
+r1est$sig01 <- as.numeric(r1est$pvalue<0.01)
+r1est$sig001<- as.numeric(r1est$pvalue<0.001)
+r1est$sig00 <- as.numeric(r1est$pvalue>0.05)
+r1est$sig[r1est$sig00 ==1] <- 1
+r1est$sig[r1est$sig05 ==1] <- 2
+r1est$sig[r1est$sig01 ==1] <- 3
+r1est$sig[r1est$sig001==1] <- 4
+r1est$sig <- factor(r1est$sig, levels = c(1,2,3,4),ordered = T)
+r1est$rhs <- factor(r1est$rhs, ordered = TRUE,levels = a, labels =coef) 
+# Ggplot-----------------
+coefrec<- ggplot(r1est,aes(y = rhs,x = est, color=sig)) +
+  geom_point(size = 2, position = pd) +
+  geom_errorbarh(aes(xmin = ci.lower, xmax= ci.upper), height=0.2, position = pd)+
+  scale_y_discrete(name =" ",limits = rev(levels(r1est$rhs)))+
+  scale_color_manual(values = c("grey","blue","purple"),labels = c("p>.05","p<.01","p<.001"), name ="")+
+  geom_vline(xintercept=c(0), color ="red")+
+  scale_x_continuous(name="Coeficiente no estandarizado", breaks = seq(-0.5, 0.5, by = 0.1), limits = c(-0.5,0.5))+
+  labs(title = "Recompensa percibida por mérito",
+       caption = "Fuente: ELSOC 2018")+
+  theme_bw()+
+  theme(legend.position = "bottom") + theme(axis.text.y = element_text(hjust = 0))+
+  theme(strip.text.x     = element_text(size   = 18, face = "bold"),
+            axis.title       = element_text(size  = 12,face   = "plain"),
+            axis.text.x      = element_text(size  = 10,face   = "plain"),
+            axis.text.y      = element_text(size  = 10,face   = "plain"),
+            plot.title       = element_text(size  = 12,face   = "bold",hjust = 0.5,family = "Lato"),
+            plot.caption     = element_text(size  = 10,family = "Lato", hjust = 1   ,face = "plain"))
+coefrec
+
+ggsave(plot = coefrec,filename = here("images","coef_rec.png"),dpi = 320,units = "cm", width = 28, height = 20)
+
+# ggsave("C:/Users/JC/Google Drive/1.Magister/2. Segundo año/Tesis Magister/Primer Semestre/5. Defensa/images/coef_rec.pdf",dpi = 320,units = "cm", width = 28, height = 20)
+```
+
+
+# Gráficos Descriptivos
+
+```{r}
+estatus <- elsoc_18 %>% select(ess,essfam,esshijos)
+
+ess1 <- questionr::freq(estatus$ess)
+ess2 <- questionr::freq(estatus$essfam)
+ess3 <- questionr::freq(estatus$esshijos)
+
+ess1 <- tibble::rownames_to_column(ess1,var = "estatus")
+ess2 <- tibble::rownames_to_column(ess2,var = "estatus")
+ess3 <- tibble::rownames_to_column(ess3,var = "estatus")
+
+ess1<- ess1 %>% mutate(ess="Usted")  %>% select(estatus,pct=`val%`,ess,) %>% na.omit()
+ess2<- ess2 %>% mutate(ess="Su familia origen") %>% select(estatus,pct=`val%`,ess) %>% na.omit()
+ess3<- ess3 %>% mutate(ess="Sus hijos en el futuro") %>% select(estatus,pct=`val%`,ess) %>% na.omit()
+
+dbtab01 <- bind_rows(ess1,ess2,ess3)
+dbtab01$estatus <- factor(dbtab01$estatus,levels = c(0:10),labels = c("Más bajo",1,2,3,4,5,6,7,8,9,"Más alto"),ordered = TRUE)
+
+
+ess01 <- ggplot(data = dbtab01,mapping = aes(x = estatus,y = pct, color=ess, group=ess)) +
+  geom_line(size=1.5)+
+  geom_point(size=3,shape=21, fill="white", color="black") +
+  scale_y_continuous(name = "Porcentaje") +
+  scale_x_discrete(name="Estatus Social Subjetivo")+
+  theme_minimal() + 
+  theme(legend.position="bottom", legend.title = element_blank()) +
+  scale_color_brewer(palette="Dark2") +
+    labs(caption = "Fuente: ELSOC 2018")
+ess01
+
+ggsave(plot = ess01,filename = here("images","ess01.png"),dpi = 320,units = "cm", width = 28, height = 20)
+```
+
+
+
+
+```{r}
+
+library(likert)
+
+merit <- elsoc_18 %>% select(d05_01,d05_02, d05_03, d05_04, c18_09, c18_10)
+
+merit <- rename(merit,
+                     mfami=d05_01,   
+                     meduc=d05_02,
+                     mambi=d05_03,
+                     mtdur=d05_04,
+                     resfu=c18_09,
+                     rinte=c18_10)
+
+merit$mfami <- factor(merit$mfami,levels = c(1:5),labels = c("Nada importante","Poco importante","Algo importante","Bastante importante","Muy importante"))
+merit$meduc <- factor(merit$meduc,levels = c(1:5),labels = c("Nada importante","Poco importante","Algo importante","Bastante importante","Muy importante"))
+merit$mambi <- factor(merit$mambi,levels = c(1:5),labels = c("Nada importante","Poco importante","Algo importante","Bastante importante","Muy importante"))
+merit$mtdur <- factor(merit$mtdur,levels = c(1:5),labels = c("Nada importante","Poco importante","Algo importante","Bastante importante","Muy importante"))
+merit$resfu <- factor(merit$resfu,levels = c(1:5),labels = c("Totalmente en desacuerdo","En Desacuerdo","Ni de desacuerdo ni en desacuerdo","De acuerdo","Totalmente de acuerdo"))
+merit$rinte <- factor(merit$rinte,levels = c(1:5),labels = c("Totalmente en desacuerdo","En Desacuerdo","Ni de desacuerdo ni en desacuerdo","De acuerdo","Totalmente de acuerdo"))
+  
+
+plot01 <- likert(merit[,1:4])
+plot02 <- likert(merit[,5:6])
+
+
+plot(plot01)
+plot(plot02)
+
+# Actualmente en Chile, ¿cuán importante es para surgir en la vida…?
+lik1 <- likert.bar.plot(plot01, legend = " ") + 
+  scale_x_discrete(limits =c("mfami","meduc","mambi","mtdur"),
+                   labels=c("Familia rica", "Buen nivel de educación","Ambición", "Trabajo Duro")) + 
+  theme(legend.position = "bottom") + theme(axis.text.y = element_text(hjust = 0))+
+  ylab(label = NULL) + 
+  ggtitle("Actualmente en Chile, ¿cuán importante es para surgir en la vida…?")
+lik1
+
+
+lik2 <- likert.bar.plot(plot02, legend = " ") + 
+  scale_x_discrete(limits =c("resfu","rinte"),
+                   labels=c("Sus esfuerzos", "Su inteligencia             \n y Habilidades")) + 
+  theme(legend.position = "bottom") + theme(axis.text.y = element_text(hjust = 0))+
+  ylab(label = NULL) +
+  ggtitle("En Chile las personas son recompensadas por (...)")
+lik2
+
+
+grid.arrange(lik1, lik2)
+
+
+merit01<- arrangeGrob(lik1, lik2)
+
+ggsave(filename = here("images","merit01.png"),plot = merit01,dpi = 320,units = "cm", width = 28, height = 20)
+
+
+# Correlación-------------
+
+merit02 <- elsoc_18 %>% select(d05_01,d05_02, d05_03, d05_04, c18_09, c18_10)
+merit02 <- rename(merit02,
+                     mfami=d05_01,   
+                     meduc=d05_02,
+                     mambi=d05_03,
+                     mtdur=d05_04,
+                     resfu=c18_09,
+                     rinte=c18_10)
+
+polymerit <- psych::polychoric(merit02)
+
+
+png(filename = here("images","cor01.png"))
+corrplot::corrplot.mixed(polymerit$rho,order = "AOE")
+dev.off()
+
+
+```
+
+

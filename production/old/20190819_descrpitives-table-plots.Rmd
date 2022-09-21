@@ -1,0 +1,446 @@
+---
+title: "Descriptivos"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r librerias, message=FALSE, warning=FALSE, include=FALSE}
+library(dplyr)
+library(knitr)
+library(kableExtra)
+library(psych)
+library(here)
+here()
+```
+
+```{r base de datos, message=FALSE, warning=FALSE, include=FALSE}
+knitr::opts_chunk$set(message=FALSE, warning=FALSE, results='asis')
+options(scipen=999)
+rm(list=ls())
+load(here("code","data","ELSOC_ess_merit2018.RData"))
+# load(here("code","data","elsocW123.RData"))
+# elsoc_18<- elsocw
+names(elsoc_18)
+
+
+
+
+# table(elsoc_18$D10)
+elsoc_18$D10[elsoc_18$D10=='No responde'] <- NA
+elsoc_18$D10<- as.numeric(elsoc_18$D10)
+
+# elsoc_18$egp06     <- car::recode(elsoc_18$egp06,"NA='missing'")
+
+elsoc_gini <- elsoc_18 %>% dplyr::select(c18_09,c18_10,
+                                  D10,
+                                  edcine2,
+                                  egp06,
+                                  ess,
+                                  ppolcat,sexo,edad) %>% na.omit()
+
+
+
+
+elsoc_gini <- fastDummies::dummy_cols(.data = elsoc_gini,select_columns = "edcine2")
+elsoc_gini <- fastDummies::dummy_cols(.data = elsoc_gini,select_columns = "egp06")
+elsoc_gini <- fastDummies::dummy_cols(.data = elsoc_gini,select_columns = "ppolcat")
+
+names(elsoc_gini)
+
+
+elsoc_gini <- elsoc_gini %>% dplyr::select(resfu=c18_09,rinte=c18_10,ess,
+                                           D10,
+                                           "edcine2_cine0","edcine2_cine12",
+                                           "edcine2_cine34","edcine2_cine5",
+                                           "edcine2_cine678",
+                                           "egp06_Servicio I","egp06_Servicio II",
+                                           "egp06_Rutinas no manuales(III)",
+                                           "egp06_Autoempleo(IVabc)",
+                                           "egp06_Obrero calificado (V+VI)",
+                                           "egp06_Obrero no calificado (VIIabc)",
+                                           sexo,edad,
+                                           "ppolcat_Derecha/Centro Derecha",
+                                           "ppolcat_Centro",
+                                           "ppolcat_Izquierda/Centro Izquierda",
+                                           "ppolcat_Independiente",
+                                           "ppolcat_Ninguno") %>% na.omit()
+names(elsoc_gini)
+# elsoc_gini <- elsoc_gini %>% filter(sexo=="Hombre") 
+table(elsoc_gini$sexo)
+
+#hombre=2232 (0)
+#mujer=1388 (1)
+elsoc_gini <- rename(elsoc_gini,mujer=sexo)
+elsoc_gini$mujer <- as.numeric(elsoc_gini$mujer)
+table(elsoc_gini$mujer)
+
+elsoc_gini$mujer[elsoc_gini$mujer==1]<-0
+elsoc_gini$mujer[elsoc_gini$mujer==2]<-1
+table(elsoc_gini$mujer) #OK
+names(elsoc_gini)
+```
+
+# Descriptivos univariados
+
+# Variables dependientes
+
+
+1. "¿En qué medida se encuentra usted de acuerdo o en desacuerdo con cada una de las siguientes afirmaciones"
+
+    1.1 "En Chile las personas son recompensadas por sus esfuerzos"
+    
+    1.2 "En Chile las personas son recompensadas por su inteligencia y habilidades"
+    
+
+2. "Actualmente en Chile, ¿cuán importante es para surgir en la vida...?
+
+    2.1. "Tener un buen nivel de educación"
+    
+    2.2. "Tener ambición"
+    
+    2.3. "El trabajo duro"
+
+## Variables Independientes
+
+```{r}
+
+dat01 <- psych::describe(dplyr::select(elsoc_gini,"D10"),fast = TRUE)
+
+dat02 <- dat01 %>% dplyr::select(n,mean,sd,min,max)
+
+# row.names(dat02) <- c("Decil ingreso",
+#                       "Educación: Primaria incompleta o  menos",
+#                       "Educación: Primaria y  secundaria baja",
+#                       "Educación: Secundaria alta",
+#                       "Educación: Terciaria ciclo corto",
+#                       "Educación: Terciaria y Postgrado",
+#                       "Clase: Servicio I",
+#                       "Clase: Servicio II",
+#                       "Clase: Rutinas  no manuales (III)",
+#                       "Clase: Auto Empleo (IVab+IVc)",
+#                       "Clase: Obrero calificado (V+VI)",
+#                       "Clase: Obrero no calificado (VIIa+VIIb)")
+
+row.names(dat02) <- c("Decil ingreso")
+
+```
+
+
+```{r}
+tab01<- kable(dat02, format = "html",digits = 2,col.names = c("N","Media","DS", "Min.","Max."),align = "c",linesep = "", booktabs=TRUE) %>% kable_styling(full_width = FALSE,font_size = 15) 
+tab01
+
+save(tab01,file = "presentaciones/images/tab01.RData")
+```
+
+# plots
+
+```{r}
+library(ggplot2)
+library(grid)
+library(gridExtra)
+library(sjPlot)
+elsoc_pt <- elsoc_18 %>% dplyr::select(resfu=c18_09,rinte=c18_10,
+                                  D10,
+                                  edcine2,
+                                  egp05,
+                                  ess,ppolcat,sexo,edad) %>% na.omit() 
+
+
+elsoc_pt$resfu <- factor(elsoc_pt$resfu,levels = c(1:5),labels = c("Totalmente \n en desacuerdo","En Desacuerdo","Ni de desacuerdo\n ni en desacuerdo","De acuerdo","Totalmente de acuerdo"))
+elsoc_pt$rinte <- factor(elsoc_pt$rinte,levels = c(1:5),labels = c("Totalmente \nen desacuerdo","En Desacuerdo","Ni de desacuerdo \n ni en desacuerdo","De acuerdo","Totalmente\n de acuerdo"))
+  
+# Gráfico Likert --------------------------------------------------------------------#
+library(likert)
+library(ggthemes)
+lik2 <- likert.bar.plot(likert(elsoc_pt[,c("rinte","resfu")]), 
+                        legend = " ",
+                        text.size=6) + 
+  scale_x_discrete(limits =c("rinte","resfu"),
+                   labels=c("Su inteligencia \n y Habilidades","Sus esfuerzos")) + 
+  theme_fivethirtyeight()+
+  theme(legend.title = element_text(size = 10),
+        legend.position = "bottom",
+        legend.text = element_text(size = 20),
+        axis.text=element_text(size=20),
+        axis.title.y = element_text(size=14, face="bold"),
+        plot.title=element_text(hjust=0.5,size = 30,face = "bold")) + 
+  ylab(label = NULL) +
+  xlab(label = NULL)+ 
+  ggtitle("En Chile las personas son recompensadas por (...)") 
+  
+lik2
+
+ggsave(filename = "presentaciones/images/merit01.png",plot = lik2,dpi = 320,units = "in",width = 20,height = 8)
+
+plot(likert(elsoc_pt[,c("rinte","resfu")]),type = "density")
+
+
+
+
+elsoc_pt$resfu <- as.numeric(elsoc_pt$resfu)
+elsoc_pt$rinte <- as.numeric(elsoc_pt$rinte)
+
+labess <-  c("Más bajo",1,2,3,4,5,6,7,8,9,"Más alto")
+
+lab10 <- c("D1","D2","D3","D4","D5","D6","D7","D8","D9","D10")
+
+lbeduc <- c("Primaria incompleta o menos","Primaria y secundaria baja", "Secundaria alta","Terciaria ciclo corto","Terciaria y Postgrado")
+
+# labegp<- c("Obrero no calificado \n (VIIa+VIIb)","Obrero calificado \n (V+VI)","Auto Empleo \n (IVab+IVc)","Rutinas no manuales \n (III)","Servicio II", "Servicio I")  
+
+
+labegp<- c("Obrero no calificado (VIIa+VIIb)","Obrero calificado  (V+VI)","Auto Empleo (IVab+IVc)","Rutinas no manuales  (III)","Servicio  I+II")  
+
+
+# Decil ingresos ------------------------------------------------------------------------------------------#
+
+
+dec01<- plot_frq(data = factor(elsoc_pt$D10),show.values = T,show.n = T,axis.title = "",type = "hist",title = "Decil ingreso") +
+  theme_classic() +
+  theme(legend.title = element_text(size = 10),
+        legend.position = "bottom",
+        legend.text = element_text(size = 13),
+        axis.text=element_text(size=15),
+        axis.title.x = element_text(size=14, face="bold"),
+        plot.title=element_text(hjust=0.5,size = 20,face = "bold"))+
+  scale_x_discrete(limits=0:10, labels= labess)
+dec01
+
+
+
+# Educación ------------------------------------------------------------------------------------------#
+
+ed01<- plot_frq(data = as.numeric(elsoc_pt$edcine2),
+                axis.labels = lbeduc,
+                title = "Educación",
+                show.n = F,axis.title = "") +
+theme_classic() +
+  theme(legend.title = element_text(size = 10),
+        legend.position = "bottom",
+        legend.text = element_text(size = 13),
+        axis.text=element_text(size=15),
+        axis.title.x = element_text(size=14, face="bold"),
+        plot.title=element_text(hjust=0.5,size = 20,face = "bold"))
+ed01
+
+
+# Clase Social ------------------------------------------------------------------------------------------#
+
+
+class01<- plot_frq(data = as.numeric(elsoc_pt$egp05),axis.labels = labegp,title = "Clase Social", show.n = F,axis.title = "") +
+theme_classic() +
+  theme(legend.title = element_text(size = 10),
+        legend.position = "bottom",
+        legend.text = element_text(size = 13),
+        axis.text=element_text(size=15),
+        axis.title.x = element_text(size=15, face="bold"),
+        plot.title=element_text(hjust=0.5,size = 20,face = "bold"))
+class01
+
+
+
+obj01 <- grid.arrange(ed01,class01)
+
+ggsave(filename = "presentaciones/images/obj01.png",plot = obj01,dpi = 320,units = "cm",width = 30,height = 32)
+
+
+# Estatus Subjetivo ------------------------------------------------------------------------------------------#
+
+elsoc_pt$ess <- elsoc_pt$ess+1
+
+ess01<- plot_frq(data = elsoc_pt$ess,show.values = T,show.n = F,axis.title = "",type = "bar",title = "Estatus Social Subjetivo",show.axis.values = T) +
+  theme_classic() +
+  theme(legend.title = element_text(size = 10),
+        legend.position = "bottom",
+        legend.text = element_text(size = 13),
+        axis.text=element_text(size=15),
+        axis.title.x = element_text(size=14, face="bold"),
+        plot.title=element_text(hjust=0.5,size = 20,face = "bold")) +
+  scale_x_discrete(limits=1:11,labels=labess)
+ess01
+ggsave(filename = "presentaciones/images/ess01.png",plot = ess01,dpi = 320,units = "in",width = 10,height = 7)
+
+
+
+# Corplot de medidas
+
+corrplot::cor(x = elsoc_pt[c])
+
+
+
+# 01 Box plot: Recompensa Esfuerzo -----------------------------------------------#
+
+# H1a: Ingresos -----------------------------------------------#
+
+mean01 <- aggregate(resfu ~  D10, elsoc_pt, mean)
+plot01 <- ggplot(data=elsoc_gini, aes(x=factor(D10), y=resfu)) + 
+  geom_boxplot() +
+  scale_x_discrete(limits=levels(elsoc_pt$D10),labels=lab10)+
+  stat_summary(fun.y=mean, colour="darkred", geom="point",shape=18, size=3) + 
+  geom_text(data = mean01, aes(label = round(resfu,digits = 2), y = resfu + -0.2),fontface = "bold", color="blue") + 
+  # geom_jitter(width = 0.2, alpha=0.05)+
+  xlab(label = NULL)+
+  ylab(label = NULL)+
+  ggtitle("Esfuerzo") +
+  theme_classic(base_size = 17) +
+   theme(axis.text=element_text(size=20,face = "bold"),
+         axis.title.y = element_text(size=20, face="bold"),
+         plot.title=element_text(hjust=0.5,size = 15,face = "bold"),
+         panel.grid = element_blank(),
+         panel.border = element_blank())
+plot01
+
+mean05 <- aggregate(rinte ~  D10, elsoc_pt, mean)
+plot05 <- ggplot(data=elsoc_gini, aes(x=factor(D10), y=rinte)) + 
+  geom_boxplot() +
+  scale_x_discrete(limits=levels(elsoc_pt$D10),labels=lab10)+
+  stat_summary(fun.y=mean, colour="darkred", geom="point",shape=18, size=3) + 
+  geom_text(data = mean05, aes(label = round(rinte,digits = 2), y = rinte + -0.2),fontface = "bold", color="blue") +
+  # geom_jitter(width = 0.2, alpha=0.05) +
+  xlab(label = NULL)+
+  ylab(label = NULL)+
+  ggtitle("Inteligencia y habilidades") +
+  theme_classic(base_size = 17)+
+   theme(axis.text=element_text(size=20,face = "bold"),
+         axis.title.y = element_text(size=15, face="bold"),
+         plot.title=element_text(hjust=0.5,size = 15,face = "bold"),
+         panel.grid = element_blank(),
+         panel.border = element_blank())
+plot05
+h1a<- arrangeGrob(plot01, plot05, ncol=2)
+
+ggsave(filename = "presentaciones/images/h01a.png",plot = h1a,dpi = 320,units = "cm",width = 45,height = 25)
+
+
+# H1b: Educacion -----------------------------------------------#
+
+mean02 <- aggregate(resfu ~  edcine2, elsoc_pt, mean)
+plot02 <- ggplot(data=elsoc_pt, aes(x=factor(edcine2), y=resfu)) + 
+  geom_boxplot() +
+  scale_x_discrete(limits=levels(elsoc_pt$edcine2),labels=lbeduc)+
+  stat_summary(fun.y=mean, colour="darkred", geom="point",shape=18, size=4) + 
+  geom_text(data = mean02, aes(label = round(resfu,digits = 2), y = resfu + -0.2),fontface = "bold", color="blue") + 
+  # geom_jitter(width = 0.2, alpha=0.05)+
+  xlab(label = NULL)+
+  ylab(label = NULL)+
+  ggtitle("Esfuerzo")+
+  theme_classic(base_size = 17)+
+   theme(axis.text=element_text(size=14,face = "bold"),
+         axis.title.y = element_text(size=14, face="bold"),
+         plot.title=element_text(hjust=0.5,size = 15,face = "bold"),
+         panel.grid = element_blank(),
+         panel.border = element_blank())
+plot02
+
+mean06 <- aggregate(rinte ~  edcine2, elsoc_pt, mean)
+plot06 <- ggplot(data=elsoc_pt, aes(x=edcine2, y=rinte)) + 
+  geom_boxplot() +
+  scale_x_discrete(limits=levels(elsoc_pt$edcine2),labels=lbeduc)+
+  stat_summary(fun.y=mean, colour="darkred", geom="point",shape=18, size=4) + 
+  geom_text(data = mean06, aes(label = round(rinte,digits = 2), y = rinte + -0.2),fontface = "bold", color="blue") + 
+  # geom_jitter(width = 0.2, alpha=0.05)+
+  xlab(label = NULL)+
+  ylab(label = NULL)+
+  ggtitle("Inteligencia y habilidades")+
+  theme_classic(base_size = 17)+
+   theme(axis.text=element_text(size=14,face = "bold"),
+         axis.title.y = element_text(size=14, face="bold"),
+         plot.title=element_text(hjust=0.5,size = 15,face = "bold"),
+         panel.grid = element_blank(),
+         panel.border = element_blank())
+plot06
+
+h1b <- arrangeGrob(plot02, plot06, ncol=2)
+ggsave(filename = "presentaciones/images/h01b.png",plot = h1b,dpi = 320,units = "cm",width = 45,height = 25)
+
+
+# H1c: Clase Social -----------------------------------------------#
+
+mean03 <- aggregate(resfu ~  egp06, elsoc_pt, mean)
+plot03 <- ggplot(data=elsoc_pt, aes(x=egp06, y=resfu,na.rm = TRUE)) + 
+  geom_boxplot(na.rm = TRUE) +
+  scale_x_discrete(limits=levels(elsoc_pt$egp06),labels=labegp)+
+  stat_summary(fun.y=mean, colour="darkred", geom="point",shape=18, size=4,) + 
+  geom_text(data = mean03, aes(label = round(resfu,digits = 2), y = resfu + -0.2),fontface = "bold", color="blue") + 
+  # geom_jitter(width = 0.2, alpha=0.05)+
+  xlab(label = NULL)+
+  ylab(label = NULL)+
+  ggtitle("Esfuerzo")+
+  theme_classic(base_size = 17)+
+   theme(axis.text=element_text(size=14,face = "bold"),
+         axis.title.y = element_text(size=14, face="bold"),
+         plot.title=element_text(hjust=0.5,size = 15,face = "bold"),
+         panel.grid = element_blank(),
+         panel.border = element_blank())
+plot03
+
+mean07 <- aggregate(rinte ~  egp06, elsoc_pt, mean)
+plot07 <- ggplot(data=elsoc_pt, aes(x=egp06, y=rinte)) + 
+  geom_boxplot() +
+  scale_x_discrete(limits=levels(elsoc_pt$egp06),labels=labegp)+
+  stat_summary(fun.y=mean, colour="darkred", geom="point",shape=18, size=4) + 
+  geom_text(data = mean07, aes(label = round(rinte,digits = 2), y = rinte + -0.2),fontface = "bold", color="blue") +
+  # geom_jitter(width = 0.2, alpha=0.05) +
+  xlab(label = NULL)+
+  ylab(label = NULL)+
+  ggtitle("Inteligencia y habilidades") +
+  theme_classic(base_size = 17)+
+   theme(axis.text=element_text(size=14,face = "bold"),
+         axis.title.y = element_text(size=14, face="bold"),
+         plot.title=element_text(hjust=0.5,size = 15,face = "bold"),
+         panel.grid = element_blank(),
+         panel.border = element_blank())
+plot07
+h1c <- arrangeGrob(plot03, plot07, ncol=2)
+ggsave(filename = "presentaciones/images/h01c.png",plot = h1c,dpi = 320,units = "cm",width = 45,height = 25)
+
+
+# H2: Estatus Social Subjetivo -----------------------------------------------#
+
+mean04 <- aggregate(resfu ~  ess, elsoc_pt, mean)
+plot04 <- ggplot(data=elsoc_pt, aes(x=factor(ess), y=resfu,na.rm = TRUE)) + 
+  geom_boxplot() +
+  scale_x_discrete(limits=levels(elsoc_pt$ess),labels=labess)+
+  stat_summary(fun.y=mean, colour="darkred", geom="point",shape=18, size=3) + 
+  geom_text(data = mean04, aes(label = round(resfu,digits = 2), y = resfu + -0.1),fontface = "bold", color="blue") + 
+  # geom_jitter(width = 0.2, alpha=0.05)+
+  xlab(label = NULL)+
+  ylab(label = NULL)+
+  ggtitle("Esfuerzo")+
+  theme_classic() +
+   theme(axis.text=element_text(size=15,face = "bold"),
+         axis.title.y = element_text(size=14, face="bold"),
+         plot.title=element_text(hjust=0.5,size = 15,face = "bold"),
+         panel.grid = element_blank(),
+         panel.border = element_blank())
+plot04
+
+mean08 <- aggregate(rinte ~  ess, elsoc_pt, mean)
+plot08 <- ggplot(data=elsoc_pt, aes(x=factor(ess), y=rinte)) + 
+  geom_boxplot() +
+  scale_x_discrete(limits=levels(elsoc_pt$ess),labels=labess)+
+  stat_summary(fun.y=mean, colour="darkred", geom="point",shape=18, size=3) + 
+  geom_text(data = mean08, aes(label = round(rinte,digits = 2), y = rinte + -0.1),fontface = "bold", color="blue") + 
+  # geom_jitter(width = 0.2, alpha=0.05)+
+  xlab(label = NULL)+
+  ylab(label = NULL)+
+  ggtitle("Inteligencia y habilidades")+
+  theme_classic()+
+   theme(axis.text=element_text(size=15,face = "bold"),
+         axis.title.y = element_text(size=14, face="bold"),
+         plot.title=element_text(hjust=0.5,size = 15,face = "bold"),
+         panel.grid = element_blank(),
+         panel.border = element_blank())
+plot08
+
+h2<- arrangeGrob(plot04, plot08, ncol=2)
+ggsave(filename = "presentaciones/images/h2.png",plot = h2,dpi = 320,units = "cm",width = 45,height = 25)
+
+
+```
+ 
+
+
+

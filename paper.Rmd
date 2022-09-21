@@ -1,0 +1,438 @@
+---
+title: "Estatus social subjetivo, posición objetiva y percepción de meritocracia: una aproximación empírica al caso de Chile"
+bibliography: "C:/Users/Julio/Dropbox/Bibtex/zlibrary.bib"
+csl: "input/bib/apa6.csl"
+css: "input/css/custom.css"
+output:
+  bookdown::pdf_document2:
+        template: default
+        toc: false
+    # bookdown::html_document2:
+    #     number_sections: true
+    # bookdown::word_document2:
+    #     reference_docx: template.docx
+geometry: margin=0.78in
+header-includes:
+  - \usepackage[spanish,es-tabla,es-nodecimaldot]{babel} # para decimales con commas en vez de punto
+  - \usepackage{times}           # Times New Roman
+  - \usepackage{caption}
+  - \captionsetup[figure, table]{labelfont={bf},labelformat={default},labelsep=period}
+  - \usepackage{graphicx}
+  - \usepackage{float}
+  - \usepackage{booktabs}
+  - \usepackage{longtable}
+  - \usepackage{array}
+  - \usepackage{multirow}
+  - \usepackage{wrapfig}
+  - \usepackage{float}
+  - \usepackage{colortbl}
+  - \usepackage{pdflscape}
+  - \usepackage{tabu}
+  - \usepackage{threeparttable}
+linestretch: '1.5'
+link-citations: yes
+linkcolor: blue
+editor_options:
+  chunk_output_type: console
+---
+
+```{r render,include=FALSE, eval=FALSE}
+rmarkdown::render("paper.Rmd")
+```
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE,
+	cache = FALSE
+)
+options(scipen=999)
+rm(list=ls())
+options(knitr.kable.NA = '')
+```
+
+<!-- Meritocracy is one of the most representative ideals of modern Western societies. Merit, understood as the combination of individual efforts and talents is the foundation of a society based on meritocratic principles. Moreover, the legitimacy of social inequality is firmly rooted in meritocracy, in terms that individuals at the top of the social hierarchy see themselves as deserving of their position. In this regard, do better-educated people at the top incomes with high-skilled occupations perceive their society as meritocratic? Furthermore, do the subjective image of themselves on the social ladder affect how individuals perceive meritocracy? This thesis aims to analyse the influence of objective and subjective social status over meritocracy perception in Chile, using three different measures of subjective social status that ranked individuals' standing, their family of origin, and their children in the future.
+
+Using data from the first wave of the Longitudinal Social Study of Chile (n=2983), the results from the confirmatory factor analysis confirm two dimensions of meritocracy perception. The first latent factor represents the importance of ambition, education and hard work to get ahead in life. The second factor describes the level of agreement on whether people in Chile are rewarded for their efforts and talent. Then, the structural equation models revealed that better-educated individuals attribute more importance to individual factors for getting ahead in life. However, at the same time, hold a critical view of the rewards of effort and talent. Therefore, objective status measures, like household income and occupation, are not relevant regarding meritocratic perceptions.
+
+Concerning subjective social status, an individual's status is less relevant than the subjective social standing of their family or origin or their children in the future regarding meritocratic perceptions. However, individuals who hold higher expectations of status attainment for their children in the future tend to attribute more importance to individual merit. In addition, these individuals hold a critical perception of how individuals are rewarded for their merit. Therefore, it is concluded that educational level and the perceptions of social status concerning the past and future are highly relevant in explaining perceptions of meritocracy in Chile. -->
+
+<!-- # Introducción -->
+
+## Desigualdad subjetiva y meritocracia
+
+Siguiendo el trabajo de @Smith1981, es posible distinguir dos aproximaciones en el estudio de la desigualdad social. Las investigaciones de Goldthorpe, Ganzeboom y colegas, son un buen ejemplo de cómo características de estatus objetivas, tales como los ingresos, logro educacional y la ocupación, son las características individuales más relevantes al momento de asignar la posición que un individuo detenta en la estructura social [@Goldthorpe2003; @Ganzeboom1991; @Ganzeboom1992].
+
+Por otro lado, el estudio de la desigualdad no se limita exclusivamente al estudio sistemático de los mecanismos de producción y reproducción de las desigualdades sociales, sino que también se ha puesto atención a la formación de percepciones y preferencias individuales en torno a la desigualdad económica [@Janmaat2013], donde se ha evidenciado que la percepción en torno a cómo se distribuyen los recursos en la sociedad se relaciona con la asignación de estatus social [@Schneider2015; @Gugushvili2016], dentro de lo cual la evidencia reciente sugiere que las percepciones en torno a mérito juegan un rol fundamental en explicar la desigualdad económica [@Solt2016; @Roex2018; @Mijs2019].
+
+Dicho lo anterior, @Smith1981 sostienen que el estudio de la desigualdad social desde el punto de vista subjetivo toma en consideración elementos de la experiencia individual, como también permite develar el carácter de la estructura normativa de una sociedad, donde la evidencia sugiere que las preferencias y percepciones de los individuos se explican, por un lado, por la posición objetiva en la estructura social [@Meltzer81; @Benabou2001; @Benabou2006], como también por la percepción que los individuos poseen con respecto al lugar que detentan en jerarquía social [@Castillo2013; @Mclure-etal2019; @Andersson2018].
+
+Siguiendo a @Castilloetal2019, la evidencia en torno al estudio de la meritocracia desde un punto de vista subjetivo sugiere tomar en consideración la conceptualización respecto a lo que se entiende por mérito desde el punto de vista distributivo, es decir, cómo se racionaliza el mérito, y de qué manera esto se traduce en el abordaje empírico de la meritocracia. Por un lado, @Sen2000 señala que el concepto de mérito es definido como la combinación entre el esfuerzo y habilidad de un individuo, suponiendo que el logro de estatus no se relaciona exclusivamente con las oportunidades estructurales en la sociedad [@mccall2017exposure]. Por otro lado, el concepto de meritocracia hace referencia a lo que @Young1961 describe como un sistema basado los principios del mérito como el principal mecanismo distributivo. Esto implica que la magnitud de las recompensas va en relación con el esfuerzo y el talento individual, de modo tal que la importancia social que se atribuye al mérito se traduce en un régimen que legitima las diferencias de estatus social y que permite justificar moralmente la desigualdad económica [@Castillo2011; @Svallfors2006].
+
+La evidencia reciente sugiere que el estatus social juega un rol clave en explicar las percepciones en torno a la desigualdad en general [@Manstead2018; @Evans2017], y en la meritocracia en particular [@Kunovich2007; @Xian2017; @Duru-bellat2012; @Smith2012]. No obstante, la evidencia no es del todo concluyente debido a las diferencias en la medición de los constructos relacionados con la meritocracia, omitiendo las diferencias sustantivas entre percepciones y preferencias [@Castilloetal2019; @castillo_measuring_2021].
+
+Un punto relevante para considerar es que estas investigaciones han puesto mayor atención en cómo características socioeconómicas explican la percepción de meritocracia, prestando menor atención a cómo la percepción del propio estatus o el de sus grupos de referencia más cercanos; tales como la familia o sus hijos [@Evans1992; @Evans2004], influencia la percepción de los individuos en torno al funcionamiento de la meritocracia en su sociedad.
+
+## Percepción de meritocracia
+
+Siguiendo a @Castilloetal2019, la evidencia reciente sobre meritocracia en el marco de los estudios en justicia distributiva ha puesto escasa atención a la conceptualización de las dimensiones relacionadas a cómo los individuos evalúan o perciben la meritocracia. Autores como @Young1961 y @Sen2000 sostienen que una sociedad meritocrática es aquella que atribuye el estatus social en base a características como el talento y el esfuerzo de los individuos, de modo tal que las recompensas obtenidas serían producto de la combinación de ambas, y por tanto, el logro de estatus social se atribuiría mayormente a la agencia de los sujetos en base a la magnitud de su esfuerzo o qué tan inteligentes y hábiles son.
+
+Las investigaciones que han abordado la percepción de meritocracia evidencian la falta de claridad conceptual y empírica debido a la ausencia de distinción entre lo descriptivo y lo normativo [@Castilloetal2019]. @Aalberg2003 sostiene que una percepción refiere a una estimación subjetiva sobre un objeto externo a los individuos, por tanto, se configura como una dimensión descriptiva, lo cual en primera instancia no considera la valoración de dicha observación. Por otro lado, siguiendo a @Druckman2016a, la dimensión normativa se traduce en preferencias individuales, definidas como la evaluación de un objeto externo en base a la información disponible. Adicionalmente, @Feldman2001 sugieren que la organización de las preferencias se ve afectadas por la estructura e internalización de valores ideológicos, los cuales operan como mecanismo explicativo de las preferencias [@Kulin2013].
+
+@Garcia2001 sostiene que la percepción de meritocracia corresponde al grado en que los individuos consideran que su sociedad cumple con los principios de una meritocracia, es decir, que funciona como un sistema que asigna recompensas en función del esfuerzo y el talento. Sin embargo, las investigaciones sobre meritocracia han hecho un uso indiferenciado de conceptos como *Meritocratic Beliefs* [@Kunovich2007; @McCoy2007; @Ellis2017; @mijs_How_2020; @bernardo_meritocracy_2021], *Meritocratic Ideals*, [@Reynolds2014] o *Perceived Meritocracy* [@Xian2017], lo cual constituye una dificultad to empircally asses the role of social status on la percepción de meritocracia.
+
+Sobre la base de esta evidencia, este trabajo busca estudiar la relación de las dimensiones objetivas y subjetivas de estatus social con la percepción de meritocracia. En esta línea, algunas investigaciones sostienen que el estatus social subjetivo puede ser considerado como un proxy de la posición objetiva [@Lindemann2014; @Andersson2018; @ChenWilliams2018]. Sin embargo, se ha evidenciado que el estatus subjetivo se ve influenciado por las características de los grupos de referencia [@Evans1992; @Evans2004], es decir, posee un componente relacional; además de ser explicado por la experiencia directa que deviene de la posición en la jerarquía social [@Manstead2018; @Lundberg2008; @Andersson2018]. A continuación, se discuten la literatura en torno a la influencia de los aspectos objetivos y subjetivos del estatus social sobre la percepción de meritocracia, acompañado de algunas hipótesis que to be empirically tested.
+
+## Estatus y meritocracia
+
+La evidencia en torno a la relación entre estatus social y meritocracia se fundamenta en el supuesto general de que individuos con un mayor estatus social tienen una mayor percepción de meritocracia. Desde una perspectiva de interés racional [@Meltzer81] es posible argumentar que individuos que pertenecen a los estratos más altos de la distribución de ingresos son aquellos que poseen una percepción favorable de la meritocracia en la medida que han acumulado mayores recursos como resultado de su esfuerzo y talento. En esta línea, la evidencia empírica sugiere que posiciones de mayor estatus se relacionan con una menor percepción de desigualdad [@Evans2017; @Landerretche2011; @Kuhn2013], como también con una mayor justificación de la desigualdad económica [@Castillo2011; @Trump2017; @Jasso2015]. La meritocracia como sistema distributivo constituye la idea de que el logro de estatus se explica por la magnitud del mérito. En este sentido, si se perciben condiciones más equitativas en términos de oportunidades estructurales para acceder a posiciones de mayor privilegio, es razonable argumentar que la meritocracia es el principal mecanismo para justificar las diferencias de estatus social [@McCoy2007; @Davey1999].
+
+La evidencia sugiere una relación positiva entre ingresos y percepción de meritocracia cuando se trata de la importancia que tiene el mérito individual para surgir en la vida [@Reynolds2014; @Xian2017; @Sandoval2017], como también cuando se toma en consideración las recompensas relacionadas al esfuerzo, inteligencia y habilidades [@Castilloetal2019; @Duru-bellat2012]. Adicionalmente, se ha evidenciado que pertenecer a estratos de ingresos más bajos trae consigo una disminución de la probabilidad de estar de acuerdo con la importancia de la meritocracia, mientras que, para los estratos altos, esta probabilidad es significativamente más alta [@Newman2015; @Solt2016]. La hipótesis relacionada a los ingresos supone que individuos que poseen mayores recursos económicos son aquellos atribuyen mayor importancia al mérito, así también perciben que son recompensados. Dicho lo anterior, es posible sostener que:
+
+> $H_{\text{1a}}$: Una posición superior en la distribución de ingresos se asocia positivamente con la percepción de meritocracia en términos de las recompensas obtenidas por el esfuerzo y talento.
+
+De la misma manera que los ingresos son el reflejo de los recursos económicos de un individuo, el estudio de la meritocracia con relación al logro educacional ha sido principalmente abordada por los estudios en estratificación social [@Goldthorpe2003]. Por otro lado, la evidencia en torno a la meritocracia desde un punto de vista subjetivo ha puesto en discusión a dos aproximaciones teóricas contrapuestas. Por un lado, desde el enfoque *reproduccionista* [@Bourdieu2009; @Bernstein2003] se sostiene la denominada hipótesis de *socialización*. El principal argumento de este enfoque sugiere que la socialización escolar opera como refuerzo normativo de los principios meritocráticos, de modo tal que individuos más educados tenderían atribuir mayor importancia al mérito para justificar la desigualdad económica [@Lampert2013; @Duru-bellat2012]. Por el otro lado, la hipótesis de *instrucción* sugiere que la adscripción al ideal meritocrático tiende a debilitarse en individuos con mayor logro educacional, debido a que serían más conscientes de la relación que poseen factores individuales y estructurales con la posición que detenta un individuo en la jerarquía social [@Duru-bellat2012; @Schneider2015].
+
+La evidencia empírica brinda apoyo en favor de ambas aproximaciones, sin embargo, es necesario advertir que estos resultados pueden atribuirse a las diferencias en la medición de la percepción de meritocracia. Respecto a la evidencia a favor de la hipótesis de socialización, estudios han señalado que un mayor logro educativo se traduce en atribuir mayor importancia a factores individuales para salir adelante en la vida [@Xian2017; @Reynolds2014; @Mijs2019; @Newman2015; @Solt2016], como también en determinar la obtención de un mejor salario [@Kunovich2007]. Por otro lado, existe evidencia en favor de la hipótesis de instrucción, dando cuenta de que individuos con un mayor logro educacional mayormente desacuerdo con que las personas son recompensadas por su esfuerzo y talento [@Duru-bellat2012; @Castilloetal2019; @bubak_perceptions_2019]. Adicionalmente, el argumento de la hipótesis de instrucción puede complementarse con que individuos con mayor conciencia de la desigualdad, pueden experimentar sentimientos de injusticia y deprivación relativa al evidenciar que individuos con un mismo logro educacional acceden a recompensas desiguales [@Adams1965; @Smith-eta2020_relative-deprivation]. En este sentido, en Chile se ha evidenciado que individuos con mayor logro educacional son quienes perciben mayor desigualdad salarial [@Castillo2012a_justice]. En esta línea, el estudio de la percepción de meritocracia basada en un enfoque de recompensas es más precisa a la definición de @Garcia2001 quien la entiende como "la percepción de que su sociedad se basa en los principios de una meritocracia". De esta manera, la se sostiene que:
+
+> $H_{\text{1b}}$: Un mayor logro educacional se asocia negativamente con la percepción de meritocracia en términos de las recompensas obtenidas por el esfuerzo y talento.
+
+La relación entre estatus social y meritocracia ha puesto mayor atención en los ingresos y el nivel educacional, dejando de lado la posición en términos de clase social. Desde un punto de vista empírico, se ha evidenciado que la ocupación es una característica que unifica la habilidad proveniente del logro educacional y el nivel de ingresos [@Ganzeboom1991; @Ganzeboom1992], de modo tal que es considerado uno de los principales indicadores de estatus en las sociedades capitalistas contemporáneas [@Chan2004; @Chan2007]. Los estudios sobre movilidad social han demostrado la importancia del estudio de la desigualdad social a través de esquemas de clase, los cuales asignan la posición de los individuos en la jerarquía social según su ocupación, autonomía y autoridad en el espacio de trabajo [@Erikson1992; @Erikson2002].
+
+La evidencia en estratificación social sugiere que los esquemas de clase basados en la ocupación suponen que los individuos guardan semejanzas en términos de su posición estructural en el mercado laboral, así como también con respecto a los niveles de autoridad y control sobre el trabajo [@Connelly2016]. @Chan2004 sostienen que las características comunes no excluyen la posibilidad de evidenciar heterogeneidad al interior de las clases, evidenciado diferencias sustantivas relativas al consumo cultural y a las preferencias políticas [@Chan2007].
+
+En lo que refiere a las preferencias distributivas, @Svallfors2006 ha sugerido que la clase social, a diferencia de otras aproximaciones, refleja la visión de los individuos con relación al mercado de trabajo, particularmente, a cómo se distribuyen y asignan los recursos económicos. En una línea similar, @Kulin2013 sostienen que las clases más bajas tienen una mayor exposición a los riesgos del mercado de trabajo, tales como la probabilidad de perder el empleo y obtener menores salarios, de modo tal que individuos que experimentan mayor deprivación material y exposición al riesgo, serían aquellos con preferencias favorables hacia la redistribución [@rehm09]. Dicho lo anterior, la predicción central de esta literatura es que individuos pertenecientes a clases sociales provistas de mayor bienestar material estarían mayormente en desacuerdo con disminuir la desigualdad económica a través de medidas redistributivas.
+
+El estudio empírico de la meritocracia desde un punto de vista subjetivo ha prestado ha demostrado poca evidencia en torno al rol de la clase social. @Smith2012 evidenciaron que individuos pertenecientes a la pequeña burguesía emergente muestran mayores niveles de acuerdo con la meritocracia que los asalariados. Estos resultados van en la línea de lo evidenciado por @Sandoval2017, donde los trabajadores calificados y de servicios, respecto de trabajadores no calificados, atribuyen mayor importancia al mérito to get ahead in life. Por otro lado, @Canales2015lse estudió la relación entre movilidad social y percepción de meritocracia en Chile, evidenciando que quienes experimentaron movilidad social ascendente hacia la clase de servicios son menos propensos a considerar que en Chile el mérito es recompensado.
+
+La investigación en Chile sobre los cambios en la estructura social ha evidenciado fluidez en relación con la movilidad social de clase ascendente [@Torche2005a], no obstante, se ha evidenciado que dichas transformaciones en la estructura ocupacional no han estado acompañadas de cambios significativos en los ingresos autónomos, de modo tal que la jerarquía de ingresos se ha mantenido relativamente estable en el tiempo [@EspinozaNunez2014]. Durante la última década se ha evidenciado un incremento del conjunto de las "clases medias", siendo las ocupaciones de carácter profesional y técnico las más relevantes en el proceso denominado como _mesocratización_ [@Mclure_etal2014]. En este sentido, se ha evidenciado que dichos cambios en la estructura social chilena se deben fundamentalmente al incremento de la cualificación, y por tanto, a transformaciones en el mercado de trabajo, lo cual ha tenido como consecuencia un incremento promedio de los salarios, sin verse modificada significativamente la desigualdad de ingresos a nivel global. Empleando un análisis de cohortes, @MacClure2012 estudio los cambios en los ingresos autónomos en relación con la transformación la estructura ocupacional Chile empleando a datos de la Encuesta de Caracterización Socioeconómica (CASEN) desde 1998 a 2009, diferenciando entre la cohorte nacida antes y después de 1970, siendo esta última se insertó al mercado laboral a partir de 1990. Sus resultados dan cuenta del impacto positivo en los salarios del poseer educación superior completa, lo cual es precisado al considerar las diferencias de calidad y prestigio entre universidades e institutos profesionales, así como también por el peso de la clase de origen en la estratificación del acceso a las instituciones de educación superior [@MacClure2012].
+
+Sobre la base de la evidencia previa, es posible sostener que, en contextos de alta desigualdad, tanto la posición relativa en términos ocupacionales, como también la movilidad ascendente traen consigo que los individuos en dichas posiciones detenten disconformidad hacia la idea de que los esfuerzos son recompensados en su sociedad. En Chile se ha identificado una sensación de frustración a través de los relatos de individuos que han experimentado movilidad social ascendente desde sectores desfavorecidos [@barozet_clase_2014], considerando que la clase de origen constituye una persistente fuente de discriminación en el mercado laboral [@cea_discriminacion_2020]. Si bien Chile ha sido un país en el cual se han robustecido las clases intermedias vía movilidad social ascendente, la evidencia ha señalado que las percepciones de los individuos se tornan críticas en lo que refiere al funcionamiento de la meritocracia, principalmente entre los grupos con mayor logro educacional y que se posicionan en ocupaciones no manuales y de servicios, por lo cual sostenemos que:
+
+> $H_{\text{1c}}$: Clases sociales intermedias, no manuales y de servicios, tendrán una menor percepción de meritocracia en términos de las recompensas obtenidas por el esfuerzo y talento.
+
+## Estatus social subjetivo y percepción de meritocracia
+
+Por un lado, la literatura sobre los aspectos subjetivos de la meritocracia ha puesto mayor énfasis a la posición estructural de los individuos como factor explicativo de las percepciones en torno a la meritocracia [@Reynolds2014; @Duru-bellat2012; @Kunovich2007]. Por otro lado, las interacciones entre individuos y grupos conforman un marco de referencia de experiencias frente a la desigualdad social, lo cual permite establecer explicaciones en función del carácter de estas experiencias [@garcia-castro_Perceiving_2020; @madeira_primes_2019].
+
+Las experiencias operan como anclajes a través de los cuales los individuos racionalizan el propio estatus social, influenciado por las apreciaciones normativas respecto a características de estatus cualitativas o adscritas como el género, o cuantitativas como los ingresos o el nivel educacional [@Jasso2001]. El estudio empírico de este fenómeno los ha sido conceptualizado como **estatus social subjetivo**, entendido como la percepción de los individuos sobre la posición individual o de otros en la jerarquía social en comparación un grupo de referencia, como la propia sociedad [@slomczynski1987; @Evans2004] o frente a sus local communities o clases sociales [@Condon2020]. Es habitual que la medición del estatus social subjetivo se realice empleando la MacArthur Scale of Subjective Social Status, en la cual los individuos declaran el estatus social en una 10-rung ladder que apunta a representar los distintos estratos de la jerarquía social [@adler_relationship_2000].
+
+Uno de los principales hallazgos en este ámbito da cuenta de que la percepción de los individuos respecto a su propia posición en la jerarquía social muestra un persistente sesgo hacia los tramos intermedios de la escala, evidenciando persistentemente que algunos individuos pertenecientes a estratos altos subestiman su estatus, mientras que individuos de estratos bajos tienden a sobreestimarlo [@Lindemann2014; @chen_Discordance_2015; @Andersson2018a; @Sudo2019]. Conceptualizaciones previas han sugerido que los individuos prefieren compararse con personas o grupos considerados de estatus similar, los cuales operan como grupos de referencia que contribuyen a la reducción de disonancia cognitiva y con el objetivo de realizar estimaciones más certeras sobre su propia posición en la sociedad [@festinger1954theory; @Merton1968]
+
+La literatura ha sugerido que los sesgos perceptuales se explican a través de un type of availability heuristic, que opera como mecanismo de reducción de disonancia cognitiva frente a la falta de información [@Evans2004; @Castillo2013]. En esta línea, las características de los grupos de referencia más cercanos dan forma a las estimaciones subjetivas sobre la propia posición social, por tanto, las imágenes que crean los individuos sobre la sociedad se ven influenciadas por la homofilia de sus redes cercanas [@Evans1992; @Evans2017]. El trabajo de @son_cognitive_2021 revela que características como la membresía a una organización o practicar un pasatiempo contribuyen a la formación de patrones mentales de homofilia por parte del observador, en otras palabras, las personas consideran que individuos que comparten estos atributos tienden a estar enlazados (e.g. friendship) y considerados como parte de un grupo. Al respecto, @kim_social_2021 han evidenciado que individuos con redes cercanas que concentran personas con ocupaciones de alto estatus tienden a declarar un estatus social subjetivo más alto en la sociedad China, en donde el capital social es considerado importante. Por otro lado, en una sociedad altamente individualizada como Japón, la diversidad socioeconómica de la red cercana no influye en el estatus social subjetivo.
+Se ha demostrado que la posición estructural es clave en predecir el estatus subjetivo, tales como el nivel educacional y la ocupación, siendo los ingresos los que mayor influencia tienen [@Castillo2013; @Andersson2018a]. Por el otro lado, la literatura ha demostrado poca evidencia en torno a la influencia del estatus subjetivo en las percepciones o preferencias hacia la desigualdad. En su trabajo, @Vargas-Salfate2018 evidenciaron que un mayor estatus subjetivo se relaciona con una percepción positiva del sistema distributivo. En una línea similar, @Schneider2015 evidenciaron que un mayor estatus subjetivo se relaciona con una mayor justificación de la desigualdad, como también con mayores atribuciones de pobreza internas y menores atribuciones externas. Adicionalmente, @Castillo2018 evidenciando que un mayor estatus subjetivo se relaciona con una menor percepción de desigualdad, y a su vez, con una mayor percepción de meritocracia. Based on this evidence, we expect that:
+
+> $H_{\text{2}}$: Un mayor estatus social subjetivo se relaciona con una mayor percepción de meritocracia en términos de las recompensas obtenidas por el esfuerzo y talento.
+
+# Palabras finales
+
+La evidencia establece cuatro empirically testable hipótesis regarding la relación entre el estatus social objetivo y subjetivo con la percepción de meritocracia. La contribución principal de este trabajo se centra, 1) emplear medidas más precisas de estatus objetivo y la inclusión de la clase social como factor estructural; y 2) discutir el rol de la comparación social a través del estatus social subjetivo como un mecanismo explicativo de la percepción de meritocracia.  
+
+
+## Relación entre objetivo, subjetivo y meritocracia
+
+@bernardo_meritocracy_2021 filipinos meritocracia
+@hvidberg_social_2020 fairness views y estatus social
+
+> @Fatke2018 Inequality Perceptions, Preferences Conducive to Redistribution, and the Conditioning Role of Social Position
+
+>  @Bobzien2019 Polarized perceptions, polarized preferences? Understanding the relationship between inequality and preferences for redistribution
+
+> @Mclure-etal2019  características de las viñetas en cada categoría. Esa aparente incongruencia con algunos indicadores de su situación socioeconómica puede explicarse por lo siguiente: posicionarse en la categoría inferior tiene que ver con el ingreso personal declarado pero, también, con otras condiciones consideradas definitorias, particularmente el área de residencia y el nivel educacional – según nuestros resultados –, que, siguiendo a Bourdieu (1979), en alguna medida podrían ser considerados como indicios de capital social y de capital cultural.
+
+Desde el punto de vista empírico, se ha evidenciado que la relación entre el estatus objetivo y subjetivo dista de ser lineal, así como también existe una marcada tendencia a que los individuos se identifiquen con los tramos medios de la distribución de estatus [@Andersson2018a; @Castillo2013]. Esta relación entre las distintas medidas de estatus, ha sido abordado como un fenómeno en sí mismo, pero ha sido escasamente investigada como una variable explicativa de otros fenómenos. Por un lado la literatura sobre Inconsistencia de Estatus *objetiva*, sostiene que un desbalance entre el nivel educacional y los ingresos, permite explicar determinados fenómenos como las preferencias políticas individuales [@Lenski1967; @Varas2015], así también fenómenos subjetivos como la satisfacción con la vida y la salud percibida [@Zhang2008; @Andersson2018].
+
+Por otro lado, el nivel educacional y la posición en la distribución de ingresos muestran estar estrechamente relacionados con el estatus subjetivo [@Castillo2013; @Lindemann2014].
+
+<!-- Lo que @Araujo2011 conceptualizan como **Inconsistencia de Estatus**, sugiere que las condiciones objetivas de vida se encuentran en un constante riesgo de sufrir procesos de desestabilización, generando sentimientos de amenaza e insatisfacción, que se traduce en percepciones sesgadas sobre su posición real en la estructura social. Conforme a la evidencia previa, es pesquisar exploratoriamente que el efecto de las condiciones objetivas sobre la percepción de meritocracia es mediado por las apreciaciones sobre el estatus social, por esta razón sostengo que: -->
+
+> $H_{\text{3}}$: La relación entre estatus objetivo y percepción de meritocracia es moderada positivamente por el estatus social subjetivo.
+
+# Datos, variables y método
+
+Los datos empleados corresponden a la tercera medición del Estudio Longitudinal Social de Chile [@coes_datos_2021], encuesta desarrollada para analizar intertemporalmente la evolucion del conflicto y cohesión social en la sociedad chilena. El muestreo es de carácter probabilístico, estratificado, por conglomerados y multietápico, con un total de 3748 participantes con edad entre 18 y 75 años. Para los análisis se obtuvo una muestra análitica de 2162 casos con información completa. Los principales estadísticos descriptivos se pueden observar en la Tabla \@ref(tab:desc)
+
+```{r plot_likert, fig.height=4, fig.width=10}
+ load(here::here("input/data/proc/elsoc_w03.RData"))
+ pacman::p_load(dplyr,sjPlot,ggplot2)
+ elsoc_w03 <- na.omit(elsoc_w03)
+
+ dat_likert_s1 <-
+   dplyr::select(elsoc_w03,meffort,mtalent)
+ dat_likert_s1 <- sjmisc::rec(dat_likert_s1, rec="rev", append=FALSE)
+
+   ggplot2::theme_set(ggplot2::theme(panel.background = ggplot2::element_rect(fill = "gray85",
+                                                                              colour = "gray85"),
+                                     panel.border = ggplot2::element_blank(),
+                                     axis.text.y = ggplot2::element_text(size = 13,
+                                                                         hjust = 1),
+                                     title = ggplot2::element_text(size = 13,
+                                                                   face = "bold"),
+                                     legend.text = ggplot2::element_text(size = 12),
+                                     plot.caption = ggplot2::element_text(size = 10,
+                                                                          face = "plain",
+                                                                          hjust = 1)))
+
+     sjPlot::plot_likert(select(dat_likert_s1,meffort_r,mtalent_r),
+                         geom.colors = "PuBu",
+                         geom.size = 0.8,
+                         axis.labels = c("Esfuerzo", "Talento"),
+                         cat.neutral = 3,
+                         grid.range  =  c (1.2 , 1.2),
+                         values  =  "sum.outside",
+                         reverse.scale = F,
+                         show.n = FALSE) +
+       theme(legend.position="bottom") +
+       ggplot2::scale_fill_manual(
+         values = c("#b3b3b3ff", "#f1eef6ff", "#bdc9e1ff","#74a9cfff","#0570b0ff"),
+         breaks=c("neutral",4,3,2,1),
+         labels=c("Ni de acuerdo \nni en desacuerdo",
+                  "Totalmente en\n desacuerdo","En desacuerdo",
+                  "De acuerdo","Totalmente de \nacuerdo")) +
+       labs(caption = paste0("Source: Authors calculation based on ELSOC 2018",
+                             " (n=",dim(elsoc_w03)[1],")"))
+
+```
+
+```{r descriptives}
+ load(here::here("input/data/proc/elsoc_w03.RData"))
+ elsoc_w03 <- na.omit(elsoc_w03)
+ pacman::p_load(ordinal,texreg,dplyr,sjmisc)
+ df_desc<- elsoc_w03 %>%
+   dplyr::select(meffort3,mtalent3,
+          inc10h.imp,edcine2,egp05,ess,
+          sexo,edad,ppolcat,estlab)
+
+ des_educ<- sjmisc::frq(df_desc$edcine2) %>% data.frame() %>% select(val,frq,raw.prc)
+ des_egp<- sjmisc::frq(df_desc$egp05) %>% data.frame() %>% select(val,frq,raw.prc)
+ des_ppo<- sjmisc::frq(df_desc$ppolcat) %>% data.frame() %>% select(val,frq,raw.prc)
+ des_est<- sjmisc::frq(df_desc$estlab) %>% data.frame() %>% select(val,frq,raw.prc)
+ des_sex<- sjmisc::frq(df_desc$sexo) %>% data.frame() %>% select(val,frq,raw.prc)
+
+ des_ess<- psych::describe(df_desc$ess) %>% data.frame() %>% select(n,mean,sd,min,max)
+ des_inc10<- psych::describe(df_desc$inc10h.imp) %>% data.frame() %>% select(n,mean,sd,min,max)
+ des_age<- psych::describe(df_desc$edad) %>% data.frame() %>%  select(n,mean,sd,min,max)
+
+```
+
+## Métodos
+
+La estrategia analítica empleada corresponde a modelos de regresión logística ordinal, considerando la escala de medición original de las variables. Para los análisis se recodificaron las variables de percepción de meritocracia de cinco a tres categorías (En desacuerdo, Ni de acuerdo ni en desacuerdo y Deacuerdo).
+
+
+> En Agresti ordinal hay justificación para colapsar 5 a 3 categorías.
+
+# Resultados
+
+```{r models-effort, echo=FALSE, results='asis'}
+ load(here::here("input/data/proc/elsoc_w03.RData"))
+ elsoc_w03 <- na.omit(elsoc_w03)
+ pacman::p_load(ordinal,texreg)
+ or01  <- ordinal::clm(meffort3 ~inc10h.imp,data= elsoc_w03, Hess = TRUE)
+ or02  <- ordinal::clm(meffort3 ~edcine2,data= elsoc_w03, Hess = TRUE)
+ or03  <- ordinal::clm(meffort3 ~egp05,data= elsoc_w03, Hess = TRUE)
+ or04  <- ordinal::clm(meffort3 ~inc10h.imp+edcine2+egp05,data= elsoc_w03, Hess = TRUE)
+ or05  <- ordinal::clm(meffort3 ~ess,data= elsoc_w03, Hess = TRUE)
+ or08  <- ordinal::clm(meffort3 ~inc10h.imp+edcine2+egp05+ess+edad+sexo+ppolcat+factor(estlab),data= elsoc_w03, Hess = TRUE)
+ or09ef <- ordinal::clm(meffort3 ~inc10h.imp+edcine2+egp05+ess+inc10h.imp*ess+edad+sexo+ppolcat+factor(estlab), data=elsoc_w03,Hess = TRUE)
+ or10ef <- ordinal::clm(meffort3 ~inc10h.imp+edcine2+egp05+ess+edcine2*ess+edad+sexo+ppolcat+factor(estlab),data=elsoc_w03,Hess = TRUE)
+ or11ef <- ordinal::clm(meffort3 ~inc10h.imp+edcine2+egp05+ess+egp05*ess+edad+sexo+ppolcat+factor(estlab),  data=elsoc_w03,Hess = TRUE)
+
+ coef.names01 <-c("Decil Ingreso",
+                  "Primaria y secundaria baja",
+                  "Secundaria alta",
+                  "Terciaria ciclo corto",
+                  "Terciaria y Postgrado",
+                  "Obrero calificado (V+VI)",
+                  "Autoempleo (IVab+IVc)",
+                  "Rutinas no manuales(III)",
+                  "Servicio (I+II)",
+                  "Estatus Subjetivo",
+                  "Jornada parcial",
+                  "Estudia y trabaja",
+                  "Decil Ingreso x Est. Subj",
+                  "Primaria y secundaria baja x Est. Subj",
+                  "Secundaria alta x Est. Subj",
+                  "Terciaria ciclo corto x Est. Subj",
+                  "Terciaria y Postgrado x Est. Subj",
+                  "Obrero calificado (V+VI) x Est. Subj",
+                  "Autoempleo(IVab+IVc) x Est. Subj",
+                  "Rutinas no manuales(III) x Est. Subj",
+                  "Servicio (I+II) x Est. Subj")
+
+ tab.caption01 <- "Modelo regresión logística ordinal para Percepción de Meritocracia - Esfuerzo"
+ omit.coef01 <- c("(edad)|(sexoMujer)|(ppolcatCentro)|(ppolcatDerecha/Centro Derecha)|(ppolcatIndependiente)|(ppolcatNinguno)")
+
+ knitreg(l = list(or01,or02,or03,or05,or08,or09ef,or10ef,or11ef),
+        include.thresholds = FALSE,
+        custom.coef.names = coef.names01,
+        caption.above = TRUE,
+        caption = tab.caption01,
+        custom.model.names = paste0("Modelo ",c(1:8)),
+        omit.coef = omit.coef01,
+        scalebox = 0.75)
+```
+
+```{r models-talent, echo=FALSE, results='asis'}
+ load(here::here("input/data/proc/elsoc_w03.RData"))
+ elsoc_w03 <- na.omit(elsoc_w03)
+ pacman::p_load(ordinal,texreg)
+ or01tal  <- ordinal::clm(mtalent3 ~inc10h.imp,data= elsoc_w03)
+ or02tal  <- ordinal::clm(mtalent3 ~edcine2,data= elsoc_w03)
+ or03tal  <- ordinal::clm(mtalent3 ~egp05,data= elsoc_w03)
+ or04tal  <- ordinal::clm(mtalent3 ~inc10h.imp+edcine2+egp05,data= elsoc_w03,Hess = TRUE)
+ or05tal  <- ordinal::clm(mtalent3 ~ess,data= elsoc_w03,Hess = TRUE)
+ or08tal  <- ordinal::clm(mtalent3 ~inc10h.imp+edcine2+egp05+ess+edad+sexo+ppolcat+factor(estlab),data= elsoc_w03,Hess = TRUE)
+ or09tal  <- ordinal::clm(mtalent3 ~inc10h.imp+edcine2+egp05+ess+inc10h.imp*ess+edad+sexo+ppolcat+factor(estlab), data= elsoc_w03,Hess = TRUE)
+ or10tal  <- ordinal::clm(mtalent3 ~inc10h.imp+edcine2+egp05+ess+edcine2*ess+edad+sexo+ppolcat+factor(estlab),data= elsoc_w03,Hess = TRUE)
+ or11tal  <- ordinal::clm(mtalent3 ~inc10h.imp+edcine2+egp05+ess+egp05*ess+edad+sexo+ppolcat+factor(estlab),  data= elsoc_w03,Hess = TRUE)
+
+ coef.names02 <-c("Decil Ingreso",
+                  "Primaria y secundaria baja",
+                  "Secundaria alta",
+                  "Terciaria ciclo corto",
+                  "Terciaria y Postgrado",
+                  "Obrero calificado (V+VI)",
+                  "Autoempleo (IVab+IVc)",
+                  "Rutinas no manuales(III)",
+                  "Servicio (I+II)",
+                  "Estatus Subjetivo",
+                  "Jornada parcial",
+                  "Estudia y trabaja",
+                  "Decil Ingreso x Est. Subj",
+                  "Primaria y secundaria baja x Est. Subj",
+                  "Secundaria alta x Est. Subj",
+                  "Terciaria ciclo corto x Est. Subj",
+                  "Terciaria y Postgrado x Est. Subj",
+                  "Obrero calificado (V+VI) x Est. Subj",
+                  "Autoempleo(IVab+IVc) x Est. Subj",
+                  "Rutinas no manuales(III) x Est. Subj",
+                  "Servicio (I+II) x Est. Subj")
+
+ tab.caption02 <- "Modelo regresión logística ordinal para Percepción de Meritocracia - Talento"
+ omit.coef02 <- c("(edad)|(sexoMujer)|(ppolcatCentro)|(ppolcatDerecha/Centro Derecha)|(ppolcatIndependiente)|(ppolcatNinguno)")
+
+
+ knitreg(l = list(or01tal,or02tal,or03tal,or05tal,or08tal,or09tal,or10tal,or11tal),
+        include.thresholds = FALSE,
+        custom.coef.names = coef.names02,
+        caption.above = TRUE,
+        caption = tab.caption02,
+        custom.model.names = paste0("Modelo ",c(1:8)),
+        omit.coef = omit.coef02,
+        scalebox = 0.75)
+```
+
+
+* Comparación social y redes sociales sobre Meritocracia [juan_diego_2021]
+* Beck
+
+# Bibliografía
+
+
+# Anexos
+
+- Modelos con OLS ?
+- Modelos con 5 categorías
+
+```{r ols-effort, echo=FALSE, results='asis'}
+ load(here::here("input/data/proc/elsoc_w03.RData"))
+ elsoc_w03 <- na.omit(elsoc_w03)
+ pacman::p_load(ordinal,texreg)
+ elsoc_w03$meffort <- as.numeric(elsoc_w03$meffort)
+ or01   <- lm(meffort ~inc10h.imp,data= elsoc_w03)
+ or02   <- lm(meffort ~edcine2,data= elsoc_w03)
+ or03   <- lm(meffort ~egp05,data= elsoc_w03)
+ or04   <- lm(meffort ~inc10h.imp+edcine2+egp05,data= elsoc_w03)
+ or05   <- lm(meffort ~ess,data= elsoc_w03)
+ or08   <- lm(meffort ~inc10h.imp+edcine2+egp05+ess+edad+sexo+ppolcat+factor(estlab),data= elsoc_w03)
+ or09ef <- lm(meffort ~inc10h.imp+edcine2+egp05+ess+inc10h.imp*ess+edad+sexo+ppolcat+factor(estlab), data=elsoc_w03)
+ or10ef <- lm(meffort ~inc10h.imp+edcine2+egp05+ess+edcine2*ess+edad+sexo+ppolcat+factor(estlab),data=elsoc_w03)
+ or11ef <- lm(meffort ~inc10h.imp+edcine2+egp05+ess+egp05*ess+edad+sexo+ppolcat+factor(estlab),  data=elsoc_w03)
+
+ coef.names01 <-c("Decil Ingreso",
+                  "Primaria y secundaria baja",
+                  "Secundaria alta",
+                  "Terciaria ciclo corto",
+                  "Terciaria y Postgrado",
+                  "Obrero calificado (V+VI)",
+                  "Autoempleo (IVab+IVc)",
+                  "Rutinas no manuales(III)",
+                  "Servicio (I+II)",
+                  "Estatus Subjetivo",
+                  "Jornada parcial",
+                  "Estudia y trabaja",
+                  "Decil Ingreso x Est. Subj",
+                  "Primaria y secundaria baja x Est. Subj",
+                  "Secundaria alta x Est. Subj",
+                  "Terciaria ciclo corto x Est. Subj",
+                  "Terciaria y Postgrado x Est. Subj",
+                  "Obrero calificado (V+VI) x Est. Subj",
+                  "Autoempleo(IVab+IVc) x Est. Subj",
+                  "Rutinas no manuales(III) x Est. Subj",
+                  "Servicio (I+II) x Est. Subj")
+
+ tab.caption01 <- "Modelo regresión lineal para Percepción de Meritocracia - Esfuerzo"
+ omit.coef01 <- c("((Intercept))|(edad)|(sexoMujer)|(ppolcatCentro)|(ppolcatDerecha/Centro Derecha)|(ppolcatIndependiente)|(ppolcatNinguno)")
+
+ knitreg(l = list(or01,or02,or03,or05,or08,or09ef,or10ef,or11ef),
+        custom.coef.names = coef.names01,
+        caption.above = TRUE,
+        caption = tab.caption01,
+        custom.model.names = paste0("Modelo ",c(1:8)),
+        omit.coef = omit.coef01,
+        scalebox = 0.75)
+```
+
+```{r ols-talent, echo=FALSE, results='asis'}
+ load(here::here("input/data/proc/elsoc_w03.RData"))
+ elsoc_w03 <- na.omit(elsoc_w03)
+ pacman::p_load(ordinal,texreg)
+ elsoc_w03$mtalent <- as.numeric(elsoc_w03$mtalent)
+ or01tal  <- lm(mtalent ~inc10h.imp,data= elsoc_w03)
+ or02tal  <- lm(mtalent ~edcine2,data= elsoc_w03)
+ or03tal  <- lm(mtalent ~egp05,data= elsoc_w03)
+ or04tal  <- lm(mtalent ~inc10h.imp+edcine2+egp05,data= elsoc_w03,Hess = TRUE)
+ or05tal  <- lm(mtalent ~ess,data= elsoc_w03,Hess = TRUE)
+ or08tal  <- lm(mtalent ~inc10h.imp+edcine2+egp05+ess+edad+sexo+ppolcat+factor(estlab),data= elsoc_w03,Hess = TRUE)
+ or09tal  <- lm(mtalent ~inc10h.imp+edcine2+egp05+ess+inc10h.imp*ess+edad+sexo+ppolcat+factor(estlab), data= elsoc_w03,Hess = TRUE)
+ or10tal  <- lm(mtalent ~inc10h.imp+edcine2+egp05+ess+edcine2*ess+edad+sexo+ppolcat+factor(estlab),data= elsoc_w03,Hess = TRUE)
+ or11tal  <- lm(mtalent ~inc10h.imp+edcine2+egp05+ess+egp05*ess+edad+sexo+ppolcat+factor(estlab),  data= elsoc_w03,Hess = TRUE)
+
+ coef.names02 <-c("Decil Ingreso",
+                  "Primaria y secundaria baja",
+                  "Secundaria alta",
+                  "Terciaria ciclo corto",
+                  "Terciaria y Postgrado",
+                  "Obrero calificado (V+VI)",
+                  "Autoempleo (IVab+IVc)",
+                  "Rutinas no manuales(III)",
+                  "Servicio (I+II)",
+                  "Estatus Subjetivo",
+                  "Jornada parcial",
+                  "Estudia y trabaja",
+                  "Decil Ingreso x Est. Subj",
+                  "Primaria y secundaria baja x Est. Subj",
+                  "Secundaria alta x Est. Subj",
+                  "Terciaria ciclo corto x Est. Subj",
+                  "Terciaria y Postgrado x Est. Subj",
+                  "Obrero calificado (V+VI) x Est. Subj",
+                  "Autoempleo(IVab+IVc) x Est. Subj",
+                  "Rutinas no manuales(III) x Est. Subj",
+                  "Servicio (I+II) x Est. Subj")
+
+ tab.caption02 <- "Modelo regresión lineal para Percepción de Meritocracia - Talento"
+ omit.coef02 <- c("((Intercept))|(edad)|(sexoMujer)|(ppolcatCentro)|(ppolcatDerecha/Centro Derecha)|(ppolcatIndependiente)|(ppolcatNinguno)")
+
+
+ knitreg(l = list(or01tal,or02tal,or03tal,or05tal,or08tal,or09tal,or10tal,or11tal),
+        include.thresholds = FALSE,
+        custom.coef.names = coef.names02,
+        caption.above = TRUE,
+        caption = tab.caption02,
+        custom.model.names = paste0("Modelo ",c(1:8)),
+        omit.coef = omit.coef02,
+        scalebox = 0.75)
+```

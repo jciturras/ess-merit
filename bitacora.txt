@@ -1,0 +1,46 @@
+
+- Paper de Mijs usa m?s controles de los que us? yo, deber?a incluir estatus ocupacional y religi?n.
+- La relaci?n de los distintos estatus subjetivos poseen distintos mecanismos, particularmente sobre las dos medidas de meritocracia empleadas en el estudio.
+
+
+- Para la introducci?n: Considerar los papers de Teklu (2018) y Horowitz (2008). Principalmente por el enfoque de
+economa moral y meritocracia.
+
+
+- En el estatus subjetivo de los hijos se reflejan los "futuros escenarios" en relación a la meritocracia. (Maldonado et al. 2019) 
+
+# Variables
+
+- Cambiar Ocupación por EGP con 7 categorías
+- Labores agricolas colapsar con Obrero no calificado
+- Autoempleo agricola colapsarlo con Autoempleo
+
+- update: EGP05
+  - Servicios I+II respecto a Obrero no calificado ***
+  - Efecto desaparece al controlar por todo lo demás
+  - Quedarme con EGP05 para modelos finales
+
+# Metodología
+
+- Idea: Mediación usando Ola 1 y ola3
+- Usar Educación continua o categórica?:
+
+  - Ajusta mejor con estimador ordinal
+  - Ajusta mejor con Educación Categórica. Continua no es significativa.
+  
+  
+# Presentación FACSO
+
+- Ausencia de Correlación entre los ítems podría jugar en contra
+- Efectos distintos para cada variable latente
+- Argumentación para esos efectos ¿quedarme con una variable latente?
+- Ordinal Logit de lo ítems de meritocracia de Recomensa Percibida 
+
+# Controles nuevos:
+
+- Percepción de Desigualdad Salarial ln(Gerente/obrero) = Listo, es negativo y muy significativo
+
+- En base a MacClure 2012: Efecto "generación" nacimiento pre 1970 y post 1970
+
+
+  

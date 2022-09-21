@@ -1,0 +1,1346 @@
+---
+title: "Estatus Social Subjetivo y Percepción de Meritocracia"
+subtitle: 'El caso de Chile'
+author:
+- Julio César Iturra Sanhueza^[Centro de Estudios de Conflicto y Cohesión Social]
+output: 
+    pdf_document
+header-includes:
+   - \usepackage{float}
+   - \usepackage{booktabs}
+   - \usepackage{dcolumn}      
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r librerias, message=FALSE, warning=FALSE, include=FALSE}
+library(lavaan)
+library(dplyr)
+library(knitr)
+library(texreg)
+library(here)
+here()
+```
+
+```{r base de datos, message=FALSE, warning=FALSE, include=FALSE}
+knitr::opts_chunk$set(message=FALSE, warning=FALSE, results='asis')
+options(scipen=999)
+rm(list=ls())
+load(here("code","data","ELSOC_ess_merit2018.RData"))
+# load(here("code","data","elsocW123.RData"))
+# elsoc_18<- elsocw
+names(elsoc_18)
+elsoc_gini <- elsoc_18 %>% select(idencuesta,region,comuna,d05_01,d05_02, d05_03, d05_04, c18_09, c18_10,
+                                  ID02,ID03,ID04,ID05,ID06,ID07,ID08,ID09,ID10,IDNR,
+                                  ecin0,ecin1.2,ecin3.4,ecin5,ecin6.7.8,educ,
+                                  isco09,isco08,isco07,isco06,isco05,isco04,isco03,isco02,isco01,isco_nr,
+                                  ess,essfam,esshijos,
+                                  ppol_izq,ppol_cen,ppol_der,ppol_ind,ppol_ninguno,sexo,edad,
+                                  egp10_rutnomanuales_III:egp05_servicioI_II) %>% na.omit
+
+
+
+elsoc_gini <- rename(elsoc_gini,
+                     mfami=d05_01,   
+                     meduc=d05_02,
+                     mambi=d05_03,
+                     mtdur=d05_04,
+                     resfu=c18_09,
+                     rinte=c18_10)
+
+# class1 <- elsoc_18 %>% select(idencuesta,isco88,semp,nempleados)
+# haven::write_dta(data = class1,path = here("data","ELSOC_ess_merit2018.dta"))
+```
+
+```{r custom footnotes & fitmeasures, include=FALSE, cache=TRUE}
+nota  <- c("\\parbox{.8\\linewidth}{\\vspace{2pt} Valores $z$ entre paréntesis, Coeficientes de regresión no estandarizados   \\\\ 
+          $^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$.}")
+nota2 <- c("\\parbox{.9\\linewidth}{\\vspace{2pt} Valores $z$ entre paréntesis, Coeficientes de regresión no estandarizados   \\\\ 
+          $^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$. \\\\
+          \\textbf{\\textit{Nota}}: No se muestran los coeficientes de la categoría ``No responde`` para Ingreso y Ocupación}")
+
+nota3 <- c("\\parbox{1.4\\linewidth}{\\vspace{2pt} Valores $z$ entre paréntesis, Coeficientes de regresión no estandarizados   \\\\ 
+          $^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$. \\\\
+          \\textbf{\\textit{Nota}}: No se muestran los coeficientes de la categoría ``No responde`` para Ingreso y Clase Social Se excluyen los coeficientes de los controles Sexo, Edad y Posición política.}")
+ajuste <- c("\\textbf{$\\chi^2$}","\\textbf{gl}","\\textbf{CFI}","\\textbf{RMSEA}","\\textbf{Num. obs.}")
+
+nota  <- c("\\parbox{.8\\linewidth}{\\vspace{2pt} Valores $z$ entre paréntesis, Coeficientes de regresión no estandarizados   \\\\ 
+          $^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$.}")
+nota2 <- c("\\parbox{.9\\linewidth}{\\vspace{2pt} Valores $z$ entre paréntesis, Coeficientes de regresión no estandarizados   \\\\ 
+          $^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$. \\\\
+          \\textbf{\\textit{Nota}}: No se muestran los coeficientes de la categoría ``No responde`` para Ingreso y Ocupación}")
+
+nota3 <- c("\\parbox{1.4\\linewidth}{\\vspace{2pt} Valores $z$ entre paréntesis, Coeficientes de regresión no estandarizados   \\\\ 
+          $^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$. \\\\
+          \\textbf{\\textit{Nota}}: No se muestran los coeficientes de la categoría ``No responde`` para Ingreso y Clase Social. Se excluyen los coeficientes de los controles Sexo, Edad y Posición política.}")
+ajuste <- c("\\textbf{$\\chi^2$}","\\textbf{gl}","\\textbf{CFI}","\\textbf{RMSEA}","\\textbf{Num. obs.}")
+
+```
+
+```{r MODELO MEDICION, eval=FALSE, include=FALSE}
+cfa1<-'
+salirad =~meduc+mambi+mtdur
+recompe =~resfu+rinte
+'
+fit.cfa1 <-sem(cfa1,data=elsoc_gini,ordered=c("meduc","mambi","mtdur","resfu","rinte"))
+fit.cfa2 <-sem(cfa1,data=elsoc_gini)
+```
+
+```{r}
+library(semPlot)
+
+semPaths(fit.cfa1,what = "std", thresholds = FALSE,style = "mx")
+
+
+summary(fit.cfa1, standardized =TRUE,fit.measures=TRUE)
+
+fitMeasures(fit.cfa1,c("chisq","df","pvalue","cfi","tli","rmsea"))
+
+modelp1 <- semPlot::semPaths(fit.cfa1,
+                             what = "std",
+                             layout = "tree2", 
+                             style = "lisrel",
+                             curvature = 3,
+                             residuals = TRUE,
+                             intercepts = FALSE,
+                  thresholds = FALSE)
+
+
+
+```
+
+
+```{r MODELO 1 ESS,include=FALSE, cache=TRUE, cache=TRUE}
+elsoc_gini$sexo <- as.numeric(elsoc_gini$sexo)
+sem.ess1<-'
+salirad =~meduc+mambi+mtdur
+recompe =~resfu+rinte
+salirad~ess
+recompe~ess
+'
+fit.ess1 <-sem(sem.ess1,data=elsoc_gini,ordered=c("meduc","mambi","mtdur","resfu","rinte"))
+
+salirad.ess1 <- as.data.frame(parameterEstimates(fit.ess1)[6,])
+recompe.ess1 <- as.data.frame(parameterEstimates(fit.ess1)[7,])
+fit.mesess1 <- fitMeasures(fit.ess1,c("chisq","df","pvalue","cfi","rmsea"))
+#----Crear la tabla-----
+m1salir <- texreg::createTexreg(coef.names = salirad.ess1$rhs ,
+                     coef =salirad.ess1$est,
+                     se = salirad.ess1$z,
+                     pvalues = salirad.ess1$pvalue,
+                     gof = c(fitmeasures(fit.ess1)[[c(3)]],
+                             fitmeasures(fit.ess1)[[c(4)]],
+                             fitmeasures(fit.ess1)[[c(18)]],
+                             fitmeasures(fit.ess1)[[c(36)]],
+                             nobs(fit.ess1)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+m1reco <- texreg::createTexreg(coef.names = recompe.ess1$rhs ,
+                     coef =recompe.ess1$est,
+                     se = recompe.ess1$z,
+                     pvalues = recompe.ess1$pvalue,
+                     gof = c(fitmeasures(fit.ess1)[[c(3)]],
+                             fitmeasures(fit.ess1)[[c(4)]],
+                             fitmeasures(fit.ess1)[[c(18)]],
+                             fitmeasures(fit.ess1)[[c(36)]],
+                             nobs(fit.ess1)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+```
+
+```{r MODELO 2 ESS+ESSfam,include=FALSE, cache=TRUE}
+elsoc_gini$sexo <- as.numeric(elsoc_gini$sexo)
+sem.ess2<-'
+salirad =~meduc+mambi+mtdur
+recompe =~resfu+rinte
+salirad~ess + essfam
+recompe~ess + essfam
+'
+fit.ess2 <-sem(sem.ess2,data=elsoc_gini,ordered=c("meduc","mambi","mtdur","resfu","rinte"))
+
+# x <-  parameterEstimates(fit.ess2) #Para saber la posición de las filas
+salirad.ess2 <- as.data.frame(parameterEstimates(fit.ess2)[6:7, ])
+recompe.ess2 <- as.data.frame(parameterEstimates(fit.ess2)[8:9, ])
+fit.mesess2 <- fitMeasures(fit.ess2,c("chisq","df","pvalue","cfi","rmsea"))
+#----Crear la tabla-----
+m2salir <- texreg::createTexreg(coef.names  = salirad.ess2$rhs ,
+                                       coef = salirad.ess2$est,
+                                         se = salirad.ess2$z,
+                                    pvalues = salirad.ess2$pvalue,
+                     gof = c(fitmeasures(fit.ess2)[[c(3)]],
+                             fitmeasures(fit.ess2)[[c(4)]],
+                             fitmeasures(fit.ess2)[[c(18)]],
+                             fitmeasures(fit.ess2)[[c(36)]],
+                             nobs(fit.ess2)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+m2reco <- texreg::createTexreg(coef.names = recompe.ess2$rhs ,
+                     coef =recompe.ess2$est,
+                     se = recompe.ess2$z,
+                     pvalues = recompe.ess2$pvalue,
+                     gof = c(fitmeasures(fit.ess2)[[c(3)]],
+                             fitmeasures(fit.ess2)[[c(4)]],
+                             fitmeasures(fit.ess2)[[c(18)]],
+                             fitmeasures(fit.ess2)[[c(36)]],
+                             nobs(fit.ess2)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+```
+
+```{r MODELO 3  ESS+ESSFam+ESShijos,include=FALSE, cache=TRUE}
+elsoc_gini$sexo <- as.numeric(elsoc_gini$sexo)
+sem.ess3<-'
+salirad =~meduc+mambi+mtdur
+recompe =~resfu+rinte
+salirad~ess + essfam + esshijos  
+recompe~ess + essfam + esshijos 
+'
+fit.ess3 <-sem(sem.ess3,data=elsoc_gini,ordered=c("meduc","mambi","mtdur","resfu","rinte"))
+
+salirad.ess3 <- as.data.frame(parameterEstimates(fit.ess3)[6:8, ])
+recompe.ess3 <- as.data.frame(parameterEstimates(fit.ess3)[9:11, ])
+fit.mesess3 <- fitMeasures(fit.ess3,c("chisq","df","pvalue","cfi","rmsea"))
+
+#----Crear la tabla-----
+m3salir <- texreg::createTexreg(coef.names  = salirad.ess3$rhs ,
+                                       coef = salirad.ess3$est,
+                                         se = salirad.ess3$z,
+                                    pvalues = salirad.ess3$pvalue,
+                     gof = c(fitmeasures(fit.ess3)[[c(3)]],
+                             fitmeasures(fit.ess3)[[c(4)]],
+                             fitmeasures(fit.ess3)[[c(18)]],
+                             fitmeasures(fit.ess3)[[c(36)]],
+                                    nobs(fit.ess3)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+m3reco <-  texreg::createTexreg(coef.names  = recompe.ess3$rhs ,
+                                       coef = recompe.ess3$est,
+                                         se = recompe.ess3$z,
+                                    pvalues = recompe.ess3$pvalue,
+                     gof = c(fitmeasures(fit.ess3)[[c(3)]],
+                             fitmeasures(fit.ess3)[[c(4)]],
+                             fitmeasures(fit.ess3)[[c(18)]],
+                             fitmeasures(fit.ess3)[[c(36)]],
+                                    nobs(fit.ess3)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+
+```
+
+```{r MODELO 33 ESSfam+ESShijos,include=FALSE, cache=TRUE}
+elsoc_gini$sexo <- as.numeric(elsoc_gini$sexo)
+sem.ess33<-'
+salirad =~meduc+mambi+mtdur
+recompe =~resfu+rinte
+salirad~ essfam + esshijos
+recompe~ essfam + esshijos
+'
+fit.ess33 <-sem(sem.ess33,data=elsoc_gini,ordered=c("meduc","mambi","mtdur","resfu","rinte"))
+
+salirad.ess33 <- as.data.frame(parameterEstimates(fit.ess33)[6:7, ])
+recompe.ess33 <- as.data.frame(parameterEstimates(fit.ess33)[8:9, ])
+fit.mesess33 <- fitMeasures(fit.ess33,c("chisq","df","pvalue","cfi","rmsea"))
+
+#----Crear la tabla-----
+m33salir <- texreg::createTexreg(coef.names = salirad.ess33$rhs ,
+                                       coef = salirad.ess33$est,
+                                         se = salirad.ess33$z,
+                                    pvalues = salirad.ess33$pvalue,
+                     gof = c(fitmeasures(fit.ess33)[[c(3)]],
+                             fitmeasures(fit.ess33)[[c(4)]],
+                             fitmeasures(fit.ess33)[[c(18)]],
+                             fitmeasures(fit.ess33)[[c(36)]],
+                                    nobs(fit.ess33)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+m33reco <-  texreg::createTexreg(coef.names = recompe.ess33$rhs ,
+                                       coef = recompe.ess33$est,
+                                         se = recompe.ess33$z,
+                                    pvalues = recompe.ess33$pvalue,
+                     gof = c(fitmeasures(fit.ess33)[[c(3)]],
+                             fitmeasures(fit.ess33)[[c(4)]],
+                             fitmeasures(fit.ess33)[[c(18)]],
+                             fitmeasures(fit.ess33)[[c(36)]],
+                                    nobs(fit.ess33)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+
+```
+
+```{r MODELO 4 EDUCACION,include=FALSE, cache=TRUE}
+elsoc_gini$sexo <- as.numeric(elsoc_gini$sexo)
+sem.educ<-'
+salirad =~meduc+mambi+mtdur
+recompe =~resfu+rinte
+salirad~ecin1.2+ecin3.4+ecin5+ecin6.7.8
+recompe~ecin1.2+ecin3.4+ecin5+ecin6.7.8
+'
+
+sem.educ02<-'
+salirad =~meduc+mambi+mtdur
+recompe =~resfu+rinte
+salirad~educ
+recompe~educ
+'
+
+fit.sem.educ   <-sem(sem.educ,data=elsoc_gini,  ordered=c("meduc","mambi","mtdur","resfu","rinte"))
+
+salirad.educ  <- as.data.frame(parameterEstimates(fit.sem.educ)[6:9, ])
+recompe.educ  <- as.data.frame(parameterEstimates(fit.sem.educ)[10:13, ])
+fit.messem.educ <- fitMeasures(fit.sem.educ,c("chisq","df","pvalue","cfi","rmsea"))
+#----Crear la tabla-----
+m4salir <- texreg::createTexreg(coef.names  = salirad.educ$rhs ,
+                                       coef = salirad.educ$est,
+                                         se = salirad.educ$z,
+                                    pvalues = salirad.educ$pvalue,
+                     gof = c(fitmeasures(fit.sem.educ)[[c(3)]],
+                             fitmeasures(fit.sem.educ)[[c(4)]],
+                             fitmeasures(fit.sem.educ)[[c(18)]],
+                             fitmeasures(fit.sem.educ)[[c(36)]],
+                                    nobs(fit.sem.educ)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+m4reco <-  texreg::createTexreg(coef.names  = recompe.educ$rhs ,
+                                       coef = recompe.educ$est,
+                                         se = recompe.educ$z,
+                                    pvalues = recompe.educ$pvalue,
+                     gof = c(fitmeasures(fit.sem.educ)[[c(3)]],
+                             fitmeasures(fit.sem.educ)[[c(4)]],
+                             fitmeasures(fit.sem.educ)[[c(18)]],
+                             fitmeasures(fit.sem.educ)[[c(36)]],
+                                    nobs(fit.sem.educ)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+
+```
+
+```{r MODELO 5 INGRESOS,include=FALSE, cache=TRUE}
+elsoc_gini$sexo <- as.numeric(elsoc_gini$sexo)
+sem.inc<-'
+salirad =~meduc+mambi+mtdur
+recompe =~resfu+rinte
+salirad~ID02+ID03+ID04+ID05+ID06+ID07+ID08+ID09+ID10+IDNR
+recompe~ID02+ID03+ID04+ID05+ID06+ID07+ID08+ID09+ID10+IDNR
+'
+fit.sem.inc <-sem(sem.inc,data=elsoc_gini,ordered=c("meduc","mambi","mtdur","resfu","rinte"))
+
+# x <-  parameterEstimates(fit.sem.inc) #Para saber la posición de las filas
+salirad.inc <- as.data.frame(parameterEstimates(fit.sem.inc)[6:15,  ])
+recompe.inc <- as.data.frame(parameterEstimates(fit.sem.inc)[16:25, ])
+fit.messem.inc <- fitMeasures(fit.sem.inc,c("chisq","df","pvalue","cfi","rmsea"))
+#----Crear la tabla-----
+m5salir <- texreg::createTexreg(coef.names  = salirad.inc$rhs ,
+                                       coef = salirad.inc$est,
+                                         se = salirad.inc$z,
+                                    pvalues = salirad.inc$pvalue,
+                     gof = c(fitmeasures(fit.sem.inc)[[c(3)]],
+                             fitmeasures(fit.sem.inc)[[c(4)]],
+                             fitmeasures(fit.sem.inc)[[c(18)]],
+                             fitmeasures(fit.sem.inc)[[c(36)]],
+                                    nobs(fit.sem.inc)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+m5reco <-  texreg::createTexreg(coef.names  = recompe.inc$rhs ,
+                                       coef = recompe.inc$est,
+                                         se = recompe.inc$z,
+                                    pvalues = recompe.inc$pvalue,
+                     gof = c(fitmeasures(fit.sem.inc)[[c(3)]],
+                             fitmeasures(fit.sem.inc)[[c(4)]],
+                             fitmeasures(fit.sem.inc)[[c(18)]],
+                             fitmeasures(fit.sem.inc)[[c(36)]],
+                                    nobs(fit.sem.inc)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+```
+
+```{r MODELO 6b CLASE-EGP05,include=FALSE, cache=TRUE}
+elsoc_gini$sexo <- as.numeric(elsoc_gini$sexo)
+sem.egp07<-'
+salirad =~meduc+mambi+mtdur
+recompe =~resfu+rinte
+salirad~egp05_obrcalV_VI+egp05_autoemp_IVab_IV_c+egp05_rutnomanualIII+egp05_servicioI_II+egp05_na         
+recompe~egp05_obrcalV_VI+egp05_autoemp_IVab_IV_c+egp05_rutnomanualIII+egp05_servicioI_II+egp05_na      
+'
+
+#egp05_obrcalV_VI+egp05_autoemp_IVab_IV_c+egp05_rutnomanualIII+egp05_servicioI_II+egp05_na  
+
+fit.sem.isco <-sem(sem.egp07,data=elsoc_gini,ordered=c("meduc","mambi","mtdur","resfu","rinte"))
+
+salirad.isco <- as.data.frame(parameterEstimates(fit.sem.isco)[6:10, ])
+recompe.isco <- as.data.frame(parameterEstimates(fit.sem.isco)[11:15,])
+fit.messem.isco <- fitMeasures(fit.sem.isco,c("chisq","df","pvalue","cfi","rmsea"))
+
+#----Crear la tabla-----
+m6salir <- texreg::createTexreg(coef.names  = salirad.isco$rhs ,
+                                       coef = salirad.isco$est,
+                                         se = salirad.isco$z,
+                                    pvalues = salirad.isco$pvalue,
+                     gof = c(fitmeasures(fit.sem.isco)[[c(3)]],
+                             fitmeasures(fit.sem.isco)[[c(4)]],
+                             fitmeasures(fit.sem.isco)[[c(18)]],
+                             fitmeasures(fit.sem.isco)[[c(36)]],
+                                    nobs(fit.sem.isco)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+m6reco <-  texreg::createTexreg(coef.names  = recompe.isco$rhs ,
+                                       coef = recompe.isco$est,
+                                         se = recompe.isco$z,
+                                    pvalues = recompe.isco$pvalue,
+                     gof = c(fitmeasures(fit.sem.isco)[[c(3)]],
+                             fitmeasures(fit.sem.isco)[[c(4)]],
+                             fitmeasures(fit.sem.isco)[[c(18)]],
+                             fitmeasures(fit.sem.isco)[[c(36)]],
+                                    nobs(fit.sem.isco)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+```
+
+```{r MODELO 61b ESSpropio + EDUCACION + INGRESOS + OCUPACION + CONTROLES,include=FALSE, cache=TRUE}
+sem.ess1.obj<-'
+salirad =~meduc+mambi+mtdur
+recompe =~resfu+rinte
+salirad~ess+
+ecin1.2+ecin3.4+ecin5+ecin6.7.8+ID02+ID03+ID04+ID05+ID06+ID07+ID08+ID09+ID10+IDNR+egp05_obrcalV_VI+egp05_autoemp_IVab_IV_c+egp05_rutnomanualIII+egp05_servicioI_II+egp05_na+ppol_cen+ppol_der+ppol_ind+ppol_ninguno+ sexo + edad
+recompe~ess+
+ecin1.2+ecin3.4+ecin5+ecin6.7.8+ID02+ID03+ID04+ID05+ID06+ID07+ID08+ID09+ID10+IDNR + egp05_obrcalV_VI+egp05_autoemp_IVab_IV_c+egp05_rutnomanualIII+egp05_servicioI_II+egp05_na+ ppol_cen+ppol_der+ppol_ind+ppol_ninguno+ sexo + edad
+'
+fit.sem.esobj <-sem(sem.ess1.obj,data=elsoc_gini,
+                    ordered=c("meduc","mambi","mtdur","resfu","rinte"))
+summary(fit.sem.esobj)
+
+salirad.est <- as.data.frame(parameterEstimates(fit.sem.esobj)[6:31, ])
+recompe.est <- as.data.frame(parameterEstimates(fit.sem.esobj)[32:57,])
+
+s0est <- salirad.est
+r0est <- recompe.est
+#----Crear la tabla-----
+m61salir <- texreg::createTexreg(coef.names = salirad.est$rhs ,
+                                       coef = salirad.est$est,
+                                         se = salirad.est$z,
+                                    pvalues = salirad.est$pvalue,
+                     gof = c(fitmeasures(fit.sem.esobj)[[c(3)]],
+                             fitmeasures(fit.sem.esobj)[[c(4)]],
+                             fitmeasures(fit.sem.esobj)[[c(18)]],
+                             fitmeasures(fit.sem.esobj)[[c(36)]],
+                                    nobs(fit.sem.esobj)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+m61reco <-  texreg::createTexreg(coef.names = recompe.est$rhs ,
+                                       coef = recompe.est$est,
+                                         se = recompe.est$z,
+                                    pvalues = recompe.est$pvalue,
+                     gof = c(fitmeasures(fit.sem.esobj)[[c(3)]],
+                             fitmeasures(fit.sem.esobj)[[c(4)]],
+                             fitmeasures(fit.sem.esobj)[[c(18)]],
+                             fitmeasures(fit.sem.esobj)[[c(36)]],
+                                    nobs(fit.sem.esobj)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+```
+
+```{r MODELO ESSpropio + ESSfam + ESShijos + EDUC + INCO + OCUP + CONTROLS,include=FALSE, cache=TRUE}
+sem.ess2.obj<-'
+salirad =~meduc+mambi+mtdur
+recompe =~resfu+rinte
+salirad~essfam+esshijos+
+ecin1.2+ecin3.4+ecin5+ecin6.7.8+ID02+ID03+ID04+ID05+ID06+ID07+ID08+ID09+ID10+IDNR+isco08+isco07+isco06+isco05+isco04+isco03+isco02+isco01+isco_nr+ppol_cen+ppol_der+ppol_ind+ppol_ninguno+ sexo + edad
+recompe~essfam+esshijos+
+ecin1.2+ecin3.4+ecin5+ecin6.7.8+ID02+ID03+ID04+ID05+ID06+ID07+ID08+ID09+ID10+IDNR + isco08+isco07+isco06+isco05+isco04+isco03+isco02+isco01+isco_nr+ ppol_cen+ppol_der+ppol_ind+ppol_ninguno+ sexo + edad
+'
+fit.sem.esobj2 <-sem(sem.ess2.obj,data=elsoc_gini,
+                    ordered=c("meduc","mambi","mtdur","resfu","rinte"))
+# summary(fit.sem.esobj2)
+salirad.est <- as.data.frame(parameterEstimates(fit.sem.esobj2)[6:36, ])
+recompe.est <- as.data.frame(parameterEstimates(fit.sem.esobj2)[37:67,])
+s0est <- salirad.est
+r0est <- recompe.est
+#----Crear la tabla-----
+m62salir <- texreg::createTexreg(coef.names = salirad.est$rhs ,
+                                       coef = salirad.est$est,
+                                         se = salirad.est$z,
+                                    pvalues = salirad.est$pvalue,
+                     gof = c(fitmeasures(fit.sem.esobj2)[[c(3)]],
+                             fitmeasures(fit.sem.esobj2)[[c(4)]],
+                             fitmeasures(fit.sem.esobj2)[[c(18)]],
+                             fitmeasures(fit.sem.esobj2)[[c(36)]],
+                                    nobs(fit.sem.esobj2)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+m62reco <-  texreg::createTexreg(coef.names = recompe.est$rhs ,
+                                       coef = recompe.est$est,
+                                         se = recompe.est$z,
+                                    pvalues = recompe.est$pvalue,
+                     gof = c(fitmeasures(fit.sem.esobj2)[[c(3)]],
+                             fitmeasures(fit.sem.esobj2)[[c(4)]],
+                             fitmeasures(fit.sem.esobj2)[[c(18)]],
+                             fitmeasures(fit.sem.esobj2)[[c(36)]],
+                                    nobs(fit.sem.esobj2)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+```
+
+```{r MODELO 7 EDUC + INCO + OCUP + ESSpropio + ESSfam + ESShijos + CONTROLS,include=FALSE, cache=TRUE}
+elsoc_gini$sexo <- as.numeric(elsoc_gini$sexo)
+sem<-'
+salirad =~meduc+mambi+mtdur
+recompe =~resfu+rinte
+salirad~ID02+ID03+ID04+ID05+ID06+ID07+ID08+ID09+ID10+IDNR+ecin1.2+ecin3.4+ecin5+ecin6.7.8+isco08+isco07+isco06+isco05+isco04+isco03+isco02+isco01+isco_nr+ess+essfam+esshijos+ppol_cen+ppol_der+ppol_ind+ppol_ninguno+ sexo + edad
+recompe~ID02+ID03+ID04+ID05+ID06+ID07+ID08+ID09+ID10+IDNR+ecin1.2+ecin3.4+ecin5+ecin6.7.8+isco08+isco07+isco06+isco05+isco04+isco03+isco02+isco01+isco_nr+ess+essfam+esshijos+ppol_cen+ppol_der+ppol_ind+ppol_ninguno+ sexo + edad
+'
+fit.sem <-sem(sem,data=elsoc_gini,ordered=c("meduc","mambi","mtdur","resfu","rinte"))
+salirad.est <- as.data.frame(parameterEstimates(fit.sem)[6:37, ])
+recompe.est <- as.data.frame(parameterEstimates(fit.sem)[38:69,])
+
+s1est <- salirad.est
+r1est <- recompe.est
+
+
+#----Crear la tabla-----
+m7salir <- texreg::createTexreg(coef.names  = salirad.est$rhs ,
+                                       coef = salirad.est$est,
+                                         se = salirad.est$z,
+                                    pvalues = salirad.est$pvalue,
+                     gof = c(fitmeasures(fit.sem)[[c(3)]],
+                             fitmeasures(fit.sem)[[c(4)]],
+                             fitmeasures(fit.sem)[[c(18)]],
+                             fitmeasures(fit.sem)[[c(36)]],
+                                    nobs(fit.sem)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+m7reco <-  texreg::createTexreg(coef.names  = recompe.est$rhs ,
+                                       coef = recompe.est$est,
+                                         se = recompe.est$z,
+                                    pvalues = recompe.est$pvalue,
+                     gof = c(fitmeasures(fit.sem)[[c(3)]],
+                             fitmeasures(fit.sem)[[c(4)]],
+                             fitmeasures(fit.sem)[[c(18)]],
+                             fitmeasures(fit.sem)[[c(36)]],
+                                    nobs(fit.sem)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+``` 
+
+```{r MODELO 7b EDUC + INCO + EGP + ESSpropio + ESSfam + ESShijos + CONTROLS,include=FALSE, cache=TRUE}
+elsoc_gini$sexo <- as.numeric(elsoc_gini$sexo)
+sem<-'
+salirad =~meduc+mambi+mtdur
+recompe =~resfu+rinte
+salirad~ID02+ID03+ID04+ID05+ID06+ID07+ID08+ID09+ID10+IDNR+ecin1.2+ecin3.4+ecin5+ecin6.7.8+egp05_obrcalV_VI+egp05_autoemp_IVab_IV_c+egp05_rutnomanualIII+egp05_servicioI_II+egp05_na+ess+essfam+esshijos+ppol_cen+ppol_der+ppol_ind+ppol_ninguno+ sexo + edad
+recompe~ID02+ID03+ID04+ID05+ID06+ID07+ID08+ID09+ID10+IDNR+ecin1.2+ecin3.4+ecin5+ecin6.7.8+egp05_obrcalV_VI+egp05_autoemp_IVab_IV_c+egp05_rutnomanualIII+egp05_servicioI_II+egp05_na+ess+essfam+esshijos+ppol_cen+ppol_der+ppol_ind+ppol_ninguno+ sexo + edad
+'
+#EGP 05 clases
+# egp05_rutnomanualIII+egp05_autoemp_IVab_IV_c+egp05_obrcalV_VI+egp05_obnocalVIIa_VIIb+egp05_na               
+
+fit.sem <-sem(sem,data=elsoc_gini,ordered=c("meduc","mambi","mtdur","resfu","rinte"))
+
+summary(fitMeasures(fit.sem,c("chisq","df","pvalue","cfi","rmsea")))
+summary(fit.sem,  fit.measures=TRUE)
+
+salirad.est <- as.data.frame(parameterEstimates(fit.sem)[6:33, ])
+recompe.est <- as.data.frame(parameterEstimates(fit.sem)[34:61,])
+
+s1est <- salirad.est
+r1est <- recompe.est
+
+
+#----Crear la tabla-----
+m7salir <- texreg::createTexreg(coef.names  = salirad.est$rhs ,
+                                       coef = salirad.est$est,
+                                         se = salirad.est$z,
+                                    pvalues = salirad.est$pvalue,
+                     gof = c(fitmeasures(fit.sem)[[c(3)]],
+                             fitmeasures(fit.sem)[[c(4)]],
+                             fitmeasures(fit.sem)[[c(18)]],
+                             fitmeasures(fit.sem)[[c(36)]],
+                                    nobs(fit.sem)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+m7reco <-  texreg::createTexreg(coef.names  = recompe.est$rhs ,
+                                       coef = recompe.est$est,
+                                         se = recompe.est$z,
+                                    pvalues = recompe.est$pvalue,
+                     gof = c(fitmeasures(fit.sem)[[c(3)]],
+                             fitmeasures(fit.sem)[[c(4)]],
+                             fitmeasures(fit.sem)[[c(18)]],
+                             fitmeasures(fit.sem)[[c(36)]],
+                                    nobs(fit.sem)),
+                    gof.names = ajuste,
+                    gof.decimal =c (TRUE, FALSE,TRUE, TRUE, FALSE))
+``` 
+
+<!-- # TABLAS -->
+
+```{r TABLE MODELOS 1, eval=FALSE, include=FALSE}
+modelos123 <- list(m1salir,m1reco,m2salir,m2reco,m3salir,m3reco)
+coefm123 <- c("Estatus subjetivo propio", "Estatus subjetivo familia","Estatus subjetivo hijos")
+nombres <- c("(1)","(2)",
+             "(1)","(2)",
+             "(1)","(2)")
+test2<- texreg(modelos123, center = TRUE,
+       custom.coef.names = coefm123, 
+       custom.model.names = nombres,
+       dcolumn = TRUE,
+       booktabs = TRUE,
+       use.packages = FALSE,
+       single.row = FALSE,
+       digits = 3,
+       sideways = FALSE,
+       no.margin = FALSE,scalebox = 0.75,
+       caption.above = TRUE, 
+       caption = "Coeficientes de regresión no estandarizados de Estatus subjetivo sobre las variables latentes Salir adelante (1) y Recompensa percibida (2)",
+       custom.note = nota,
+       float.pos = "h!",label = "table:ess123")
+# R.utils::captureOutput(test2, file = "C:/Users/JC/Google Drive/1.Magister/2. Segundo año/Tesis Magister/Primer Semestre/4. Latex Tesis/segundo-semestre/tables/regres123.tex")
+```
+
+```{r TABLE MODELOS 4,5 & 6, eval=FALSE, include=FALSE}
+modelos456 <- list(m4salir,m4reco,m5salir,m5reco,m6salir,m6reco)
+
+coefm456 <- c("Primaria y secundaria baja","Secundaria alta","Terciaria ciclo corto","Terciaria y Postgrado",
+                     "Decil 2",
+                     "Decil 3",
+                     "Decil 4",
+                     "Decil 5",
+                     "Decil 6",
+                     "Decil 7",
+                     "Decil 8",
+                     "Decil 9",
+                     "Decil 10",
+                     "No responde - Decil",
+                     "Operadores de instalaciones/maquina/ensamblaje",
+                     "Oficiales, operarios y artesanos",
+                     "Agricultores y trabajadores calificados",
+                     "Servicios y vendedores de comercios y mercados",
+                     "Personal de apoyo administrativo",
+                     "Técnicos y profesionales de nivel medio",
+                     "Profesionales científicos e intelectuales",
+                     "Directores y gerentes",
+              "No responde - Ocupación")
+
+coefm456 <- c("Primaria y secundaria baja","Secundaria alta","Terciaria ciclo corto","Terciaria y Postgrado",
+                     "Decil 2",
+                     "Decil 3",
+                     "Decil 4",
+                     "Decil 5",
+                     "Decil 6",
+                     "Decil 7",
+                     "Decil 8",
+                     "Decil 9",
+                     "Decil 10",
+                     
+                     "Operadores de instalaciones/maquina/ensamblaje",
+                     "Oficiales, operarios y artesanos",
+                     "Agricultores y trabajadores calificados",
+                     "Servicios y vendedores de comercios y mercados",
+                     "Personal de apoyo administrativo",
+                     "Técnicos y profesionales de nivel medio",
+                     "Profesionales científicos e intelectuales",
+                     "Directores y gerentes")
+
+refm456 <- list("\\textbf{Educación (ref: Primaria incompleta o menos)}" = 1:4 ,
+              "\\textbf{Ingresos (ref: Decil 1)}" = 5:12,
+              "\\textbf{Ocupación (ref: Ocupaciones elementales)}"=13:20)
+
+texreg(modelos456, center = FALSE,
+       custom.coef.names = coefm456,
+       single.row = TRUE,
+       dcolumn = FALSE,
+       booktabs = TRUE,
+       use.packages = FALSE,
+       digits = 2,
+       sideways = FALSE,
+       no.margin = FALSE,
+       scalebox = 0.66,
+       caption.above = TRUE,
+       custom.note = nota2,
+       float.pos = "h!",
+       groups = refm456,
+       omit.coef = "(IDNR)|(isco_nr)",
+       caption = "Coeficientes de regresión no estandarizados de Estatus objetivo sobre las variables latentes Salir adelante (1) y Recompensa percibida (2)")
+```
+
+```{r TABLE MODELO ESSpropio + EDUC + INCO + OCUP + CONTROLS, eval=FALSE, include=FALSE}
+modelos61 <- list(m61salir,m61reco)
+coefm61 <- c("Estatus Subjetivo propio",
+                     "Estatus Subjetivo familia",
+                     "Estatus Subjetivo hijos",
+                     "Primaria y secundaria baja",
+                     "Secundaria alta",
+                     "Terciaria ciclo corto",
+                     "Terciaria y Postgrado",
+                     "Decil 2",
+                     "Decil 3",
+                     "Decil 4",
+                     "Decil 5",
+                     "Decil 6",
+                     "Decil 7",
+                     "Decil 8",
+                     "Decil 9",
+                     "Decil 10",
+                     "No responde - Decil",
+                     "Operadores de instalaciones/maquina/ensamblaje",
+                     "Oficiales, operarios y artesanos",
+                     "Agricultores y trabajadores calificados",
+                     "Servicios y vendedores de comercios y mercados",
+                     "Personal de apoyo administrativo",
+                     "Técnicos y profesionales de nivel medio",
+                     "Profesionales científicos e intelectuales",
+                     "Directores y gerentes",
+                     "No responde - ISCO",
+                     "Centro",
+                     "Derecha/Centro Derecha",
+                     "Independiente",
+                     "Ninguno",
+                     "Mujer",
+                     "Edad")
+refm61 <- list("\\textbf{Educación (ref: Primaria incompleta o menos)}" = 4:7 ,
+              "\\textbf{Ingresos (ref: Decil 1)}" = 8:16,
+              "\\textbf{Ocupación (ref: Ocupaciones elementales)}"=17:24,
+              "\\textbf{Posición política (ref: Izquierda/centro Izquierda)}"=25:30)
+
+texreg(modelos61)
+```
+
+```{r TABLE MODELO 7, eval=FALSE, include=FALSE}
+modelos7 <- list(m7salir,m7reco)
+coefm7 <- c("Estatus Subjetivo propio",
+                     "Estatus Subjetivo familia",
+                     "Estatus Subjetivo hijos",
+                     "Primaria y secundaria baja",
+                     "Secundaria alta",
+                     "Terciaria ciclo corto",
+                     "Terciaria y Postgrado",
+                     "Decil 2",
+                     "Decil 3",
+                     "Decil 4",
+                     "Decil 5",
+                     "Decil 6",
+                     "Decil 7",
+                     "Decil 8",
+                     "Decil 9", 
+                     "Decil 10",
+                     "No responde - Decil",
+                     "Operadores de instalaciones/maquina/ensamblaje",
+                     "Oficiales, operarios y artesanos",
+                     "Agricultores y trabajadores calificados",
+                     "Servicios y vendedores de comercios y mercados",
+                     "Personal de apoyo administrativo",
+                     "Técnicos y profesionales de nivel medio",
+                     "Profesionales científicos e intelectuales",
+                     "Directores y gerentes",
+                     "No responde - ISCO",
+                      "Centro",
+                     "Derecha/Centro Derecha",
+                     "Independiente",
+                     "Ninguno",
+                     "Mujer",
+                     "Edad")
+# coefm7 <- c("Estatus Subjetivo propio",
+#                      "Estatus Subjetivo familia",
+#                      "Estatus Subjetivo hijos",
+#                      "Primaria y secundaria baja",
+#                      "Secundaria alta",
+#                      "Terciaria ciclo corto",
+#                      "Terciaria y Postgrado",
+#                      "Decil 2",
+#                      "Decil 3",
+#                      "Decil 4",
+#                      "Decil 5",
+#                      "Decil 6",
+#                      "Decil 7",
+#                      "Decil 8",
+#                      "Decil 9",
+#                      "Decil 10",
+#             
+#                      "Operadores de instalaciones/maquina/ensamblaje",
+#                      "Oficiales, operarios y artesanos",
+#                      "Agricultores y trabajadores calificados",
+#                      "Servicios y vendedores de comercios y mercados",
+#                      "Personal de apoyo administrativo",
+#                      "Técnicos y profesionales de nivel medio",
+#                      "Profesionales científicos e intelectuales",
+#                      "Directores y gerentes",
+#                      
+#                       "Centro",
+#                      "Derecha/Centro Derecha",
+#                      "Independiente",
+#                      "Ninguno",
+#                      "Mujer",
+#                      "Edad")
+
+refm7 <- list("\\textbf{Educación (ref: Primaria incompleta o menos)}" = 4:7 ,
+              "\\textbf{Ingresos (ref: Decil 1)}" = 8:16,
+              "\\textbf{Ocupación (ref: Ocupaciones elementales)}"=17:24,
+              "\\textbf{Posición política (ref: Izquierda/centro Izquierda)}"=25:30)
+
+texreg(modelos7, center = TRUE,
+       custom.coef.names = coefm7,
+       dcolumn = TRUE,
+       booktabs = TRUE,
+       use.packages = FALSE,
+       single.row = FALSE,digits = 2,
+       sideways = FALSE,
+       no.margin = FALSE,scalebox = 0.60,
+       caption.above = TRUE,
+       custom.note = nota2,
+       float.pos = "H",
+       groups = refm7,
+       caption = "Modelos de ecuaciones estructurales para el Estatus Social Subjetivo y Objetivo con las variables latentes \\textit{Salir adelante} (1) y \\textit{Recompensa percibida} (2)")
+```
+
+```{r TABLE MODELOS 1,2,3,4,5,6 & 7, eval=FALSE, include=FALSE}
+modelos8 <- list(m4salir,m4reco,m5salir,m5reco,m6salir,m6reco,m3salir,m3reco,m7salir,m7reco)
+coefm7 <- c("Estatus Subjetivo propio",
+                     "Estatus Subjetivo familia",
+                     "Estatus Subjetivo hijos",
+                     "Primaria y secundaria baja",
+                     "Secundaria alta",
+                     "Terciaria ciclo corto",
+                     "Terciaria y Postgrado",
+                     "Decil 2",
+                     "Decil 3",
+                     "Decil 4",
+                     "Decil 5",
+                     "Decil 6",
+                     "Decil 7",
+                     "Decil 8",
+                     "Decil 9",
+                     "Decil 10",
+                     "No responde - Decil",
+                     "Operadores de instalaciones/maquina/ensamblaje",
+                     "Oficiales, operarios y artesanos",
+                     "Agricultores y trabajadores calificados",
+                     "Servicios y vendedores de comercios y mercados",
+                     "Personal de apoyo administrativo",
+                     "Técnicos y profesionales de nivel medio",
+                     "Profesionales científicos e intelectuales",
+                     "Directores y gerentes",
+                     "No responde - ISCO",
+                      "Centro",
+                     "Derecha/Centro Derecha",
+                     "Independiente",
+                     "Ninguno",
+                     "Mujer",
+                     "Edad")
+refm7 <- list("\\textbf{Educación (ref: Primaria incompleta o menos)}" = 4:7 ,
+              "\\textbf{Ingresos (ref: Decil 1)}" = 8:17,
+              "\\textbf{Ocupación (ref: Ocupaciones elementales)}"=18:26,
+              "\\textbf{Posición política (ref: Izquierda/centro Izquierda)}"=27:30)
+anexo1 <- texreg(modelos8, center = TRUE,
+       custom.coef.names = coefm7,
+       custom.model.names = c("(1)","(2)","(1)","(2)","(1)","(2)","(1)","(2)","(1)","(2)"),
+       dcolumn = TRUE,
+       booktabs = TRUE,
+       use.packages = FALSE,
+       single.row = FALSE,digits = 2,
+       sideways = FALSE,
+       no.margin = FALSE,scalebox = 0.54,
+       caption.above = TRUE,
+       custom.note = nota2,
+       float.pos = "!htpb",
+       groups = refm7,
+       label = "tab:anexo1",
+       caption = "Modelos de ecuaciones estructurales para el Estatus Social Subjetivo y Objetivo con las variables latentes \\textit{Salir adelante} (1) y \\textit{Recompensa percibida} (2)")
+```
+
+```{r TABLE MODELOS 1,2,3,4,5,6 & 7 / SIN NS/NR, eval=FALSE, include=FALSE}
+coefm7a <- c("Estatus Subjetivo propio",
+                     "Estatus Subjetivo familia",
+                     "Estatus Subjetivo hijos",
+                     "Primaria y secundaria baja",
+                     "Secundaria alta",
+                     "Terciaria ciclo corto",
+                     "Terciaria y Postgrado",
+                     "Decil 2",
+                     "Decil 3",
+                     "Decil 4",
+                     "Decil 5",
+                     "Decil 6",
+                     "Decil 7",
+                     "Decil 8",
+                     "Decil 9",
+                     "Decil 10",
+                     "Operadores de instalaciones/maquina/ensamblaje",
+                     "Oficiales, operarios y artesanos",
+                     "Agricultores y trabajadores calificados",
+                     "Servicios y vendedores de comercios y mercados",
+                     "Personal de apoyo administrativo",
+                     "Técnicos y profesionales de nivel medio",
+                     "Profesionales científicos e intelectuales",
+                     "Directores y gerentes",
+                      "Centro",
+                     "Derecha/Centro Derecha",
+                     "Independiente",
+                     "Ninguno",
+                     "Mujer",
+                     "Edad")
+
+
+texreg(modelos8, center = TRUE,
+       custom.coef.names = coefm7a,
+       custom.model.names = c("(1)","(2)","(1)","(2)","(1)","(2)","(1)","(2)","(1)","(2)"),
+       dcolumn = FALSE,
+       booktabs = TRUE,
+       use.packages = FALSE,
+       single.row = TRUE,digits = 2,
+       sideways = TRUE,
+       no.margin = FALSE,scalebox = 0.65,
+       caption.above = TRUE,
+       custom.note = nota2,
+       float.pos = "!htpb",
+       groups = refm7,
+       omit.coef = "(IDNR)|(isco_nr)",
+       caption = "Coeficientes de regresión no estandarizados de Estatus subjetivo y objetivo sobre las variables latentes \\textit{Salir adelante} (1) y \\textit{Recompensa percibida} (2)")
+```
+
+```{r TABLE MODELOS 1,2,3,4,5,6 & 7 / SIN CONTROLS & NS/NR, eval=FALSE, include=FALSE}
+coefm8 <- c("Estatus Subjetivo propio",
+                     "Estatus Subjetivo familia",
+                     "Estatus Subjetivo hijos",
+                     "Primaria y secundaria baja",
+                     "Secundaria alta",
+                     "Terciaria ciclo corto",
+                     "Terciaria y Postgrado",
+                     "Decil 2",
+                     "Decil 3",
+                     "Decil 4",
+                     "Decil 5",
+                     "Decil 6",
+                     "Decil 7",
+                     "Decil 8",
+                     "Decil 9",
+                     "Decil 10",
+                     "Operadores de instalaciones/maquina/ensamblaje",
+                     "Oficiales, operarios y artesanos",
+                     "Agricultores y trabajadores calificados",
+                     "Servicios y vendedores de comercios y mercados",
+                     "Personal de apoyo administrativo",
+                     "Técnicos y profesionales de nivel medio",
+                     "Profesionales científicos e intelectuales",
+                     "Directores y gerentes")
+
+refm8 <- list("\\textbf{Educación (ref: Primaria incompleta o menos)}" = 4:7 ,
+              "\\textbf{Ingresos (ref: Decil 1)}" = 8:16,
+              "\\textbf{Ocupación (ref: Ocupaciones elementales)}"=17:24)
+test <- texreg(modelos8, center = TRUE,
+          custom.coef.names = coefm8,
+          custom.model.names = c("(1)","(2)","(1)","(2)","(1)","(2)","(1)","(2)","(1)","(2)"),
+          dcolumn = TRUE,
+          booktabs = TRUE,
+          use.packages = FALSE,
+          single.row = FALSE,digits = 3,
+          sideways = FALSE,
+          no.margin = TRUE,scalebox = 0.65,
+          caption.above = TRUE,
+          custom.note = nota3,
+          float.pos = "!htpb",
+          groups = refm8,
+          label = "anexo1",
+          omit.coef = "(IDNR)|(isco_nr)|(ppol_cen)|(ppol_der)|(ppol_ind)|(ppol_ninguno)|(sexo)|(edad)",
+          caption = "Coeficientes de regresión no estandarizados de Estatus subjetivo y objetivo sobre las variables latentes \\textit{Salir adelante} (1) y \\textit{Recompensa percibida} (2)")
+test
+# R.utils::captureOutput(test, file = "C:/Users/JC/Google Drive/1.Magister/2. Segundo año/Tesis Magister/Primer Semestre/4. Latex Tesis/segundo-semestre/tables/regres17.tex")
+# R.utils::captureOutput(test, file = "C:/Users/JC/Google Drive/1.Magister/2. Segundo año/Tesis Magister/Primer Semestre/4. Latex Tesis/segundo-semestre/tables/regres17b.tex")
+```
+
+```{r TABLE MODELOS 1:7 by hypotheses *MODELO 3 / SIN CONTROLS & NS/NR, eval=FALSE, include=FALSE}
+modelos9 <- list(m5salir,m5reco,m4salir,m4reco,m6salir,m6reco,m3salir,m3reco,m7salir,m7reco)
+coefm9 <- c("Decil 2",
+            "Decil 3",
+            "Decil 4",
+            "Decil 5",
+            "Decil 6",
+            "Decil 7",
+            "Decil 8",
+            "Decil 9",
+            "Decil 10",
+            "Primaria y secundaria baja",
+            "Secundaria alta",
+            "Terciaria ciclo corto",
+            "Terciaria y Postgrado",
+            "Operadores de instalaciones/maquina/ensamblaje",
+            "Oficiales, operarios y artesanos",
+            "Agricultores y trabajadores calificados",
+            "Servicios y vendedores de comercios y mercados",
+            "Personal de apoyo administrativo",
+            "Técnicos y profesionales de nivel medio",
+            "Profesionales científicos e intelectuales",
+            "Directores y gerentes",
+            "Estatus Subjetivo propio",
+            "Estatus Subjetivo familia",
+            "Estatus Subjetivo hijos")
+refm9 <- list("\\textbf{Ingresos (ref: Decil 1)}" = 1:9,
+              "\\textbf{Educación (ref: Primaria incompleta o menos)}" = 10:13 ,
+              "\\textbf{Ocupación (ref: Ocupaciones elementales)}"=14:21)
+test <- texreg(modelos9, center = TRUE,
+          custom.coef.names = coefm9,
+          custom.model.names = c("(1)","(2)","(1)","(2)","(1)","(2)","(1)","(2)","(1)","(2)"),
+          dcolumn = TRUE,
+          booktabs = TRUE,
+          use.packages = FALSE,
+          single.row = FALSE,digits = 3,
+          sideways = FALSE,
+          no.margin = TRUE,scalebox = 0.65,
+          caption.above = TRUE,
+          custom.note = nota3,
+          float.pos = "!htpb",
+          groups = refm9,
+          label = "anexo1",
+          omit.coef = "(IDNR)|(isco_nr)|(ppol_cen)|(ppol_der)|(ppol_ind)|(ppol_ninguno)|(sexo)|(edad)",
+          caption = "Coeficientes de regresión no estandarizados de Estatus subjetivo y objetivo sobre las variables latentes \\textit{Salir adelante} (1) y \\textit{Recompensa percibida} (2)")
+test
+```
+
+```{r TABLE MODELOS 1:7 by hypotheses *MODELO33, eval=FALSE, include=FALSE}
+modelos10 <- list(m5salir,m5reco,m4salir,m4reco,m6salir,m6reco,m1salir,m1reco,m33salir,m33reco,m7salir,m7reco)
+coefm10 <- c("Decil 2",
+             "Decil 3", 
+             "Decil 4",
+             "Decil 5",
+             "Decil 6",
+             "Decil 7",
+             "Decil 8",
+             "Decil 9",
+             "Decil 10",
+             "No responde - Decil",
+             "Primaria y secundaria baja",
+             "Secundaria alta",
+             "Terciaria ciclo corto",
+             "Terciaria y Postgrado",
+             "Operadores de instalaciones/maquina/ensamblaje",
+             "Oficiales, operarios y artesanos",
+             "Agricultores y trabajadores calificados",
+             "Servicios y vendedores de comercios y mercados",
+             "Personal de apoyo administrativo",
+             "Técnicos y profesionales de nivel medio",
+             "Profesionales científicos e intelectuales",
+             "Directores y gerentes",
+             "No responde - ISCO",
+             "Estatus Subjetivo propio",
+             "Estatus Subjetivo familia",
+             "Estatus Subjetivo hijos",
+             "Centro",
+             "Derecha/Centro Derecha",
+             "Independiente",
+             "Ninguno",
+             "Mujer",
+             "Edad")
+refm10 <- list("\\textbf{Ingresos (ref: Decil 1)}" = 1:10 ,
+              "\\textbf{Educación (ref: Primaria incompleta o menos)}" = 11:14,
+              "\\textbf{Ocupación (ref: Ocupaciones elementales)}"=15:23,
+              "\\textbf{Estatus subjetivo}"=24:26,
+              "\\textbf{Posición política (ref: Izquierda/centro Izquierda)}"=27:30)
+anexo1 <- texreg(modelos10, center = TRUE,
+       custom.coef.names = coefm10,
+       custom.model.names = c("(1)","(2)","(1)","(2)","(1)","(2)","(1)","(2)","(1)","(2)","(1)","(2)"),
+       dcolumn = TRUE,
+       booktabs = TRUE,
+       use.packages = FALSE,
+       single.row = FALSE,digits = 2,
+       sideways = FALSE,
+       no.margin = FALSE,scalebox = 0.55,
+       caption.above = TRUE,
+       custom.note = nota,
+       float.pos = "H",
+       groups = refm10,
+       label = "tab:anexo1b",
+       caption = "Modelos de ecuaciones estructurales para el Estatus Social Subjetivo y Objetivo con las variables latentes \\textit{Salir adelante} (1) y \\textit{Recompensa percibida} (2)")
+anexo1
+```
+
+```{r TABLE MODELOS by hypotheses (Salir adelante & Recompensa percibida) / controlando por todo, eval=FALSE, include=FALSE}
+modelos10 <- list(m61salir,m61reco,m62salir,m62reco,m7salir,m7reco)
+coefm10 <- c("Estatus Subjetivo propio",
+             "Primaria y secundaria baja",
+                     "Secundaria alta",
+                     "Terciaria ciclo corto",
+                     "Terciaria y Postgrado",
+                     "Decil 2",
+                     "Decil 3", 
+                     "Decil 4",
+                     "Decil 5",
+                     "Decil 6",
+                     "Decil 7",
+                     "Decil 8",
+                     "Decil 9",
+                     "Decil 10",
+                     "No responde - Decil",
+                     "Operadores de instalaciones/maquina/ensamblaje",
+                     "Oficiales, operarios y artesanos",
+                     "Agricultores y trabajadores calificados",
+                     "Servicios y vendedores de comercios y mercados",
+                     "Personal de apoyo administrativo",
+                     "Técnicos y profesionales de nivel medio",
+                     "Profesionales científicos e intelectuales",
+                     "Directores y gerentes",
+                     "No responde - ISCO",
+                     "Centro",
+                     "Derecha/Centro Derecha",
+                     "Independiente",
+                     "Ninguno",
+                     "Mujer",
+                     "Edad",
+                     "Estatus Subjetivo familia",
+                     "Estatus Subjetivo hijos")
+refm10 <- list("\\textbf{Ingresos (ref: Decil 1)}" = 1:10 ,
+              "\\textbf{Educación (ref: Primaria incompleta o menos)}" = 11:14,
+              "\\textbf{Ocupación (ref: Ocupaciones elementales)}"=15:23,
+              "\\textbf{Estatus subjetivo}"=24:26,
+              "\\textbf{Posición política (ref: Izquierda/centro Izquierda)}"=27:30)
+
+reorder <- c(6,7,8,9,10,11,12,13,14,15,2,3,4,5,16,17,18,19,20,21,22,23,24,1,31,32,25,26,27,28,29,30)
+anexo1 <- texreg(modelos10, center = TRUE,
+       custom.coef.names = coefm10,
+       custom.model.names = c("(1)","(2)","(1)","(2)","(1)","(2)"),
+       dcolumn = TRUE,
+       booktabs = TRUE,
+       use.packages = FALSE,
+       single.row = FALSE,digits = 2,
+       sideways = FALSE,
+       no.margin = FALSE,scalebox = 0.65,
+       caption.above = TRUE,
+       custom.note = nota,
+       float.pos = "H",
+       groups = refm10,
+       label = "tab:anexo1b",
+       reorder.coef = reorder,
+       caption = "Modelos de ecuaciones estructurales para el Estatus Social Subjetivo y Objetivo con las variables latentes \\textit{Salir adelante} (1) y \\textit{Recompensa percibida} (2)")
+
+anexo1
+```
+
+## 1. Modelos por orden de hipótesis: **Salir Adelante**
+
+```{r TABLE MODELOS by hypotheses (Salir adelante) / controlando por todo, echo=FALSE}
+modelos9a <- list(m5salir,m4salir,m6salir,m1salir,m33salir,m61salir,m7salir)
+coefm9 <- c("Decil 2",
+            "Decil 3",
+            "Decil 4",
+            "Decil 5",
+            "Decil 6",
+            "Decil 7",
+            "Decil 8",
+            "Decil 9",
+            "Decil 10",
+            "Primaria y secundaria baja",
+            "Secundaria alta",
+            "Terciaria ciclo corto",
+            "Terciaria y Postgrado",
+            "Obrero calificado (V+VI)",
+            "Rutinas no manuales(III)",
+            "Auto Empleo(IVab+IVc)",
+            "Servicio (I+II)",
+            "Estatus Subjetivo propio",
+            "Estatus Subjetivo familia",
+            "Estatus Subjetivo hijos")
+
+refm9 <- list("\\textbf{Ingresos (ref: Decil 1)}" = 1:9 ,
+               "\\textbf{Educación (ref: Primaria incompleta o menos)}"= 10:13,
+              "\\textbf{Ocupación (ref: Obrero no calificado (VIIa+VIIb))}"=14:17)
+
+# screenreg(modelos9a)
+semSAD <- texreg(modelos9a, center = TRUE,
+          custom.coef.names = coefm9,
+          custom.model.names = c("Modelo 1","Modelo 2","Modelo 3","Modelo 4","Modelo 5","Modelo 6","Modelo 7"),
+          dcolumn = TRUE,
+          booktabs = TRUE,
+          use.packages = FALSE,
+          single.row = FALSE,digits = 3,
+          sideways = FALSE,
+          no.margin = FALSE,scalebox = 0.65,
+          caption.above = TRUE,
+          custom.note = nota3,
+          float.pos = "H",
+          groups = refm9,
+          label = "table:semSAD",
+          omit.coef = "(IDNR)|(egp05_na)|(ppol_cen)|(ppol_der)|(ppol_ind)|(ppol_ninguno)|(sexo)|(edad)",
+          caption = "Modelos de ecuaciones estructurales para el Estatus Social Subjetivo y Objetivo con la variable latente \\textit{Salir adelante} (1)")
+semSAD
+
+```
+
+## 2. Modelos por orden de hipótesis: **Recompensa percibida** 
+
+```{r TABLE MODELOS by hypotheses (Recompensa percibida) / controlando por todo, echo=FALSE}
+modelos9b <- list(m5reco,m4reco,m6reco,m1reco,m33reco,m61reco,m7reco)
+coefm9 <- c("Decil 2",
+            "Decil 3",
+            "Decil 4",
+            "Decil 5",
+            "Decil 6",
+            "Decil 7",
+            "Decil 8",
+            "Decil 9",
+            "Decil 10",
+            "Primaria y secundaria baja",
+            "Secundaria alta",
+            "Terciaria ciclo corto",
+            "Terciaria y Postgrado",
+            "Obrero calificado (V+VI)",
+            "Rutinas no manuales(III)",
+            "Auto Empleo(IVab+IVc)",
+            "Servicio (I+II)",
+            "Estatus Subjetivo propio",
+            "Estatus Subjetivo familia",
+            "Estatus Subjetivo hijos")
+refm9 <- list("\\textbf{Ingresos (ref: Decil 1)}" = 1:9 ,
+               "\\textbf{Educación (ref: Primaria incompleta o menos)}"= 10:13,
+              "\\textbf{Ocupación (ref: Obrero no calificado (VIIa+VIIb))}"=14:17)
+semREC <- texreg(modelos9b, center = TRUE,
+          custom.coef.names = coefm9,
+          custom.model.names = c("Modelo 1","Modelo 2","Modelo 3","Modelo 4","Modelo 5","Modelo 6","Modelo 7"),
+          dcolumn = TRUE,
+          booktabs = TRUE,
+          use.packages = FALSE,
+          single.row = FALSE,digits = 3,
+          sideways = FALSE,
+          no.margin = FALSE,scalebox = 0.65,
+          caption.above = TRUE,
+          custom.note = nota3,
+          float.pos = "H",
+          groups = refm9,
+          label = "table:semREC",
+          omit.coef = "(IDNR)|(egp05_na)|(ppol_cen)|(ppol_der)|(ppol_ind)|(ppol_ninguno)|(sexo)|(edad)",
+          caption = "Modelos de ecuaciones estructurales para el Estatus Social Subjetivo y Objetivo con la variable latente \\textit{Recompensa percibida} (2)")
+semREC
+```
+
+
+## 3. Análisis de Mediación
+
+```{r MODELO 8: mediacion-educ-ess-full, include=FALSE, cache=TRUE}
+elsoc_gini$sexo <- as.numeric(elsoc_gini$sexo)
+con4<-'
+#modelo de medicion
+salirad =~meduc+mambi+mtdur
+recompe =~resfu+rinte
+#regresion sobre salir adelante
+salirad~b1*ess+essfam+esshijos+
+c1*ecin1.2+c11*ecin3.4+c111*ecin5+c1111*ecin6.7.8+
+ID02+ID03+ID04+ID05+ID06+ID07+ID08+ID09+ID10+IDNR+egp05_obrcalV_VI+egp05_autoemp_IVab_IV_c+egp05_rutnomanualIII+egp05_servicioI_II+egp05_na+ppol_cen+ppol_der+ppol_ind+ppol_ninguno+ sexo + edad
+#regresion sobre recompensa percibida
+recompe~b2*ess+essfam+esshijos+
+c2*ecin1.2+c22*ecin3.4+c222*ecin5+c2222*ecin6.7.8+
+ID02+ID03+ID04+ID05+ID06+ID07+ID08+ID09+ID10+IDNR + egp05_obrcalV_VI+egp05_autoemp_IVab_IV_c+egp05_rutnomanualIII+egp05_servicioI_II+egp05_na+ ppol_cen+ppol_der+ppol_ind+ppol_ninguno+ sexo + edad
+
+#Desde principal a mediador (a)
+ess~a11*ecin1.2
+ess~a12*ecin3.4
+ess~a13*ecin5
+ess~a14*ecin6.7.8
+
+#Efecto indirecto (a*b)
+ind1:=a11*b1 
+ind2:=a12*b1
+ind3:=a13*b1
+ind4:=a14*b1
+
+total1a:= c1   + (a11*b1)
+total1b:= c11  + (a12*b1)
+total1c:= c111 + (a13*b1)
+total1d:= c111 + (a14*b1)
+
+ind5:=a11*b2 
+ind6:=a12*b2
+ind7:=a13*b2
+ind8:=a14*b2
+
+total2a:= c2    + (a11*b2)
+total2b:= c22   + (a12*b2)
+total2c:= c222  + (a13*b2)
+total2d:= c2222 + (a14*b2)
+
+
+ratio1:=ind1/total1a
+ratio2:=ind2/total1b
+ratio3:=ind3/total1c
+ratio4:=ind4/total1d
+
+ratio5:=ind5/total2a
+ratio6:=ind6/total2b
+ratio7:=ind7/total2c
+ratio8:=ind8/total2d
+'
+
+fit.total2 <-sem(con4,data=elsoc_gini,ordered=c("meduc","mambi","mtdur","resfu","rinte"))
+fit.tot.mes2 <- fitMeasures(fit.total2,c("chisq","df","pvalue","cfi","rmsea"))
+
+summary(fit.total2, standardized = TRUE)
+med1 <- standardizedsolution(fit.total2)
+
+
+
+# Efecto indirecto pasando por ESS propio-------
+
+med1sa<- med1[c(9:12,513:516,517:520,529:532),]  #salir adelante
+med1re<- med1[c(37:40,521:524,525:528,533:536),] #Recompensa 
+```
+
+```{r TABLE: Mediacion-coef-estandarizados, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+#Mediacion de estatus propio sobre Salir adelante
+tabmed1sa<- texreg::createTexreg(coef.names = med1sa$rhs,
+                                 coef = med1sa$est.std,
+                                 se = med1sa$z,
+                                 pvalues = med1sa$pvalue)
+#Mediacion de estatus propio sobre Recompensa
+tabmed1re<- texreg::createTexreg(coef.names = med1re$rhs,
+                                 coef = med1re$est.std,
+                                 se = med1re$z,
+                                 pvalues = med1re$pvalue)
+tabmed1sa@coef.names <- c("ecin1.2","ecin3.4","ecin5","ecin6.7.8","a11*b2","a12*b2","a13*b2","a14*b2","c2+(a11*b2)","c22+(a12*b2)","c222+(a13*b2)","c2222+(a14*b2)","ind5/total2a","ind6/total2b","ind7/total2c","ind8/total2d")
+tabmed1re@coef.names <- c("ecin1.2","ecin3.4","ecin5","ecin6.7.8","a11*b2","a12*b2","a13*b2","a14*b2","c2+(a11*b2)","c22+(a12*b2)","c222+(a13*b2)","c2222+(a14*b2)","ind5/total2a","ind6/total2b","ind7/total2c","ind8/total2d")
+   
+   
+
+   
+   
+coefmed <- c("Primaria o secundaria baja", 
+             "Secundaria alta", 
+             "Terciaria ciclo corto", 
+             "Terciaria y Postgrado",
+             "Ind: Primaria o secundaria baja", 
+             "Ind: Secundaria alta", 
+             "Ind: Terciaria ciclo corto", 
+             "Ind: Terciaria y Postgrado", 
+             "Total (Primaria o secundaria baja)",
+             "Total (Secundaria alta)",
+             "Total (Terciaria ciclo corto)",
+             "Total (Terciaria y Postgrado)",
+             "Ind/Total: (Primaria o secundaria baja)",
+             "Ind/Total: (Secundaria alta)",
+             "Ind/Total: (Terciaria ciclo corto)",
+             "Ind/Total: (Terciaria y Postgrado)") 
+
+gruposmed <- list("\\textbf{Directo (ref: Primaria incompleta o menos)}" = 1:4,
+              "\\textbf{Indirecto (a*b):}" = 5:8,
+              "\\textbf{Total (c+(a*b)):}" = 9:12,
+              "\\textbf{Ratio:}" =13:16)
+
+nota4 <- c("\\parbox{0.5\\linewidth}{\\vspace{2pt} Valores $z$ entre paréntesis  \\\\ 
+          $^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$. \\\\
+          \\textbf{\\textit{Nota}}: Coeficientes de regresión estandarizados.}")
+texreg(list(tabmed1sa,tabmed1re),
+       float.pos = "H",
+       dcolumn = TRUE,
+       digits = 2,
+       custom.coef.names = coefmed,
+       custom.model.names = c("(1)", "(2)"),
+       scalebox = 1,
+       booktabs = TRUE,
+       label = "table:med1",
+       use.packages = FALSE,
+       groups = gruposmed,
+       caption = "Efectos Directos e Indirectos de Educación sobre \\textit{Salir Adelante} (1) y \\textit{Recompensa percibida} (2) via Estatus subjetivo propio",
+       caption.above = TRUE,
+       custom.note = nota4)
+
+```
+
+
+```{r render-documento, eval=FALSE, include=FALSE}
+
+rmarkdown::render(input = here("code","20190819_models_by-hypotheses-egp05.rmd"),
+                  output_file = here("code","20190819_models_by-hypotheses-egp05.pdf"), encoding = "UTF-8")
+
+```
+

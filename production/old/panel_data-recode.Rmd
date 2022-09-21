@@ -1,0 +1,167 @@
+---
+title: "panel_data-recode"
+author: "Julio César Iturra Sanhueza"
+date: "16-10-2019"
+output: html_document
+---
+
+
+```{r}
+library(dplyr)
+library(sjlabelled)
+library(here)
+library(sjPlot)
+setwd(dir = here())
+elsoc00 <- read_stata(path = "code/data/ELSOC_Wide_2016_2018_v1.00_Stata13.dta") 
+# view_df(elsoc00)
+```
+
+# Variables de interés 
+
+## Controles 
+m0_sexo_ = Sexo del entrevistado
+m0_edad_ = Edad del entrevistado
+ 
+## Estatus Subjetivo 
+
+d01_01_  = Estatus Social subjetivo propio
+d01_02_  = Estatus Social Subjetivo familia origen
+d01_03_  = Estatus Social Subjetivo hijos en el futuro
+
+# Estatus Objetivo
+
+m01_     = Nivel Educacional
+
+m13_     = Ingreso mensual entrevistado (monto)
+m14_     = Ingreso mensual entrevistado (en tramos)
+
+cod_m03_ = ISCO 88 (ocupacion)
+m06_     = Cantidad de personas supervisadas (autoridad)
+m07_     = Relacion de empleo (autoempleado)
+
+d03_01_  = Salario percibido: Gerente
+d03_02_  = Salario percibido: Obrero
+
+c15_     = Posicion politica
+
+## Percepcion de meritocracia
+
+c18_09_  = Grado de acuerdo: Las personas son recompensadas por sus esfuerzos
+c18_10_  = Grado de acuerdo: Las personas son recompensada por su inteligencia
+
+
+```{r}
+rawdat <- elsoc00 %>% select(idencuesta, 
+                             starts_with(match = "m0_sexo_"),
+                             starts_with(match = "m0_edad_"),
+                             starts_with(match = "d01_01_"),
+                             starts_with(match = "m01_"),
+                             starts_with(match = "m01_"),
+                             starts_with(match = "m13_"),
+                             starts_with(match = "m14_"),
+                             starts_with(match = "cod_m03_"),
+                             starts_with(match = "m06_"),
+                             starts_with(match = "m07_"),
+                             starts_with(match = "d03_01_"),
+                             starts_with(match = "d03_02_"),
+                             starts_with(match = "c15_"),
+                             starts_with(match = "c18_09_"),
+                             starts_with(match = "c18_10_")
+                             )
+```
+
+* Recodificar posición política "No sabe/no responde" 
+
+```{r}
+table(rawdat$c15_w01)
+table(rawdat$c15_w02)
+table(rawdat$c15_w03)
+rawdat$c15_w01[rawdat$c15_w01 %in% c("-999","-888") ] <- 12
+rawdat$c15_w02[rawdat$c15_w02 %in% c("-999","-888") ] <- 12
+rawdat$c15_w03[rawdat$c15_w03 %in% c("-999","-888") ] <- 12
+```
+
+```{r}
+rawdat[rawdat ==-999] <- NA
+rawdat[rawdat ==-888] <- NA
+```
+
+
+* Estatus objetivo y controles : Ola 1
+* Estatus Subjetivo: Ola 2
+* Percepción de Meritocracia: Ola 3 
+
+```{r}
+dat <- rawdat %>% select(
+  idencuesta,
+  sexo = m0_sexo_w01,
+  edad = m0_edad_w01,
+  ppol = c15_w01,
+  educ = m01_w01,
+  ingreso = m13_w01,
+  ingresocat = m14_w01,
+  isco88 = cod_m03_w01,
+  nemp = m06_w01,
+  relemp = m07_w01,
+  ess = d01_01_w02,
+  salger = d03_01_w02,
+  salobr = d03_02_w02,
+  meffort = c18_09_w03,
+  mtalent = c18_10_w03
+)
+dat$isco88 <- as.numeric(dat$isco88)
+```
+                             
+
+```{r}
+corrplot::corrplot.mixed(cor(dat,use = "complete.obs"))
+```
+
+# Creación de variables nuevas
+
+```{r salary-gap-perc}
+dat$gaper   <- (dat$salger/dat$salobr)  
+dat$lngaper <- log(dat$gaper)  
+```
+
+# Estatus Objetivo
+
+```{r ingresos}
+dat$ingreso[dat$ingresocat == 1]  <- 40000
+dat$ingreso[dat$ingresocat == 2]  <- 62501
+dat$ingreso[dat$ingresocat == 3]  <- 105001
+dat$ingreso[dat$ingresocat == 4]  <- 147501
+dat$ingreso[dat$ingresocat == 5]  <- 190001
+dat$ingreso[dat$ingresocat == 6]  <- 220001
+dat$ingreso[dat$ingresocat == 7]  <- 255001
+dat$ingreso[dat$ingresocat == 8]  <- 300001
+dat$ingreso[dat$ingresocat == 9]  <- 340001
+dat$ingreso[dat$ingresocat == 10] <- 380001
+dat$ingreso[dat$ingresocat == 11] <- 432501
+dat$ingreso[dat$ingresocat == 12] <- 502501
+dat$ingreso[dat$ingresocat == 13] <- 602501
+dat$ingreso[dat$ingresocat == 14] <- 757501
+dat$ingreso[dat$ingresocat == 15] <- 1075001
+dat$ingreso[dat$ingresocat == 16] <- 1300001
+dat$ingreso <- as.numeric(dat$ingreso)
+dat <- dat %>% mutate(inc10 = ntile(ingreso, 10)) #Crear Deciles de ingreso
+table(dat$inc10)
+```
+
+```{r educacion}
+dat$edcine2 <- car::recode(dat$educ, "c(1,2)=1; c(3)=2;c(4,5)=3;c(6,7)=4;c(8,9,10)=5")
+round(prop.table(table(dat$edcine2)), 3)
+
+dat$edcine2 <- factor(dat$edcine2,levels = c(1,2,3,4,5), 
+                        labels=c("cine0",
+                                 "cine12",
+                                 "cine34",
+                                 "cine5",
+                                 "cine678"))
+round(prop.table(table(dat$edcine2)), 3)
+```
+
+
+
+                             
+                             

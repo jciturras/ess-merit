@@ -1,0 +1,747 @@
+\documentclass[12pt]{article}
+\renewcommand{\baselinestretch}{1.5} %Interlineado
+\usepackage[spanish,es-tabla,es-nodecimaldot]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[round]{natbib}
+\setlength{\bibsep}{0.0mm}
+\usepackage{graphicx} %Para poder mantener el largo de las tablas
+\usepackage{hyperref} %Para links, citas, etc.
+\usepackage{booktabs} %Para las tablas con líneas horizontales
+\usepackage{threeparttable} %tablas de tres partes
+\usepackage{multirow} %para las celdas fusionadas
+\usepackage{adjustbox} %para ajustar las tablas al tamaño de la hoja 
+\usepackage{pdflscape} %Para tablas horizontales
+\usepackage[font=footnotesize,labelfont=bf]{caption} %Tabla: título negro y tamaño de fuente
+\captionsetup[table]{skip=0.1mm} 	
+\usepackage{enumitem} %Custom de interline de listas
+\usepackage[table,xcdraw]{xcolor} %Para colorear las tablas
+\usepackage{pdfpages} %Incluir mis pdf
+\usepackage{longtable} %tablas muy largas
+\usepackage{wrapfig} %Para escirbir al rededor de la tabla
+\usepackage{float} %fijar tabla
+\usepackage{mathtools} %ecuaciones
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{booktabs}					
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage[table]{xcolor}
+\usepackage{wrapfig}
+\usepackage{float}                   % PAQUETES PARA USAR LAS TABLAS DE KABLE
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{dcolumn}
+\usepackage{rotating}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlist[enumerate]{itemsep=0mm} 
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=cyan,
+	citecolor=blue,
+}
+\usepackage{mathpazo} %tipo de letra
+\usepackage{geometry} %Bordes y tamaño de hoja
+\geometry{letterpaper, 
+	left=3cm,top=2.5cm}
+
+
+\title{Sobre la relación entre el Estatus Social Subjetivo y la Percepción de Meritocracia: una aproximación empírica al caso de Chile}
+
+\author{Julio César Iturra Sanhueza}
+
+\begin{document}
+\maketitle
+
+ 
+%\newgeometry{
+%	left=1.5cm,
+%	right=1.5cm,
+%	top=2.0cm}
+%\renewcommand{\abstractname}{}
+%
+%
+%
+%
+%\begin{abstract}
+%\input{abstract} 
+%\end{abstract}
+%\restoregeometry
+
+
+\pagenumbering{roman} %Número romano 
+\setcounter{page}{1}
+\tableofcontents
+\newpage
+\listoffigures
+\listoftables
+\newpage		
+
+\section{Introducción}
+\pagenumbering{arabic}
+
+La percepción los individuos sobre la realidad económica, ha sido un ámbito que ha convocado tanto a la sociología como a la psicología social.  \citet{Smith1981} son reconocidos por su trabajo en el ámbito de la desigualdad subjetiva, desde donde se ha evidenciado que fenómenos como la pobreza o la desigualdad, son atribuidos a factores individuales relacionados con la  meritocracia, entendida como un sistema que asigna los recursos en base al mérito individual, entendido como combinación del esfuerzo y el talento \citep{Young1961}, donde la agencia individual posee un rol fundamental en explicar el logro de estatus \citep{Osborne2015,Schneider2015}. 
+ 
+Desde una perspectiva sociológica, el estatus social ha sido conceptualizado y medido en base a las características socioeconómicas de los individuos \cite{Ganzeboom1991,Ganzeboom1992}, de tal manera que los ingresos, la educación y la ocupación, se consideran como los principales indicadores de que un individuo es meritorio de su posición social, lo cual se explica por la magnitud de su esfuerzo, inteligencia y habilidades. 
+
+Desde la literatura sobre desigualdad subjetiva, las investigaciones sobre meritocracia han puesto mayor énfasis en cómo las características de estatus objetivo se relacionan con las preferencias y percepciones sobre la meritocracia \citep{Kunovich2007,Reynolds2014,Solt2016,Xian2017}. Se ha argumentado que una sociedad basada en los principios meritocráticos, suscita que individuos de mayor estatus se conciban como merecedores de su posición en la estructura social \citep{McCoy2007}. De esta manera, se configuran una serie de creencias que legitiman las diferencias sociales y que convierten a la desigualdad en una condición moralmente aceptable; paradójicamente, incluso por aquellos grupos que se encuentran en condiciones de mayor desventaja económica \citep{Trump2017}. 
+
+El estatus social no agrupa exclusivamente a características socioeconómicas, sino que también toma en cuenta dimensiones como el género y el origen étnico de los individuos. La literatura sobre estatus social ha identificado mecanismos actitudinales relacionados con la producción y reproducción de la desigualdad, los cuales se materializan a través proceso de exclusión social, tales como la discriminación racial o el sexismo \citep{Ridgeway2014,Laurison2016}. Esta evidencia pone en cuestión la idea de una sociedad basada en el mérito, debido a que las diferencias en la valorización social de la que son objeto estas características, tienden a generar consecuencias reales en la vida de los individuos \citep{Bobbitt-zeher2007}.
+
+Existe un cuerpo de literatura que ha estudiado la percepción que tienen los individuos sobre su posición en la jerarquía social, lo cual ha sido conceptualizado como \textbf{Estatus Social Subjetivo}. Esta evidencia ha demostrado que el estatus subjetivo se explica, en parte, por su posición en la distribución de ingresos, el logro educativo \citep{Evans2004,Lindemann2014} y la clase social \citep{Castillo2013}. El argumento central de esta literatura versa en que las apreciaciones subjetivas del propio estatus se explican por ``heurísticas'' que dan forma a la percepción que tienen de sí mismos \citep{Evans1992,Evans2017}, lo cual a su vez afecta las apreciaciones sobre otros ámbitos relacionados con la desigualdad económica \citep{Castillo2012}
+
+Esta evidencia plantea una interrogante respecto a la relación entre el estatus objetivo y subjetivo, con la percepción de meritocracia. Por un lado, se ha demostrado que individuos de mayor estatus objetivo tienden a adscribir o percibir mayor meritocracia. En una línea similar, se ha evidenciado que el estatus social subjetivo se ve afectado por las experiencias y condiciones objetivas de los individuos. De ahí que esta investigación busca pesquisar la relación del \textit{estatus social} desde una perspectiva objetiva y subjetiva, empleando indicadores socio-económicos de estatus, como también dar énfasis a la percepción de estatus social, para así determinar la relación de ambas dimensiones con la percepción de meritocracia, de modo tal que sea posible responder a la interrogante sobre \textbf{¿cómo se relaciona el estatus social objetivo y subjetivo con la percepción de meritocracia?}. 
+
+\subsection{Mérito y Estatus: Pregunta y Objetivos de Investigación}
+	
+En la literatura sociológica sobre meritocracia, se ha señalado como precursor del concepto al sociólogo británico Michael \citet{Young1961} a través de su novela \textit{“The Rise of Meritocracy”}. La meritocracia es concebida como un sistema basado en el mérito como el principal mecanismo distributivo de recursos y recompensas. Así mismo, el mérito es entendido como la combinación de esfuerzos y habilidades individuales. Conforme a esto, la posición que se ocupa en la jerarquía social no se explica por las características adscritas, sino por el mérito individual. La narrativa del trabajo de Young, es crítica respecto a cómo se ha concebido el progreso en las sociedades industriales de occidente, sugiriendo que los sistemas basados en esfuerzo individual no estarían cumpliendo con la promesa de la meritocracia \citep{Horowitz2006,Ratner2014}. 
+
+La \textit{Teoría de la meritocracia basada en la educación} postula que el logro educativo es el factor más importante para explicar la movilidad social. No obstante, \cite{Goldthorpe2003} ha demostrado que la asociación entre clase de origen y clase de destino, mediada por el logro educativo, se ve afectada por la estructura de oportunidades educativas. Por lo tanto, en contextos con una mayores oportunidades, la asociación entre clase de origen y logro educativo tendería a debilitarse, lo cual tiene como consecuencia una mayor movilidad social ascendente. Por tanto, la idea de una sociedad basada en el mérito, se ve enfrentada a las desventajas acumuladas, como también a problemas contextuales relacionados con las oportunidades educativas en la sociedad. 
+
+En sociología, la distinción entre \textbf{Clase} y \textbf{Estatus} es clave para comprender dos visiones sobre cómo puede ser entendida teóricamente la posición social, lo cual tiene implicancias sustantivas en relación a qué características son más relevantes para determinar la posición de un individuo en la estructura social. Por un lado, el esquema de clases propuesto por Erikson, Golthorpe y Portocarero, da énfasis a la relación de empleo y la ocupación, distinguiendo entre empleadores, autoempleados y empleados para la posicionar a los sujetos en una clase determinada \citep{Erikson1979,Erikson2002}. Por otro lado, la estratificación basada en estatus incorpora características objetivas \citep{Ganzeboom1992,Andersson2018}, como también factores relacionados al valoración social que tienen algunas características individuales \citep{Ridgeway2014}.        
+
+En base a una concepción weberiana, \citet{Ridgeway2014} sostiene que la literatura sobre los mecanismos generadores de desigualdad ha puesto mayor énfasis en los conceptos de poder y recursos, prestando menos atención al de estatus social. En este sentido, el estatus representa el valor simbólico que poseen determinadas características individuales, lo cual configura un mecanismo generador de desigualdad sentado sobre una base social, económica y cultural \citep{Jasso2001}, independiente de los recursos y el poder. Más aún, la valorización social de características tiene consecuencias \textit{reales} en la vida social, lo cual se expresa en una determinada estructura de oportunidades vitales. Así, por ejemplo, tener acceso a mejores oportunidades educativas o laborales.
+
+El orden de estatus constituye, en parte, una estructura de \textbf{relaciones percibidas}, que dan cuenta si los vínculos sociales son concebidos como equitativos o asimétricos. Así mismo, el valor que se atribuye a determinados símbolos, es la expresión de una evaluación de las \textbf{recompensas y requerimientos} relacionadas con la labor de un individuo, donde las \textit{distinciones de estatus} son la materialización de un juicio efectuado por los miembros de una sociedad \citep{Chan2004, Ridgeway2014}. 
+
+%Estatus Subjetivo y Meritocracia
+
+El estatus, en relación a la valorización social que le atribuye a las recompensas y requerimientos \citep{Chan2004}, sugiere que la percepción de los individuos sobre su posición social se relacionad directamente con la relevancia que se atribuye al esfuerzo y talento en una sociedad basada en los principios meritocráticos. Siguiendo a \citet{Smith1981}, la percepción de los individuos respecto a su posición en el orden de estatus sería un \textit{reflejo} de su realidad objetiva. En esta línea, la literatura sobre Estatus Social Subjetivo sugiere que la percepción de estatus social se caracteriza por sesgos e inconsistencias con respecto a su posición objetiva \citep{Evans2004,Lindemann2014}, lo cual se explica por la combinación de las experiencias producto su realidad material con los juicios provenientes de la comparación con sus grupos de referencia \citep{Evans1992,Evans2004,Evans2017}. 
+
+La relación entre meritocracia y estatus social, yace en que la posición de los individuos en la jerarquía social se explica por la combinación de sus esfuerzos y habilidades. En esta línea, la presente investigación busca pesquisar la relación de distintas características objetivas y subjetivas del estatus social con la percepción de meritocracia. Para abordar esta interrogante, la pregunta central que guía esta investigación es la siguiente:
+		
+\begin{center}
+\textit{En el contexto chileno, ¿Cómo se relacionan las características objetivas y subjetivas de estatus social con la percepción de meritocracia?}
+\end{center}
+	
+Para responder a esta pregunta, el objetivo general de esta investigación es \textbf{Determinar el grado de asociación entre las características objetivas y subjetivas de estatus social, medidas en términos socioeconómicos y de percepción de estatus social, con la percepción de meritocracia}. Conforme este objetivo general, se plantean los siguientes objetivos específicos:
+
+\begin{enumerate}
+\item Dar cuenta del nivel de asociación de las características objetivas de estatus social -- medidas a través de ingresos, logro educativo y ocupación --, con los niveles de meritocracia percibida a nivel societal.
+\item Establecer cómo se relaciona la percepción que los individuos tienen respecto su propia posición en el orden de estatus, la de su familia de origen y la que tendrían sus hijos en el futuro, con la meritocracia percibida a nivel societal. 
+\end{enumerate}
+
+\newpage
+
+\subsection{Chile: un país con alta riqueza y sostenida desigualdad}
+
+Chile es un destacado país, a veces considerado paradigmático desde el punto de vista del modelo económico y social que ha llevado adelante desde principios de los años 80'\citep{Arrizabalo1995}. El modelo de desarrollo de Chile ha tenido consecuencias positivas desde el punto de vista del crecimiento económico, sin embargo se ha evidenciado una tendencia histórica al aumento de la desigualdad de ingresos \citep{Rodriguez2018}.
+
+En las últimas décadas, la cobertura educacional se ha expandido a nivel escolar \citep{Bellei2015}, como también en la educación superior \citep{Bernasconi2017}. Por un lado, Chile ha experimentado una disminución de la pobreza estructural, situándolo como uno de los países pioneros de América Latina \citep{ocdeCL2018}. No obstante, los niveles de desigualdad no han variado significativamente en las últimas décadas. 
+
+Luego del ''mochilazo'' en 2001, la ``revolución pingüina'' de 2006 y la movilización estudiantil del año 2011, la sociedad chilena ha experimentado un fuerte debate público en relación al vínculo entre desigualdad y educación  \cite{Bellei2010}. Esto ha puesto en cuestión los fundamentos de la promesa de la meritocracia, y las consecuencias a largo plazo que tiene un sistema educacional altamente segregado \cite{Bellei2015}. El reciente informe titulado \textit{A Broken Social Elevator? How to Promote Social Mobility} \citep{OECD2018}, sostiene que Chile posee serios problemas en torno la superación de la pobreza desde un punto de vista inter-generacional, evidenciando un patrón de movilidad social que se estanca y distancia respecto a otros países de la OCDE. 
+	
+\subsubsection{Relevancia sociológica}
+	
+Dicho lo anterior, el análisis las características de estatus social en relación con la meritocracia toma relevancia en un contexto como Chile. Sostengo que la alta desigualdad económica y la segregación escolar guarda relación con la estructura de oportunidades, lo cual afecta el correcto funcionamiento de un sistema basado en el mérito. En este sentido, se ha evidenciado que las (des)ventajas acumuladas tienen consecuencias de largo plazo en la vida de los individuos, lo cual a su vez contribuye al proceso de estratificación de la sociedad \citep{Dannefer2003}. 
+
+Desde la literatura en justicia distributiva, se ha argumentado que la percepción de los individuos se ve afectada por las condiciones estructurales de la sociedad, lo cual a su vez tiene consecuencias actitudinales \citep{Jasso2015}, tales como las preferencias ideológicas o la disposición a la participación política \citep{Castillo2013clivajes}. El estudio del estatus social en relación con la percepción de meritocracia posee, en primer lugar, una dimensión relacionada con la estructura social, debido a que el logro de estatus es influenciado por características adscritas como la educación de los padres, como también por la agencia de los individuos \citep{Goldthorpe2003}. En segundo lugar, postulo que la percepción de los individuos con respecto al funcionamiento de la meritocracia se ve afectada por su experiencia directa, proveniente de su posición en la estructura social, como también por su percepción respecto al lugar que ocupan en la jerarquía social \citep{Evans2004}.    
+
+Adoptar una perspectiva basada en la psicología social sociológica \citep{Castillo2012}, permite abordar el estudio de la meritocracia desde un punto de vista estructural, como también desde un marco conceptual y metodológico relacionado con la psicología social la desigualdad. Dicho esto, el principal aporte de esta investigación va en la línea de dilucidar cuáles son las características objetivas y subjetivas de estatus social más importantes para predecir la percepción de meritocracia. Así también, siguiendo las recomendaciones de los revisores del \textit{American Sociological Review} \citep{Mustilloetal2018}, se busca proponer una medición para la Percepción de Meritocracia, de modo tal que futuras investigaciones utilicen escalas que hayan sido validadas empíricamente.  
+  
+\newpage
+		
+\section{Justicia Distributiva, Meritocracia y Estatus Social}
+	
+\subsection{Justicia Distributiva y Meritocracia}
+	
+Desde un punto de vista conceptual \citet{Sen2000} señala que el mérito requiere ser dotado de contenido con respecto al un ideal de \textit{justicia}. Esto refiere a la evaluación del mérito con respecto a su carácter normativo. La visión de \textit{Incentivos}  señala que determinadas acciones serán recompensadas por lo buenas que estas son, en función de mejores de que obtienen mejores resultados. Bajo esta lógica, la motivación para llevar adelante acciones positivas trae consigo el acceso a recompensas, de lo cual se deduce que en la medida que se materializan este tipo de acciones la vida en sociedad tendería a progresar. 
+	
+\citet{Sen2000} señala que la predominancia de la visión de incentivos trae consigo el problema con respecto qué tan justo (\textit{fair}) se considera un sistema de recompensas basado en el mérito. Primero, porque se vuelve necesario dotar de sentido al principio de justicia detrás de este sistema. Este criterio sería empleado para determinar si una sociedad tiene éxito en satisfacer este principio de justicia, demostrando así, la indefinición del concepto de mérito y su relación con la desigualdad económica, lo cual no es exclusivamente un asunto distributivo, sino que promueve reflexionar las implicancias morales tiene la desigualdad económica.
+	
+La relevancia de la pregunta sobre cómo deben distribuirse los beneficios y cargas colectivas entre los individuos que conforman la sociedad, da forma a cuál es el rol del mérito en la justificación de la desigualdad \citep{Burkhart2008,Janmaat2013}. Uno de los puntos centrales en la constitución normativa de una sociedad, subyace en si el concepto de justicia que se adopta, considera la desigualdad como algo \textit{deseable} o \textit{indeseable} \citep{Jasso2017}. A su vez, es importante señalar \textit{bajo qué condiciones} se da respuesta a esta interrogante. 
+
+Conforme a lo anterior, la perspectiva de \citet{Sen2000} entiende que un sistema de recompensas basado en el mérito trae consigo una definición de justicia desde una dimensión normativa, debido a que este constituye un procedimiento legítimo para la asignación de recursos y recompensas en la sociedad. 
+	
+La distinción entre lo que los individuos o colectividades piensan, dicen y hacen \citep{Jasso2015} se vincula con el proceso de evaluación de un objeto. Dicha evaluación corresponde a distintos grados de abstracción, en función de una dimensión normativa, lo  perceptual y actitudinal. Lo cual ha sido conceptualizado también como Ideales o Creencias, Percepciones, Juicios y Actitudes \citep{Burkhart2008,Janmaat2013}. \citet{Janmaat2013} sostiene que las creencias se definen como ideas con un fuerte componente normativo, lo cual implica un nivel de abstracción mayor con respecto a las percepciones, debido a que las creencias o ideales tenderían a ser más estables y estar asociadas con valores (\textit{values}). 
+
+Las \textbf{Percepciones} refieren a estimaciones subjetivas de la realidad, y según se mencionó anteriormente, no poseen un componente normativo tan fuerte, producto de que se son originadas en una observación de la realidad. Por lo tanto, la percepciones reflejan parcialmente lo que ocurre en la sociedad, debido a que se ven influenciadas por elementos externos, como también por la estructura normativa del individuo \citep{Burkhart2008, Feldman2001,Han2012,Janmaat2013}. Un \textbf{Juicio}, refieren a una evaluación normativa respecto a un objetivo particular, ya que deviene en actitudes o comportamientos \citep{Janmaat2013}. Este dilema es central en la literatura sobre preferencia redistributivas, debido a que implica una elección sobre una medida de política social, orientada a solucionar un problema proveniente de una necesidad, lo cual responde criterios normativos de los individuos \citep{Druckman2000,Druckman2016a}.
+
+
+
+\subsection{Meritocracia subjetiva}
+
+En su artículo \textit{Beliefs About Stratification} \citet{Smith1981} realizan una distinción entre dos tradiciones que empíricas relacionadas con la estratificación social.  Por un lado tenemos una tradición en sociología que ha empleado las características ocupacionales como fundamento para la elaboración de medidas objetivas para posicionar a los individuos en la jerarquía social. La investigaciones de Goldthorpe, Ganzeboom y colegas, son un buen ejemplo de esta tradición \citep{Goldthorpe2003,Ganzeboom1991}. Por otro lado, tenemos una línea de investigación que ha estudiado los aspectos subjetivos de la estratificación social, donde se ha puesto la mirada en las creencias sobre los factores que explican a la desigualdad social, así también cuáles son los principios que organizan estas creencias, qué las determina y cuáles son sus consecuencias. El ámbito de estudio que busca dar respuesta a estas interrogantes ha sido denominado \textit{desigualdad subjetiva} \citep{Smith1981}.
+
+En la literatura sobre meritocracia se hace la distinción entre el sistema de asignación distributivo y el mérito como una característica individual. \citet{Sen2000} señala que el mérito constituye un principio que tiene como fundamento una distribución de recompensas a través de la combinación entre esfuerzo y habilidad. Por otro lado, la meritocracia, hace referencia a lo que \citet{Young1961} describe como un sistema social basado en el mérito como principal mecanismo distributivo, y por tanto, una manera de legitimar moralmente la desigualdad social. 
+
+Siguiendo a \citet{Goldthorpe2003}, es posible reconocer una definición de meritocracia desde un punto de vista objetivo. Esta visión se fundamenta en que el logro educativo de un individuo es el principal vehículo conducente a la movilidad ascendente. En este sentido, una ``meritocracia basada en la educación'' posee dos limitantes. La primera es que mientras más alto es el logro educativo, la asociación entre clase de origen y destino se es más débil. La segunda tiene implicancias para la primera, debido a que mientras más aventajada es la clase de origen, la relación entre logro educativo y clase de destino se \textbf{debilita}. El modelo propuesto por Goldthorpe permite sostener que individuos provenientes de contexto más desaventajado, y que han experimentado movilidad social ascendente, tenderían a atribuir mayor importancia al esfuerzo y al talento para surgir en la vida. 
+
+La investigación en desigualdad subjetiva ha brindado reciente evidencia con respecto a lo que las personas prefieren y perciben de la meritocracia. En su reciente trabajo \citet{Newman2015} y \citet{Solt2016} pesquisaron la cristalización del``American Dream'' a través de la magnitud en que los estadounidenses adscriben a los principios meritocráticos. Por un lado \citet{Newman2015} sostiene que individuos con mayor riqueza y educación son más propensos a respaldar los principios meritocráticos que las personas de estratos más bajos y con menor educación. A su vez, la desigualdad económica a nivel local modera el efecto del estatus socioeconómico sobre las preferencias en la meritocracia. Esto implica que individuos de bajo estatus socioeconómico en contextos de alta desigualdad, tienden a adscribir menos a los principios meritocráticos que sus contrapartes de mayor estatus en el mismo contexto. 
+
+En un estudio realizado por \citet{Reynolds2014}, los autores pesquisaron la relación de las características sociodemográficas y de clase social subjetiva sobre la importancia atribuida a factores meritocráticos y no-meritocráticos, empleando las olas 1987 y 2014 del \textit{General Social Survey}. Se evidenció que los individuos tienen una visión ``parcelada'' sobre la meritocracia. Por un lado existen grupos que atribuyen más importancia a elementos como el esfuerzo y el talento, mientras que otros perciben que su sociedad funciona en base a elementos no-meritocráticos como las redes de contacto o la discriminación de género y racial. Esto permite concluir que características de estatus social como el logro educacional, el género u otro indicador de estatus social son relevantes al momento de explicar la percepción de meritocracia.
+
+\citet{Duru-bellat2012} pesquisaron la asociación de la educación con la percepción y preferencia en la meritocracia a nivel individual y contextual, empleando datos del \textit{International Social Survey Programme} del año 1999. En una impronta similar, \citet{Kunovich2007} pesquisaron la asociación entre la educación y los ingresos con las \textit{Meritocratic Attitudes}. Las autoras elaboraron un índice sumatorio que agrupa preguntas sobre la importancia de características individuales sobre la magnitud del salario de un individuo. Por otro lado, \citet{Duru-bellat2012} midieron meritocracia \textit{percibida} en base a dos preguntas relacionadas con las recompensas provenientes del esfuerzo y talento. Mientras que para medir \textit{prefered meritocracy}, emplearon una pregunta relacionada con la importancia que debería tener la educación en la magnitud del salario. La evidencia de ambos estudios es divergente, lo cual se explica, principalmente, por la distintas maneras en que se realizó la medición de la variable dependiente. 
+
+Siguiendo a \citet{Castillo2018}, no existe consenso en la literatura sobre cómo medir la percepción y preferencia en la meritocracia, encontrando el uso indiferenciado de conceptos como \textit{Meritocratic Beliefs} \citep{Kunovich2007,McCoy2007,Ellis2017}, \textit{Meritocratic Ideals}, \citep{Reynolds2014} o \textit{Percieved Meritocracy} \citep{Xian2017}. La falta de claridad conceptual y diferencias en la medición de meritocracia genera dificultades en el abordaje empírico del concepto. En este sentido, queda a la luz que emplear una sola pregunta para medir un concepto complejo como es una percepción, tiene claras implicancias teóricas respecto el abordaje conceptual, como también empíricas, en términos de la medición y los resultados asociados. 
+
+Para \cite{Burkhart2008} una percepción refiere a una estimación subjetiva sobre un objeto externo a los individuos, por ejemplo, el nivel de desigualdad en la sociedad. Por otro lado, \citet{Druckman2016a} define una preferencia como la evaluación de un objeto en función de la disponibilidad de información que orienta una decisión, bajo el supuesto de que los agentes son racionales en sus elecciones. \citet{Feldman2001} sugieren que la organización de las preferencias se ven influenciadas por la internalización de valores que orientan las decisiones en base a características ideológicas \citep{Kulin2013}. \citet{Garcia2001} sostiene que la percepción de meritocracia corresponde al grado en que los individuos consideran que su sociedad cumple con los principios de una meritocracia, es decir, que funciona como un sistema que asigna recompensas en función del esfuerzo y el talento. En consecuencia,  individuos de distinto estatus socioeconómico, tales como ingresos o educación, tenderían a diferenciarse en términos de su percepción respecto a cómo funciona la meritocracia en su sociedad. 
+
+Conforme a lo anterior, existen dos razones para no emplear de manera análoga a los conceptos de percepción por un lado, y a preferencia por el otro. En primer lugar, se asume que los procesos cognitivos asociados a ambos operan en el mismo nivel con respecto a su relación con el mundo externo. Segundo, este supuesto dificulta la posibilidad de pesquisar empíricamente cuáles son los factores que explican ambos fenómenos, lo cual puede conducir a conclusiones erróneas por la falta de claridad conceptual. 
+ 
+\subsection{Factores asociados con la percepción de meritocracia}
+   
+%Un número de investigaciones de los últimos años han aportado con evidencia que señala cuáles serían los factores individuales que explican las percepciones y preferencias en los principios meritocráticos. 
+
+Desde la literatura en justicia social, \citet{Jasso2015} sostiene que la magnitud de la injusticia percibida viene dada por una concepción ideal de lo que es justo, y por tanto, las apreciaciones sobre lo que \textit{realmente} ocurre en la sociedad guarda relación con los principios de justicia, los cuales a su vez, tienen consecuencias en el nivel de legitimidad que posee la desigualdad social. Definir el mérito como un ideal de justicia, sugiere que una distribución justa es aquella que se basa en este principio. Por esta razón, en sociedades que adscriben a este principio distributivo, el orden de estatus es legítimo en tanto la posición social de un individuo se explica por la magnitud de su esfuerzo y talento.
+
+La percepción de justicia tiene repercusiones en cómo se justifica un determinado logro de estatus, en este sentido, la meritocracia como principio distributivo permite justificar determinadas diferencias entre los individuos \citep{Davey1999,Day2017}. Si se perciben condiciones equitativas en términos de las oportunidades, expresadas por la posibilidad de adquirir un estatus más alto, la meritocracia es saliente como mecanismo explicativo en la justificación y conformidad respecto de determinados niveles de desigualdad social \citep{McCoy2007}.
+
+Por un lado tenemos la literatura que sitúa al interés racional como mecanismo explicativo de las preferencias redistributivas \citep{Meltzer1981,Benabou2001}. De este modo, suponer que los individuos se comportan en base al interés racional, ofrece un marco interpretativo para la relación entre estatus social y percepción de meritocracia. Por otro lado, la evidencia que vincula los cambios en la posición de estatus con las atribuciones de pobreza y la justificación de la desigualdad, sugiere que individuos que han mejorado su posición social, tienden explican la pobreza en base a los factores individuales y justifican en mayor medida la desigualdad \citep{Gugushvili2016a,Gugushvili2016}. Esta evidencia sugiere que estatus social de los individuos, expresado a través de su posición en la distribución de ingresos, logro educacional y posición en el mercado de trabajo, tiene consecuencias en sus percepciones sobre la meritocracia. 
+
+%Por un lado, tenemos la literatura sobre preferencias redistributivas y su relación con el estatus social. En este sentido, la contribución de autores como \citet{Meltzer1981} o \citet{Benabou2001}, sientan bases para la interpretación de las actitudes sociales desde la óptica del interés propio. Es posible emplear este marco interpretativo para dar cuenta de la asociación de las características de estatus objetivo con la meritocracia desde el punto de vista subjetivo. 	
+
+%Por otro lado, tenemos la literatura sobre \textbf{atribuciones de pobreza y riqueza}. En esta línea es posible destacar el reciente trabajo de \citet{Gugushvili2016} que vincula las expectativas de movilidad social y con las atribuciones de pobreza y riqueza en contexto comparado. 
+%
+%El argumento central que permite vincular esta evidencia con la meritocracia subjetiva refiere a que individuos que perciben haber ascendido socialmente, son propensos a atribuir el fracaso a determinantes individuales como la falta de esfuerzo, en oposición a factores externos como la desigualdad o la injusticia social \citep{Gugushvili2016, Schneider2015}.
+
+%Un reciente estudio realizado por \citet{Day2017} sostiene que existe una asociación entre el logro de estatus, expresado a través de la percepción de movilidad social futura, y la justificación global del sistema. El argumento central versa en que las oportunidades a nivel societal se expresan a través de la movilidad social, y la relación de esta con la justificación del sistema, a su vez, se ve afectada por apreciaciones normativas y valóricas de los individuos, donde los principios meritocráticos juegan un papel central en la medida que descansan en el supuesto de que las oportunidades producen cambios potenciales en la vida de las personas. Esta evidencia contribuye a lo que otros estudios han evidenciado respecto a la relación entre logro de estatus y principios meritocráticos. \citet{Davey1999} evidenciaron que las creencias respecto a que el mundo opera bajo principios justos, guarda relación con el apoyo a las ideas meritocrática, lo cual es consistente con los hallazgos reportados por un experimento realizado por \citet{McCoy2007}, en donde se demostró que estar expuesto a situaciones de baja y alta meritocracia, tiene repercusiones en la justificación de las desventajas individuales y grupales en términos de logro de estatus, lo cual es particularmente saliente en individuos de bajo estatus social. 
+
+\subsubsection{Estatus social objetivo}
+
+\subsection*{Ingresos}
+
+Las teorías que explican la conducta individual en base al interés racional brindan un marco interpretativo para explicar por qué los individuos adscriben y perciben la meritocracia de distinta manera. Por un lado, el argumento de \citet{Meltzer1981} sugiere que la posición en la distribución de ingresos determina las preferencias redistributivas de los individuos, destacando una relación negativa entre el nivel de ingresos y la demanda por redistribución. Por otro lado, si empleamos este marco interpretativo en relación a la meritocracia, al alero de un supuesto de auto-interés, individuos que se encuentran en la parte alta de la distribución de ingresos tenderían a adscribir más intensamente a los principios meritocráticos, que aquellos que se sitúan en la parte baja de de la distribución. 
+
+Desde el punto de vista comparado, investigaciones realizadas por \citet{Duru-bellat2012} y \cite{Kunovich2007} dan cuenta de una relación positiva entre ingresos y meritocracia, lo cual brinda evidencia a favor la hipótesis de interés propio. Más recientemente, un estudio realizado por \citet{Sandoval2017} evidenció una asociación positiva entre el nivel de ingresos y las creencias y percepciones en la meritocracia. Por otro lado, existe evidencia para el caso de Estados Unidos \citep{Newman2015, Solt2016}, donde se evidenció que la probabilidad de rechazar los principios meritocráticos son más bajas cuando se pertenece a los estratos más bajos de la distribución de ingresos. Mientras que para los estratos altos, esta probabilidad es significativamente más alta. En estudio realizado por \citet{Castillo2018} sugiere que los ingresos individuales no explican la percepciones y preferencias en la meritocracia, lo cual es contradictorio con respecto a lo que una hipótesis basada en auto-interés podría predecir para el caso chileno. 
+
+Es posible sostener que una hipótesis como la de \cite{Meltzer1981} podrían tener validez en contextos de alto desarrollo económico, donde la estructura de oportunidades se ve favorecida por una menor desigualdad económica, de modo tal que para el contexto latinoamericano, la concentración de ingresos podría mermar la relación entre el nivel de ingresos y las apreciaciones subjetivas en torno a la meritocracia. No obstante, es ineludible tener presente que la posición en la distribución es relevante en predecir la percepción de las personas sobre la meritocracia. Conforme a esto, la combinación de esfuerzo y talento es fundamental en la evaluación de las recompensas percibidas, por lo tanto adoptaré una perspectiva fundamentada las teorías de interés racional para hipotetizar la relación entre la posición en la distribución de ingresos y la percepción de meritocracia. Por lo tanto es posible sostener que: 
+
+$H_{\text{1a}}$: \textbf{Una posición superior en la distribución de ingresos se asocia positivamente con la percepción de meritocracia.} 
+
+\subsection*{Educación}
+
+Desde una perspectiva de interés propio es razonable tener en cuenta características de estatus social como la posición en la distribución de ingresos para dar cuenta de cómo esta característica explica la percepción de meritocracia. Sin embargo, cuando se trata de un concepto como meritocracia, autores como \citet{Goldthorpe2003} sostiene que el logro educativo \textit{es}, en cierta manera, una característica objetiva que representa mérito individual. Si nos remitimos a lo que \citet{Duru-bellat2012} argumentan respecto de la ``meritocracia basada en la educación'', es relevante tener en cuenta que símbolos de estatus como el logro educativo tienen algo que decir respecto a la meritocracia desde el punto de vista subjetivo. Siguiendo a \citet{Jasso2001}, lo relevante de determinados símbolos de estatus, tales como la educación, es el hecho de que pueden ser cuantificados y ordenados en términos de su valoración social. Por tanto, el vínculo entre la educación con la percepción de meritocracia viene dada por la valoración que socialmente se le atribuye al logro educativo como símbolo de estatus social, y que por tanto, daría cuenta del esfuerzo y habilidad de un individuo. 
+
+En la discusión empírica sobre la relación entre educación y percepción y preferencias meritocráticas, es posible identificar dos visiones respecto a la importancia de la educación. Por un lado \citet{Kunovich2007} sostienen que el \textit{input} representado por la educación tiene un \textit{output} que serían los ingresos económicos, representando adecuadamente el fundamento de un ideal meritocrático. Además, las autoras evidenciaron que el logro educativo se asocia con un mayor apoyo a la meritocracia, empleando datos de \textit{ISSP} (1992) para países occidentales de alto desarrollo económico. Posteriormente, \citet{Reynolds2014} probaron esta hipótesis en el contexto estadounidense, evidenciando que poseer un grado universitario no se relaciona con una mayor creencia en los principios meritocráticos. En otro estudio similar, los mismos autores compararon Estados Unidos y China, dando cuenta que para ambos contextos la asociación entre educación y percepción de meritocracia es distinta, siendo positiva en Estados Unidos, pero con una relevancia marginal para el caso de China \citep{Xian2017}. 
+
+Desde un punto de vista teórico \citet{Duru-bellat2012} destacan dos paradigmas desde donde es posible interpretar la relación entre educación y meritocracia. Por un lado se encuentra la hipótesis de \emph{socialización}, representada por las teorías \emph{reproduccionistas} de la cual \citet{Bernstein2003} y \citet{Bourdieu1981} son importantes exponentes. El argumento central de este enfoque sostiene que personas más educadas perciben más meritocracia que aquellas personas con un menor logro educativo, debido a que estarían mayormente influenciadas por los principios meritocráticos transmitidos a través de la socialización escolar. Por otro lado, \citet{Duru-bellat2012} señalan que la hipótesis de \emph{instrucción} predice que individuos con mayor educación serían más conscientes de la desigualdad, y por tanto, adscriben en menor medida a los principios meritocráticos. No obstante, la hipótesis de socialización posee mayor respaldo en la evidencia presente en la literatura. Por otro lado, un estudio realizado en Chile por \cite{Castillo2018} evidenció que las personas con mayor educación tienden a percibir menores recompensas con respecto a su esfuerzo y talento, lo cual contradice lo que predice la hipótesis de \emph{socialización}. 
+
+En la discusión sobre el rol que juega la educación en la percepción de meritocracia, considero que el punto clave es el equilibrio entre la inversión en educación y los retornos económicos asociados. Desde la \textbf{Teoría de la Equidad}, \citet{Adams1965} sugiere que el balance entre el nivel de esfuerzo invertido y las recompensan obtenidas, representan una situación de ideal de \textbf{Equidad}, lo cual ofrece marco interpretativo para evaluar la relación entre educación y percepción de meritocracia, bajo el supuesto que una recompensa sería considerada justa en la medida que se perciba como equivalente con respecto al trabajo invertido. En conclusión, como sugerí anteriormente, el papel que juega la educación permite sostener que: 
+
+$H_{\text{1b}}$: \textbf{Pertenecer a grupos con mayor logro educativo, se asocia con una mayor percepción de meritocracia}.          
+
+\subsection*{Ocupación}
+
+En la discusión sobre el papel que juega la educación en la percepción de meritocracia, un punto central ha sido la relación entre la inversión en educación y los retornos económicos, los cuales son la expresión material del mérito individual. Por un lado, tenemos la relación ``mayor educación, mayor retorno'', lo cual al alero del argumento de \citet{Adams1965}, es razonable considerar que un equilibrio entre ambas partes constituye una situación justa desde el punto de vista distributivo. Por otro lado, el análisis de la relación entre educación y salario, requiere de la incorporación del dominio social donde se realiza la distribución, es decir, tomar en cuenta la esfera correspondiente al mercado de trabajo, debido a que ahí es donde se desarrollan las actividades productivas, bajo el supuesto de que en el mercado laboral las cualificaciones adquiridas a través de la educación formal se traducen en ocupaciones específicas, con distintos niveles de remuneración y valoración social.    
+
+Siguiendo \citet{Goldthorpe2003}, la ocupación del individuo operaría como un \textit{proxy} del logro educativo, teniendo en cuenta la posibilidad de que individuos con credenciales educativas altas se desempeñen en ocupaciones que requieran una menor cualificación o viceversa. Este argumento sostiene que la valorización de cualificación formal puede distinguirse según el sector de la economía, debido a que en sectores como los servicios, la valorización de característica cualitativas, como las denominadas habilidades ``blandas'', o poseer un determinado nivel de capital cultural, adquieren mayor o igual importancia que la cualificación formal. Por otro lado, en sectores productivos con un alto componente técnico, la cualificación formal cobra mayor relevancia por la complejidad intelectual del trabajo realizado por estas ocupaciones. En este sentido, \citet{Chan2004, Chan2007} argumentan que la ocupación de los individuos sería el principal indicador de estatus social en las sociedades contemporáneas, lo cual se fundamenta en que las escalas ocupacionales son el reflejo de la valoración económica y social relacionado con las recompensas percibidas por ocupaciones de distinta cualificación. En otras palabras, la ocupación sería el mejor indicador de la posición que detenta un individuo en el orden de estatus social.
+
+Cuando se trata de las actitudes hacia la desigualdad, existe evidencia que sugiere que la posición de los individuos en el mercado de trabajo orienta sus apreciaciones subjetivas sobre la desigualdad económica en la sociedad \citet{Kulin2013}. En su trabajo \textit{``The Moral Economy of Class''},  \citet{Svallfors2006} pesquisó la relación entre la clase de los individuos \citep{Erikson1979}, con distintas actitudes hacia tópicos distributivos. Este trabajo evidenció que la posición social en términos de la ocupación, autonomía y autoridad en el espacio de trabajo, afecta lo que los individuos perciben y prefieren en términos de justicia distributiva. \citet{Sandoval2017} evidenció que individuos que se desempeñan en ocupaciones de servicios de alto y bajo grado perciben mayor meritocracia que ocupaciones basadas en trabajo manual. El argumento central versa en que individuos con un mayor logro ocupacional tenderían a justificar su posición en base a la narrativa del esfuerzo y el trabajo duro, lo cual parece razonable si hace referencia a la evidencia en torno a la relación entre educación y meritocracia.
+
+Conforme a lo anterior, las apreciaciones sobre la meritocracia se ven influenciadas por la posición de los individuos en el mercado de trabajo, bajo el argumento de que distintas ocupaciones reflejan el nivel de cualificación y el salario obtenido. En este sentido, la Tabla \ref{table:dom} presenta los dominios sociales a través de los cuales es posible organizar las actitudes de los individuos, siendo el dominio Productivo y Distributivo los más relevantes en relación a la meritocracia, debido a la centralidad del trabajo en la ejecución de actividades productivas, y el mercado en la obtención de recompensas económicas.
+
+\begin{table}[h!]
+	\centering
+	\caption[Tabla 1: Dominios actitudinales según Actividad]{Dominios actitudinales según Actividad}
+	\label{table:dom}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{@{}lllll@{}}
+			\toprule
+			\textbf{Actividad}                    & \textbf{Producción} & \textbf{Distribución} & \textbf{Redistribución} & \textbf{Reproducción} \\ \midrule
+			\textbf{Arena}                        & Trabajo             & Mercado               & Estado                  & Familia               \\ \bottomrule
+			\textbf{Fuente:} \cite{Svallfors2006} &                     &                       &                         &                      
+		\end{tabular}
+	}
+\end{table}
+      
+Si bien \citet{Svallfors2006} no aborda de manera explícita las diferencia cualitativas entre la ocupación y otros indicadores objetivos de estatus, tales como los ingresos o la educación, es posible argumentar que la ocupación hace referencia a la posición del individuo en el dominio de la distribución, y por tanto, la experiencia en este dominio social da forma a sus apreciaciones sobre de la desigualdad producto de la información sobre los salarios que perciben diversas ocupaciones \cite{rehm09}. En una línea similar, un reciente estudio realizado por \citet{Trump2017} evidenció que obtener información sobre la distribución de los ingresos según ocupación, genera que las personas legitimen más la desigualdad económica que aquellas personas que no manejan esta información. El argumento central de la autora versa en que los individuos ajustan sus percepciones sobre la desigualdad bajo el supuesto de que realizan esto para evitar disonancias cognitivas, y como resultado de esto, tienden a justificar el sistema distributivo \cite{Trump2017}. En conclusión, individuos que se desempeñan en ocupaciones de mayor cualificación son aquellos que perciben mayores recompensas en términos salariales, lo cual permite sostener que:  
+
+$H_{\text{1c}}$: \textbf{Desempeñarse en ocupaciones de alta cualificación en el mercado de trabajo se asocia con una mayor percepción de meritocracia.}
+
+Por un lado, se sugiere que mecanismos como el auto-interés serían clave para explicar por qué los individuos prefieren o perciben mayor meritocracia, bajo el supuesto de que la posición objetiva en el orden de estatus es el resultado del esfuerzo invertido. Por otro lado, hay evidencia que sugiere que estas percepciones son el resultado de procesos de ajuste y reducción de disonancia cognitiva en situaciones de injusticia e inequidad \citep{Adams1965}, lo cual tiene como consecuencia una mayor justificación de la desigualdad \citep{Trump2017,McCoy2007}. 
+
+En base a ambos cuerpos de literatura, se evidencia un mayor énfasis a las dimensiones objetivas estatus como variables explicativas de la percepción de meritocracia, estando poco explorada la relación con variables subjetivas de estatus social. Desde la literatura de estatus subjetivo se sugiere que esta variable es un buen \textit{proxy} del estatus socioeconómicos de los individuos \citep{Castillo2013,Andersson2018a}, de modo tal que es razonable considerar el estatus social subjetivo como variable explicativa en estudio de la percepción de meritocracia.      
+
+\subsubsection{Estatus Social subjetivo}
+
+La relación entre el estatus objetivo y la percepción que tienen los individuos respecto a su posición en la estructura social ha sido un tema recurrente en sociología y psicología social. Autores clásicos como \cite{marx1979} sugieren que la conciencia del mundo es el reflejo de las condiciones de vida objetivas de los individuos, las cuales están dadas principalmente por el lugar que ocupan en las relaciones sociales de producción. En una impronta similar, \cite{lukacs1969} sostiene que la ``conciencia de clase'' es un fenómeno que trasciende las apreciaciones psicológicas individuales, en la medida que tiene un caracter relacional con la totalidad económica y social, desde donde ``emerge'' una conciencia colectiva que orienta las apreciaciones individuales. 
+
+Desde las teorías de relacionadas con la psicología social se ha argumentado que los individuos forman sus apreciaciones del mundo en base a procesos de ajuste cognitivo denominados ``heurísticas'' \citep{Evans1992, Evans2017}. \cite{festinger1954theory} sugiere que los individuos prefieren compararse con personas o grupos que consideran similares en términos de estatus, de modo tal que emplean estos grupos como referencia para reducir disonancia cognitiva, con el objetivo de realizar estimaciones más certeras de su propia situación en el la sociedad.
+
+En la literatura sobre la percepción de estatus social, ha sido relevante la discusión cómo realizar la medición de este fenómeno y cuáles son sus implicancias empíricas. \citet{Evans2004} sugieren que preguntas cerradas con categorías como \textit{clase trabajadora} o \textit{clase media} se enfrentan a la dificultad de ser traducidas para su utilización en estudios comparados. Además, obliga a los individuos a situarse en categorías cerradas, lo cual implica la posibilidad de que el concepto de \emph{clase} sea interpretado desde una óptica ideológica. Por otro lado, el concepto de \textbf{Estatus Social Subjetivo}, entendido como la percepción que tienen los individuos respecto a su posición en la jerarquía social, ha sido abordado empíricamente a través de la utilización de escalas abstractas que permiten a los respondentes situarse libremente en un contínuo que tiene un límite inferior y superior, los cuales buscan representar las posiciones de menor y mayor estatus social en la sociedad \citep{Castillo2013, Evans2004, Lindemann2014}.     
+
+En su trabajo reciente, \cite{Andersson2018a} pesquisó la relación entre el nivel de ingresos, educación y ocupación con el estatus social subjetivo. Se demostró que el estatus socioeconómico de los individuos estaría fuertemente asociado con la percepción de estatus social. En efecto, el autor da cuenta de lo que otras investigaciones han evidenciado respecto a que existe una tendencia a situarse en la parte media de la distribución \citep{Evans2004,Castillo2013,Lindemann2014}. Un estudio realizado en Chile por \cite{Castillo2013} sugiere que las variables socioeconómicas como ingresos, educación y la ocupación serían relevantes en explicar el estatus subjetivo, lo cual es coherente con los hallazgos encontrados por \cite{Evans2004} y \cite{Lindemann2014} en contexto comparado. 
+
+\citet{slomczynski1987} evidenciaron que las percepción de estatus social puede ser medida como un factor latente que explica la percepción en torno a distintas dimensiones relacionadas con el estatus social, representadas por la educación, ingresos, prestigio ocupacional, entre otras. En una línea similar, \cite{Manstead2018} argumenta que cuando las personas son consultadas por su posición social, es poco frecuente que emerjan conceptos como \emph{clase social}, sino que más bien  se vuelven salientes las representaciones sociales en torno determinados símbolos de estatus como las ocupaciones o las credenciales educativas. 
+
+Investigaciones previas han empleado como marco interpretativo una versión extendida de la Teoría del Grupo de Referencia (\emph{Reference Group Theory}) desarrollada por \cite{Merton1968} para argumentar que las apreciaciones subjetivas relacionadas con el estatus social, se explicarían por las comparaciones realizadas con sus grupos más cercanos como su familia, amigos y colegas \citep{Evans1992,Lindemann2014}. Es posible argumentar que las apreciaciones subjetivas respecto del estatus social podrían explicar la percepción de fenómenos tales como la desigualdad económica, bajo el supuesto de que la comparación con otros grupos contribuye a la formación de juicios y percepciones sobre el grado de legitimidad que tiene la actual distribución económica. 
+
+\cite{Schneider2015} evidenciaron que un mayor estatus subjetivo se relaciona con una mayor justificación de la desigualdad, así también se da mayor relevancia a los factores individuales para explicar pobreza y menos relevancia a factores externos. Por otro lado, \citet{Castillo2018} pesquisaron la relación entre percepción de desigualdad y meritocracia, evidenciando que unestatus subjetivo se relaciona con una menor percepción de desigualdad, y a su vez se relaciona con una mayor percepción de meritocracia. En una línea similar, \cite{Vargas-Salfate2018} evidenciaron que un mayor estatus subjetivo se relaciona con una percepción positiva del sistema distributivo. 
+
+Siguiendo a \citet{Evans2004}, la hipótesis de Grupos de Referencia sugiere que las percepciones sobre la estructura social sería el resultado de lo que efectivamente experimentan en la realidad material, en conjunto de las generalizaciones provenientes de grupos de referencia \citep{Merton1968}. \cite{Adams1965} acuña el concepto de \textit{deprivación relativa} para dar cuenta de la percepción relacionada con una\textit{“violación injusta de las expectativas”}, en tanto las discrepancias entre las \textbf{expectativas} y el \textbf{logro} generaría insatisfacción con respecto al resultado producto del intercambio entre dos partes, lo cual es definido como una situación de \textbf{Inequidad}. 
+
+La evidencia sobre los factores que explican el estatus social subjetivo, da cuenta de la relación de este con procesos de comparación social, así también con la percepción sobre la distribución económica  \citep{festinger1954theory,Adams1965,Jasso2015}. Conforme a esto, sostengo que la percepción del mérito como mecanismo distributivo, se ve afectada por las apreciaciones subjetivas del estatus social, las cuales a su vez se explican por procesos de comparación social. \citet{Adams1965} y \citet{Merton1968} sostienen que como resultado de estos procesos es posible identificar la emergencia de sentimientos de deprivación relativa producto de situaciones de inequidad. En consecuencia, el impacto que tienen estas evaluaciones sobre la percepción de estatus social permite sostener que:
+
+$H_{\text{2a}}$: \textbf{Individuos con un Estatus Social subjetivo más alto tenderían a percibir más meritocracia}.
+
+%ESTATUS SUBJETIVO DINAMICO Y ACTITUDES
+
+\subsubsection*{Estatus social subjetivo en perspectiva dinámica}
+
+El estatus social subjetivo puede ser abordado desde un punto de vista estático, es decir en referencia al estatus social propio en el tiempo presente. Por otro lado, también puede ser conceptualizado en términos dinámicos o temporales, haciendo referencia ala percepción de estatus social en el pasado o en el futuro. 
+
+Concebir a una sociedad como una \emph{meritocracia} implica que un cambio ascendente o descendente en la posición estructural de los individuos sería el resultado del mérito individual o la falta de éste. En consecuencia, es razonable hipotetizar que las apreciaciones sobre el estatus social en términos temporales, ya sea respecto del pasado o del futuro, se relacionan con la percepción de meritocracia a nivel social.      
+
+La relación entre percepción de meritocracia y el estatus social subjetivo desde una perspectiva dinámica ha estado ausente en la literatura. Sin embargo, es posible aproximarse de manera exploratoria a esta relación, a través de la literatura sobre movilidad social y sus efectos sobre las actitudes hacia la redistribución, preferencias hacia la desigualdad y justificación del sistema.       
+
+\citet{Jaime-Castillo2008} sostiene que individuos que perciben haber experimentado movilidad social ascendente tienen una actitud negativa hacia la redistribución. Así también, \cite{Kelley2009} evidenciaron que individuos que se perciben como móviles socialmente, se identifican con grupos de mayor estatus y tienden a legitimar las diferencias salariales en la sociedad. En una impronta similar, \cite{Gugushvili2016a} sostiene que percibir movilidad social ascendente conlleva una mayor preferencia por la desigualdad, de modo tal que las personas tienden a sobre estimar su contribución en situaciones de éxito o fracaso económico. En un estudio experimental, \cite{Day2017} confirmaron que una mayor percepción de movilidad social se asocia con una mayor justificación del sistema distributivo.    
+ 
+El punto más importante respecto de esta aproximación dinámica sobre la percepción de estatus, versa en que las apreciaciones sobre el pasado impactan lo que los individuos perciben en el presente. Por esta razón es posible argumentar que la percepción de estatus respecto al  lugar que ocupaba su familia origen en la estructura social, también afecta lo que los individuos perciben respecto de la meritocracia a nivel social. En este sentido, individuos que perciben provenir de contextos aventajados tendrían una visión favorable respecto de la desigualdad económica, y por tanto, tienen una percepción favorable respecto de la meritocracia. Por esta razón, es posible hipotetizar que:   
+
+% FAMILIA DE ORIGEN
+
+$H_{\text{2b}}$: \textbf{Individuos con mayor percepción de Estatus Social para su familia de origen tenderían a percibir más meritocracia}.
+
+Desde la \emph{Prospective Upward Mobility Hypothesis} \citep{Benabou2001,Alesina2005}, se ha argumentado que las expectativas de movilidad social ascendente tiene como consecuencia que individuos de bajos ingresos demanden menor redistribución, lo cual desde una perspectiva de interés racional, debiesen ser quienes tienen una actitud más favorable hacia la redistribución económica. No obstante, se ha evidenciado que estos individuos son quienes demandan menor redistribución, lo cual se explica por el hecho de que una posición social más alta trae consigo menores utilidades provenientes de la redistribución.  
+
+Detentar expectativas favorables con respecto al mejoramiento de las condiciones económicas futuras posee un fuerte sustrato normativo en los principios meritocráticos. Así también, la meritocracia se relaciona positivamente con la justificación del sistema distributivo, debido a que permite legitimar la desigualdad económica \citep{Day2017}. Estos antecedentes permiten hipotetizar una relación positiva entre expectativas de ascenso futuro y meritocracia, lo cual se explicaría en base a que la meritocracia como mecanismo distributivo permite justificar moralmente la desigualdad, y por tanto, detentar mayores expectativas de movilidad futuras favorables va en consonancia con una mayor percepción de meritocracia a nivel social. 
+
+La literatura sobre los efectos que tienen las expectativas de estatus futuro sobre las actitudes hacia la redistribución y la desigualdad ha puesto mayor interés en la posición social de \emph{ego}, sin embargo, de manera exploratoria es posible tomar este argumento y plantearlo desde un punto de \textbf{intergeneracional}, de modo tal que una mayor percepción de estatus social para la generación futura se relaciona positivamente con la percepción de meritocracia. Conforme a lo anterior, es posible sostener la siguiente hipótesis:
+
+% 	HIJOS EN EL FUTURO
+$H_{\text{2c}}$: \textbf{Individuos que perciben un Estatus Social más alto para sus hijos en el futuro tenderían a percibir más meritocracia}.
+
+% EFECTO DIRECTO DEL ESTATUS SUBJETIVO MEDIADO POR ESTATUS SUBJETIVO
+\subsubsection*{Estatus objetivo, subjetivo y percepción de meritocracia}
+
+%RELACION OBJETIVO SUBJETIVO
+ 
+Desde el punto de vista empírico, se ha evidenciado que la relación entre el estatus objetivo y subjetivo dista de ser lineal, así como también existe una marcada tendencia a que los individuos se identifiquen con los tramos medios de la distribución de estatus \citep{Andersson2018a,Castillo2013}. Esta relación entre las distintas medidas de estatus, ha sido abordado como un fenómeno en sí mismo, pero ha sido escasamente investigada como una variable explicativa de otros fenómenos. Por un lado la literatura sobre Inconsistencia de Estatus \emph{objetiva}, sostiene que un desbalance entre el nivel educacional y los ingresos, permite explicar determinados fenómenos como las preferencias políticas individuales \citep{Lenski1967,Varas2015}, así también fenómenos subjetivos como la satisfacción con la vida y la salud percibida \citep{Zhang2008, Andersson2018}. 
+   
+Por otro lado, el nivel educacional y la posición en la distribución de ingresos muestran estar estrechamente relacionados con el estatus subjetivo \citep{Castillo2013,Lindemann2014}. Lo que \cite{Araujo2011} conceptualizan como \textbf{Inconsistencia de Estatus}, sugiere que las condiciones objetivas de vida se encuentran en un constante riesgo de sufrir procesos de desestabilización, generando sentimientos de amenaza e insatisfacción, que se traduce en percepciones sesgadas sobre su posición real en la estructura social. Conforme a la evidencia previa, es pesquisar exploratoriamente que el efecto de las condiciones objetivas sobre la percepción de meritocracia es mediado por las apreciaciones sobre el estatus social, por esta razón sostengo que:                      
+
+$H_{\text{3}}$: \textbf{El efecto del estatus social objetivo sobre la percepción de meritocracia es mediado por el estatus social subjetivo}.
+		
+\subsubsection*{Características sociodemográficas}
+	
+Otro aspecto relevante en la percepción de meritocracia son las diferencias por género. No existe consenso respecto a si existen diferencias en esta dimensión. Desde el ámbito de la estratificación social habría consenso con respecto a que las mujeres tienden a experimentar dificultades con respecto a sus oportunidades en el mercado laboral \citep{Laurison2016}, como también experimentan brechas en términos del salario \citep{Bobbitt-zeher2007, Cha2010}. Estos argumentos contrastan con la evidencia respecto al apoyo o percepción de meritocracia según el contexto. 
+
+La evidencia con respecto al género sugiere que las mujeres perciben mayor meritocracia o tenderían a dar su apoyo a las ideas meritocráticas con mayor facilidad que los hombres \citep{Kunovich2007,Reynolds2014,Sandoval2017}. Por otro lado \citet{Duru-bellat2012} y \citet{Ellis2017} hallaron que ser mujer estaba asociado con una menor percepción de meritocracia, lo cual iría en la línea de las evidencia en ámbitos de investigación previamente reseñados. Finalmente, \citet{Newman2015} y \citet{Solt2016} no encontraron diferencias significativas en el apoyo a la meritocracia entre hombres y mujeres, sin embargo la dirección de efecto implica que las mujeres serían menos propensas al rechazo a la meritocracia. 
+
+\newpage
+	
+\section{Datos, variables y método}
+
+\subsection[Estudio Longitudinal Social de Chile]{Estudio Longitudinal Social de Chile 2016}
+	
+El Estudio Longitudinal Social de Chile (ELSOC) es una encuesta desarrollada para analizar intertemporalmente la evolucion del conflicto y cohesión social en la sociedad chilena. Los principales temas de interés se resumen en los módulos Ciudadanía y Democracia, Redes sociales a Interacciones inter-grupales, Legitimidad y desigualdad social, Conflicto social, Dimensión barrial y territorial,Salud y bienestar, y Caracterización Socio-demográfica. 
+
+El trabajo de campo se realizó desde Agosto a Diciembre de 2016, a través de un muestreo probabilístico, estratificado, por conglomerados y multietápico, con un total de 2983 participantes con edad entre 18 y 75 años (Mujeres =1793).
+ 	
+\subsection{Variable dependiente: Percepción de Meritocracia}
+
+Las variables que se emplearon para medir percepción de meritocracia corresponden a dos baterías de ítems presentes en el cuestionario, la primera se encuentra en el módulo Desigualdad y Legitimidad, y la segunda en el módulo de Ciudadanía y Democracia. La Tabla \ref{tabla:merit} resume las preguntas a emplear. 
+	
+\begin{table}[h!]
+	\renewcommand{\arraystretch}{0.70}
+	\centering
+	\caption[Tabla 2: Baterías de preguntas para Percepción de Meritocracia]{Preguntas Percepción de Meritocracia}
+	\label{tabla:merit}
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{@{}ll@{}}
+			\toprule
+			\multicolumn{1}{c}{\textbf{Preguntas}}                                                                             & \multicolumn{1}{c}{\textbf{Valores}} \\ \midrule
+			\textbf{Actualmente en Chile, ¿cuán importante es para surgir en la vida…?}                                        &                                      \\ \cmidrule(r){1-1}
+			& 1. Nada importante                   \\
+			\hspace{1em}1. Provenir de una familia rica o con muchos recursos                                                                 & 2. Poco importante                   \\
+			\hspace{1em}2. Tener un buen nivel de educación                                                                                   & 3. Algo importante                   \\
+			\hspace{1em}3. Tener ambición                                                                                                     & 4. Bastante importante               \\
+			\hspace{1em}4. El trabajo duro                                                                                                    & 5. Muy importante                    \\
+			\textbf{¿En qué medida se encuentra usted de acuerdo o en desacuerdo con cada una de las siguientes afirmaciones?}  \\
+			\cmidrule(r){1-1}
+			& 1. Totalmente en desacuerdo          \\
+			\hspace{1em}1. En Chile las personas son recompensadas por sus esfuerzos                                                          & 2. En desacuerdo                     \\
+			\hspace{1em}2. En Chile las personas son recompensadas por su inteligencia y habilidades                                          & 3. Ni de acuerdo ni en desacuerdo     \\
+			& 4. De acuerdo                        \\
+			& 5. Totalmente de acuerdo             \\ \bottomrule
+		\end{tabular}%
+	}
+\end{table}
+
+Ambas baterías de ítems corresponden a dos dimensiones relacionadas al mérito. Por un lado, es posible identificar un primer conjunto de ítems que hace referencia a la importancia que tienen determinadas factores individuales en el proceso de ``Salir adelante'', y un segundo conjunto de ítems que hacen referencia a la ``Recompensa percibida''. 
+
+\subsection{Variables independientes}
+\subsubsection{Variables objetivas de estatus social}
+\subsubsection*{Ingreso}
+	
+Se empleó la pregunta de auto-reporte de ingresos individuales recodificada en deciles. Se agregó una categoría que incluye los casos que no reportaron sus ingresos, con el objetivo de no perder dichas observaciones en el análisis. 
+	
+\subsubsection*{Educación}
+	
+La educación es medida a través de diez categorías correspondientes al nivel de educación que actualmente la persona está cursando o el último nivel aprobado, así también existe la categoría para asignar a quienes no tienen ningún nivel de educación formal. La escala va desde (1) Sin estudios,(2) Educación Básica o Preparatoria Incompleta, (3) Educación Básica o Preparatoria completa, (4) Educación Media o Humanidades incompleta, (5) Educación Media o Humanidades Completa, (6) Técnico Superior incompleta, (7) Técnico Superior completa, (8) Universitaria incompleta, (9) Universitaria completa y (10) Estudios de posgrado (magíster o doctorado).
+	
+Esta variable fue recodificada según las categorías de la Clasificación Internacional Normalizada de la Educación \citep{cine2013}. De lo cual se obtuvieron seis categorías ordenadas de nivel educacional: (1) Educación primaria incompleta o menos, (2) Primaria y secundaria baja, (3) Secundaria alta y postsecundaria no terciaria, (4) Terciaria ciclo corto, (5) Terciaria Grado y Postgrado.    	
+
+\newpage
+	
+\subsubsection*{Ocupación}
+	
+La pregunta original por la ocupación dice \textit{\textbf{¿Cuál es su ocupación u oficio actual?. Describa sus principales tareas o funciones en el puesto de trabajo actual?}}. Esta pregunta fue recodificada previamente y dentro de la base de datos corresponde a las categorías de la Clasificación Internacional Uniforme de Ocupaciones (CIUO 88). La CIUO88 consta de nueve familias de ocupaciones, las cuales se dividen Directores y gerentes, Profesionales, científicos e intelectuales, Técnicos y profesionales de nivel medio , Personal de apoyo administrativo, Trabajadores de los servicios, Agricultores y trabajadores calificados, Oficiales, operarios y artesanos, Operadores de instalaciones y Ocupaciones elementales. Se recodificaron en nueve categorías según familia y se agregó una para aquellos casos que no reportaron su ocupación.
+	
+\subsubsection{Variables subjetivas de estatus social }
+
+\subsubsection*{Estatus Social Subjetivo}
+	
+Se empleará la escala de 11 puntos de autoreporte del \textbf{Estatus Subjetivo propio}. Esta pregunta señala lo siguiente:
+	
+\textit{En nuestra sociedad, hay grupos que tienden a ubicarse en los niveles más altos y grupos que tienden a ubicarse en los niveles más bajos de la sociedad. Usando la escala presentada, donde 0 es el nivel más bajo y 10 el más alto, ¿Dónde se ubicaría usted en la sociedad chilena?} 
+	
+Se incluye igualmente la variable sobre el \textbf{Estatus Subjetivo familia de origen}, representada por la pregunta que señala: \textit{Y pensando en la familia que usted creció, ¿dónde se ubicaría en esta escala?}.
+	
+Finalmente, se incluye la variable \textbf{Estatus Subjetivo de los hijos}, correspondiente a la pregunta que señala: \textit{Si usted tiene actualmente hijos o si los tuviera en el futuro, ¿dónde cree usted que se ubicarían ellos.}
+	
+\subsubsection*{Variables de control}
+
+\subsubsection*{Género y Edad}
+	
+El género será empleado como variable dictómica donde se elige codificar a las mujeres como (1) y a los hombres como (0). La edad se empleará como variable contínua.	
+		
+\subsubsection*{Posición Política}
+	
+%Dentro de la literatura sobre meritocracia subjetiva se hace referencia al componente normativo asociado a esta. \citet{Ellis2017} controló por identificación ideológica en el contexto estadounidense, hallando una asociación estadísticamente significativa entre ideología política y percepción de meritocracia. En este marco, el módulo de Ciudadanía y Democracia, incorpora la pregunta con respecto a la ideología política. 
+
+La posición política es preguntada de la siguiente manera: \textit{\textbf{tradicionalmente en nuestro país la gente define las posiciones políticas como más cercanas a la izquierda, al centro o a la derecha. Usando una escala de 0 a 10 donde 0 es ser de izquierda, 5 es ser de centro y 10 es ser de derecha, ¿Donde se ubicaría usted en esta escala? Indique el número que más le acomode.}} La escala fue recodificada en cinco categorías correspondientes a Izquierda/Centro Izquierda, Centro, Derecha/Centro Derecha, Independiente y Ninguno.
+	
+\newpage 
+	
+\subsection{Modelo de medición para Percepción de Meritocracia}
+	
+Una de las principales tareas del presente trabajo es la operacionalización de nuestra variable dependiente, para esto se realizó un análisis que de cuenta de la estructura compartida de los ítems de ambas baterías. La propuesta consiste en que la percepción de meritocracia puede ser medida en base a dos dimensiones representadas por los ítems de la batería que pregunta sobre la importancia de factores individuales para salir adelante y también por los ítems relacionados a la con la recompensa percibida, ambos presentados en la Tabla \ref{tabla:merit}. 
+	
+El procedimiento a seguir fue explorar la correlación entre estos ítems, de modo que sea posible aproximarnos en una primera instancia a la estructura de asociación. En segunda instancia, se realizó un Análisis Factorial Exploratorio, empleando una selección aleatoria del 50\% de los casos de la muestra (n=1492). Conforme a estos resultados, se determinó una estructura de dos factores, la cual fue confirmada a través de un Análisis Factorial Confirmatorio con la otra mitad de la muestra (n=1472), lo cual permitió confirmar la estructura factorial y realizar un análisis con la muestra completa. A continuación se presentan el detalle de cada uno de los pasos señalados.
+
+\subsection*{Análisis Factorial Exploratorio}
+		
+El modelo de factor común o Análisis factorial exploratorio permite determinar la naturaleza de una variable latente o \textit{factor}, el cual da cuenta de la variación y covarianza en un set de medidas observables, los cuales comunmente son señalados como \textit{indicadores} \citep{Brown2008}. Un factor o variable latente es entendido como una variable \textbf{inobservable} que influencia más de una medida observable y que a su vez da cuenta de la correlación entre estas medidas. Así, las medidas observables estarían correlacionadas debido a que comparten un factor común, y en el caso de que estas medidas no se encuentren asociadas, esto sería un indicador de la ausencia de un factor común, y por tanto su correlación tendería a ser cero. 
+	    
+Siguiendo a \citet{Brown2008}, el primer paso fue correlacionar los indicadores de meritocracia percibida, los cuales pueden ser observados en la Tabla \ref{table:cor}. Los ítems de la batería para ``Salir adelante'', muestran estar correlacionados de manera positiva y significativa, al igual que los ítems de la batería de ``Recompensa percibida''. Estos resultados dan cuenta de que los indicadores presentan elementos comunes, y que a su vez se distinguen entre ambas baterías. No obstante, el único indicador que se distingue respecto a los demás, es el ítem sobre el ``Trabajo Duro'', el cual correlaciona positivamente con los ítems de recompensa percibida, pero dicha asociación no es estadísticamente significativa. Desde el punto de vista sustantivo, es intuitivo pensar que ambas baterías estarían dando cuenta de dos dimensiones en torno a la meritocracia percibida. Por un lado tenemos ``la importancia'' para salir adelante... y por el otro la ``Recompensa percibida'' respecto a las características claves del mérito (Esfuerzo y Talento). En conclusión, el análisis bivariado ofrece suficiente evidencia para realizar un análisis factorial.          
+
+\renewcommand{\arraystretch}{0.75}
+\renewcommand{\baselinestretch}{1.5}
+\input{tables/cor-efa1}
+
+Los resultados del análisis factorial exploratorio de observar en la Tabla \ref{table:efa} sugieren una estructura con dos factores. Por un lado, está el conjunto de ítems que hace referencia a la \textit{recompensa percibida}, los cuales cargan en el Factor 1. Por otro lado, están los indicadores de la batería para \textit{salir adelante}, que cargan en el Factor 2. 
+
+En general, los indicadores cargan bien, siendo el ítem de \textbf{Provenir de una familia rica} el que presenta una menor correlación con la variable latente. Esto cobra sentido, considerando que las características de la familia de origen podrían considerarse como un componente adscriptivo y no de mérito.      
+
+\renewcommand{\baselinestretch}{1.15}
+\input{tables/efa1}
+
+Teniendo en cuenta que el análisis factorial exploratorio es considerada una técnica descriptiva, en el sentido que permite identificar una estructura factorial, este nos brinda evidencia a favor de avanzar en el análisis factorial confirmatorio. Considerando que el ítem de \textbf{Familia rica} fue aquel que presentó la carga factorial más baja, además de que sistantivamente no sería una característica meritocrática, se decide excluir este ítem del análisis factorial confirmatorio, el cual se llevó a cabo empleando la otra mitad de la muestra. 
+
+\subsection*{Análisis Factorial Confirmatorio}
+
+Conforme a la evidencia señalada en el apartado anterior, realicé un primer análisis factorial confirmatorio con la segunda mitad de la muestra, empleando la librería \textbf{\texttt{Lavaan}} \citep{Rosseel2012} en el paquete estadístico R . Siguiendo a \citet{Brown2008}, el análisis factorial confirmatorio (CFA) sigue el mismo principio del factor común que el análisis factorial exploratorio (EFA). Sin embargo, el CFA, como su nombre lo dice, tiene un caracter confirmatorio, es decir, busca testear estructuras factoriales provenientes de una conceptualización teórica y evidencia empírica, por tanto uno de los objetivos es la confirmación de teorías relativas a la medición de uno o más constructos latentes. Por esta razón, el CFA se implementa cuando suponemos un número de factores con anterioridad, y las estimaciones se realizan sobre la base de justificaciones sustantivas en torno a un fenómeno del cual se busca dar cuenta y proveer una medición confiable. 
+
+Una de las principales ventajas de emplear esta clase de modelos, hace referencia al error de medición. Así, cuando empleamos un índice sumativo o el promedio de una variable, se está asumiendo que no existe error de medición. Por otro lado, el CFA se hace cargo del problema del error de medición a través de la estandarización de las cargas factoriales, en vez de dejarlas libres a estimar, fijando una varianza única y media cero \citep{Brown2008}.
+
+Según se ha indicado, se llevó adelante el análisis factorial confirmatorio, el cual asume una estructura con dos factores. Primero están tres ítems de la batería \textit{Para salir adelante}: Tener buen nivel de educación, Tener ambición y el Trabajo duro. Segundo, están los dos ítems de \textit{Recompensa percibida}: Esfuerzo e Inteligencia y habilidades.  Para evaluar la bondad de ajuste de nuestro modelo de medición, empleamos el \textbf{Comparative Fit Index} (CFI), el \textbf{Tucker-Lewis Index} (TLI) y el \textbf{Root Mean Square Error of Approximation} (RMSEA), donde valores por sobre el 0.95 son aceptables para los primeros dos y valores por debajo de 0.05 para el último \citep[Cap. 3 y 4]{Brown2008}. 
+
+El modelo de medición propuesto, realizado con la mitad de la muestra (n=1472), obtiene una bondad de ajuste que se encuentra dentro de los límites adecuados ($\chi^2(4)$=19.96, $p$=0.001 CFI=0.99, TLI=0.99, RMSEA=0.052, Est: Mínimos cuadrados ponderados y varianza ajustada). Conforme a estos resultados, estimé un modelo de medición con la muestra completa, de modo que sea posible confirmar que la estructura con dos factores. La Figura \ref{fig:cfa1} muestra los resultados de el modelo de medición final. Este da cuenta de una estructura de dos factores que correlacionan negativamente, además de que cargan adecuadamente en cada uno de los indicadores de percepción de meritocracia.     
+
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[width=15cm]{images/cfa-plot1}
+	\caption[Figura 1: Modelo de medición: Percepción de Meritocracia]{Modelo de medición para Percepción de Meritocracia con solución estandarizada}
+	\label{fig:cfa1}
+\end{center}
+\end{figure}
+
+A modo de síntesis de esta sección, es posible señalar que se confirma una estructura de dos factores, lo cual fue evidenciado de manera descriptiva través del análisis bivariado y el Análisis Factorial Exploratorio. En una segunda instancia, realizamos una selección de los indicadores más adecuados, en donde excluimos el ítem de \textbf{Familia rica} por motivos empíricos y conceptuales. Finalmente, realicé un análisis factorial confirmatorio con la mitad de la muestra y completa. Los resultados del análisis nos brindan un modelo de medición consistente en términos empíricos, y que a su vez ofrece una medición adecuada de el constructo de interés que es la Percepción de Meritocracia para el contexto chileno. 
+
+A continuación, se presentan los resultados descriptivos de los análisis, así también se presentarán los resultados de los análisis de regresión en el contexto de modelos de ecuaciones estructurales \cite{Brown2008}, lo cual permite evidenciar la asociación entre las características subjetivas y objetivas de estatus social con las variables latentes de percepción de meritocracia.
+
+\newpage
+
+\section{Resultados}
+
+\subsection*{Resultados descriptivos}
+
+La Tabla \ref{table:freq} muestra los estadísticos descriptivos y la distribución de las variables categóricas. El promedio de edad es de 46 años aproximadamente y cerca del 60\% son mujeres. Un 43\%  corresponde a individuos con educación secundaria Alta, le sigue un 18.24\% con educación terciaria y postgrado y el tercer grupo más grande es aquel con educación terciaria ciclo corto. 
+
+\renewcommand{\arraystretch}{0.65}
+\renewcommand{\baselinestretch}{1}
+\input{tables/freq}
+
+La variable ingresos está distribuida en deciles de 178 casos, equivalentes a un 5.97\%, además de incluir una categoría para los individuos que no reportaron sus ingresos, la cual agrupa al 40.3\% de los casos. Se presenta la proporción para cada grupo ocupacional de la Clasificación Internacional Uniforme de Ocupaciones (CIUO), además de una categoría  para quienes no reportaron su ocupación, que agrupa al 38.4\% de la muestra. Finalmente, se presentan los cuatro grupos para posición política. Quienes se identifican de Izquierda, Centro y Derecha representan al 20.17 \%, 20.34 y 14.08 \% respectivamente. Quienes se declaran independientes o no se identifican, representan al 7.17\% y 35.92\%. 
+
+La Tabla \ref{table:cor-ess} presenta la correlación entre las medidas de estatus subjetivo y las variables latentes. La correlación entre el estatus subjetivo propio es baja ($r$=-0.08; $p$<0.001) con la variable latente \textbf{Salir adelante} y prácticamente cero con \textbf{Recompensa Percibida}. A su vez, el estatus de la familia de origen tiene una correlación baja con Salir Adelante ($r$=0.02; $p$>0.05) y Recompensa percibida ($r$=0.01; $p$>0.05). El estatus subjetivo de los hijos tiene una correlación baja con Salir Adelante ($r$=0.09; $p$<0.001) y Recompensa Percibida ($r$=-0.01; $p$>0.05). 
+
+\renewcommand{\arraystretch}{0.65}
+\input{tables/cor2-ess-lat}
+
+Estos resultados son interesante desde el punto de vista sustantivo, debido dan cuenta de que la percepción de estatus social sobre la familia de origen no sería relevante cuando se evalúa la importancia de los factores individuales para surgir en la vida. Esto cobra sentido en la medida que, por ejemplo, una familia con alto capital económico o cultural, trasmite ventajas a sus hijos a través de la educación y la socialización al interior de la familia. Por tanto, parte de los logros individuales pueden atribuirse a características adscritas. Por otro lado, el estatus de los hijos muestra estar asociado con la importancia de los factores individuales para surgir en la vida. Esto hace sentido en la medida que aquellas personas que poseen expectativas positivas respecto al logro de estatus que tendrán sus hijos, podría estar relacionado con  atribuir mayor importancia a factores individuales en la obtención de recompensas en términos de estatus social.   
+ 	
+Es posible observar que el puntaje factorial de la variable latente \textbf{Recompensa percibida} no correlaciona significativamente con ninguna de las medidas de estatus social subjetivo. No obstante, se intuye que la propia estimación de estatus subjetivo no se vincule cognitivamente con la evaluación respecto a la recompensa percibida, no así respecto de la importancia de educarse, ser ambicioso o trabajar duro. 
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=16cm]{images/ess1}
+	\caption[Figura 2: Distribución del Estatus Social Subjetivo]{Distribución del Estatus Social Subjetivo}
+	\label{fig:ess1}
+\end{figure}
+
+En la Figura \ref{fig:ess1} es posible observar la distribución de las distintas medidas de estatus subjetivo. Consistente con la evidencia, el estatus propio es aquel que alcanza un mayor porcentaje en los tramos medios de la distribución de estatus social. Esta suerte de ``clase media'' subjetiva, habla de que al menos un 60\% se sitúa entre los tramos 4, 5 y 6, lo cual estaría haciendo referencia a una sociedad que se percibe a si misma como una ``mesocracia''.
+
+La distribución del estatus subjetivo de la familia de origen es interesante cuando lo contrastamos con el estatus propio. En términos generales, si observamos la Tabla \ref{table:cor-ess}, la media es 3.9 y la mediana es 4, es decir que existe un sesgo hacia la parte baja de la distribución, en contraste con el estatus propio que tiene una media de 4.3 y una mediana de 5. Desde el punto de vista sustantivo es interesante dar cuenta de estas diferencias, debido a que en términos promedio las personas tienden perciben que su familia de origen se sitúa más bajo en la escala social en comparación con sí mismos.
+
+Es posible observar que con el estatus subjetivo de los hijos ocurre lo contrario que con el de la familia de origen. El estatus de los hijos tiene una media de 6.29 y una mediana de 6, ambas medidas se encuentran por sobre la media y mediana del estatus propio y de la familia de origen. Estos resultados son interesante si los contrastamos con la Tabla \ref{table:cor}, donde el estatus de los hijos se correlaciona de manera positiva y significativa con la variable latente \textbf{Salir adelante}. Esto permite suponer que las personas que tienen mayores expectativas de movilidad para sus hijos, serían persona que perciben mayor meritocracia en la medida que atribuyen mayor importancia a los factores individuales para surgir en la vida. 
+
+\newpage      	
+
+\subsection{Resultados de modelos de regresión}
+
+En esta sección se presentan los resultados de los modelos ecuaciones estructurales, a través de los cuales se estimaron distinos modelos de regresión para determinar la asociación de la variables exógenas con las variables latentes. Siguiendo las hipótesis, se estimaron modelos independientes para el Decil de ingreso, Educación y Ocupación. Luego, se estimaron modelos para el estatus subjetivo propio, de la familia de origen y los hijos. Finalmente, se estimó un modelo que incluye las variables de estatus objetivo y estatus subjetivo, en conjunto de los controles sociodemográficos y posición política. 
+	
+En base a los resultados del análisis de correlación entre las medidas de estatus subjetivo y las variables latentes de percepción de meritocracia, decidí presentar los resultados según un criterio de relevancia empírica. Por un lado, la correlación de \textbf{Salir adelante} muestra ser significativa con dos de las tres medidas de estatus subjetivo. Por otro lado, la variable latente \textbf{Recompensa percibida} muestra no estar correlacionada significativamente con ninguna de las medidas de estatus subjetivo. 
+
+\subsubsection[Variable latente \textit{Salir adelante}]{Salir adelante}
+
+El interés propio es el principal mecanismo explicativo para sostener que mayores ingresos se relacionan con una mayor percepción de meritocracia. Por un lado, el Modelo 1 no evidenció diferencias significativas con el Decil 1. Por otro lado, considero que los resultados del modelo final son poco robustos como para respaldar un argumento basado en interés racional para el contexto chileno, salvo para los deciles 3 y 4 poseen coeficientes negativos y marginalmente significativos. Lo interesante de estos hallazgos, es la consistencia la dirección negativa de la asociación, lo cual va en el sentido contrario a la hipótesis original. 
+
+Los resultados para la educación sugieren que pertenecer a grupos con mayor logro educativo atribuyen mayor importancia a los factores individuales para salir adelante. En este sentido, los resultados respaldan las predicciones de las teorías reproducionistas \citep{Bernstein2003,Bourdieu1981}. Esto implica que individuos pertenecientes a grupos con mayor nivel educativo atribuyen más importancia a la ambición, tener educación y el trabajo duro para surgir en la vida, lo cual va en la línea de lo hipotetizado para la educación. Si se observa con atención, la magnitud de los coeficientes  evidencia que la asociación no es lineal. El grupo con educación primaria y secundaria baja tiene un promedio mayor que secundaria alta y menor que Terciaria ciclo corto. Por otro lado, Terciaria y postgrado tiene un promedio menor que Terciaria ciclo corto, pero mayor que primaria y secundaria. \cite{Sandoval2017} evidenció un patrón similar, sin embargo, dicha relación es más relevante en individuos con baja educación. 
+
+Con respecto a la Ocupación, por el lado de los grupos de baja cualificación, el Modelo 3 muestra que el grupo de ``Oficiales, operarios y artesanos'', en promedio, percibe mayor meritocracia que las ``Ocupaciones elementales''. En una línea similar, los grupos de personal administrativo, técnicos y profesiones de nivel medio, perciben mayor meritocracia promedio que el grupo de menor cualificación . Finalmente, el grupo ``Directores y gerentes'', en promedio, perciben mayor meritocracia que las ocupaciones elementales. En el modelo 6, que incorpora todas las demás variables de estatus, los coeficientes de todos los grupos ocupacionales pierden significancia. Así, no existe evidencia suficiente para respaldar la hipótesis de que la posición en el mercado de trabajo afecta la percepción de meritocracia en términos de importancia de tener ambición, la educación y el trabajo duro, para surgir en la vida.
+
+Los resultados de los modelos de regresión presentados en la Tabla \ref{table:semSAD} permiten afirmar que la educación es la variable objetiva de estatus social más importante en predecir la percepción de meritocracia en términos de la importancia que tiene la ambición, la educación y el trabajo duro en el proceso de surgir en la vida. Por otro lado, no existe evidencia suficiente para respaldar las hipótesis para los ingresos y la ocupación. 
+
+%TABLA REGRESION SALIR ADELANTE
+\newgeometry{
+	left=0.5cm,
+	right=0.5cm,
+	bottom=1cm, 
+	footskip=1mm}
+\renewcommand{\arraystretch}{0.6}
+\renewcommand{\baselinestretch}{1}
+\input{tables/semSAD}
+\restoregeometry
+
+Los resultados de los modelos para estatus subjetivo sugieren que las hipótesis se cumplen de manera parcial. El modelo 4 sugiere que un mayor estatus subjetivo propio se asocia con mayor percepción de meritocracia. Sin embargo, el modelo final muestra que el coeficiente del estatus propio mantiene el sentido pero pierde su significancia estadística, al controlar por estatus objetivo, estatus subjetivo de la familia de origen y de los hijos en el futuro. La diferencia de estos resultados con investigaciones previas, es que incluí variables de estatus subjetivo relacionadas con la familia de origen y de los hijos en el futuro. Contrario a lo evidenciado en la literatura \citep{Schneider2015,Castillo2018}, no existe evidencia suficiente para respaldar la hipótesis de que a mayor estatus social subjetivo propio habría mayor percepción de meritocracia. 	
+
+Contrario a lo que se hipotetizó, los resultados del modelo 5 sugieren que el estatus de la familia de origen no se relaciona con la percepción de meritocracia. Ahora bien, el modelo completo sugiere que esta asociación es negativa, lo que se contradice con lo evidenciado en el modelo anterior. En definitiva, debido a la falta de robustez de estos resultados, considero que no hay evidencia suficiente para respaldar lo hipotetizado respecto a que una mayor percepción de estatus para la familia de origen se asocia con una mayor percepción de meritocracia en torno a la importancia atribuida a la ambición, al educarse y al trabajo duro en el proceso de surgir en la vida.  
+
+Con respecto al estatus subjetivo de los hijos, conforme a lo hipotetizado, los resultados del modelo modelo 5 y 6 sugieren un mayor estatus subjetivo de los hijos en el futuro se asocia con mayor percepción de meritocracia. Esta evidencia respalda lo que se ha teorizado en base a la hipótesis POUM \citep{Benabou2001}, de modo tal que individuos con expectativas de estatus más altas para sus hijos en el futuro, atribuyen mayor importancia a los factores individuales para surgir en la vida. La relevancia sustantiva y las implicancias de estos hallazgos serán abordadas en la sección de discusión teórica.           
+
+\subsubsection[Variable latente \textit{Recompensa percibida}]{Recompensa percibida}
+
+En segunda instancia, se presentan los resultados del análisis de regresión para \textit{Recompensa percibida}. Se presentó en segundo lugar producto de su relevancia empírica en términos de la asociación con las variables subjetivas de estatus social. 
+
+Al igual que con la variable \textit{Salir adelante}, la hipótesis basada en una aproximación de interés racional no ha encontrado respaldo en los resultados. Por tanto, no es posible afirmar que la posición en la distribución de ingreso afecta la percepción de meritocracia en relación a a las recompensas provenientes de los esfuerzos e inteligencia de los individuos. 
+
+La hipótesis para la educación sostiene que esta debiese tener un efecto positivo en la percepción de meritocracia. Ahora bien, los resultados del modelo final muestran que la educación tiene una asociación negativa con la percepción de meritocracia en términos de las recompensas percibidas. Al igual que con \textit{Salir adelante}, la educación tiene un efecto consistente, pero en este caso va en la dirección contraria a lo propuesto. Esto resultados sugieren que individuos con mayor educación, tienen una apreciación negativa respecto de las recompensas que se obtienen producto del esfuerzo y la inteligencia. Por un lado, esto podría explicarse por percibir mayor inequidad \citep{Adams1965}, lo cual genera sentimientos de deprivación relativa \citep{Merton1968}, y por consiguiente, una conciencia crítica respecto del funcionamiento de la meritocracia.
+
+Los modelo 4 y 6 muestran que la posición en el mercado de trabajo no tiene un efecto sobre la percepción de meritocracia en términos de las recompensas asociadas al esfuerzo e inteligencia de los individuos. La ausencia de una asociación significativa va en la misma línea de los resultados con la variable \textit{Salir adelante}, debido a la falta de evidencia que permita confirmar la hipótesis relacionada con la ocupación de los individuos. Por lo tanto, es posible afirmar que la posición en el mercado de trabajo no afecta la percepción que tienen los individuos sobre la meritocracia.   
+
+%TABLA REGRESION RECOMPENSA PERCIBIDA
+\newgeometry{
+	left=0.5cm,
+	right=0.5cm,
+	bottom=1cm, 
+	footskip=1mm}
+\renewcommand{\arraystretch}{0.6}
+\renewcommand{\baselinestretch}{1}
+\input{tables/semREC}
+\restoregeometry 
+
+Con respecto al estatus subjetivo propio, se ha hipotetizado que un mayor estatus tiene una asociación positiva con la percepción de meritocracia. Los resultados del modelo 4 y 6 ofrecen evidencia insuficiente para respaldar esta hipótesis, de modo tal que el estatus subjetivo propio no tiene relevancia en predecir la percepción de meritocracia en términos de las recompensas asociadas con los esfuerzos e inteligencia de los individuos. 
+
+Los modelos 5 y 6 ofrecen evidencia con respecto al estatus subjetivo desde una óptica ``dinámica''. Por un lado, el coeficiente estatus para la familia de origen demuestra una asociación positiva, lo cual brinda suficiente evidencia para confirmar la hipótesis que sostiene que un mayor estatus subjetivo de la familia de origen conlleva que los individuos perciban mayor meritocracia. Este resultado es interesante si lo contrastamos con los resultados para la variable \textit{Salir adelante}. Dicho lo anterior, la apreciación de estatus de la familia de origen no es relevante en términos de los factores individuales (ambición, educación y trabajo duro), pero sí lo es cuando se evalúan las recompensas provenientes del esfuerzo e inteligencia de los individuos, cuyas implicancias serán abordadas en el apartado de discusión teórica de los resultados.
+
+Los resultados sugieren que el estatus subjetivo de los hijos en el futuro se relaciona negativamente con la percepción de meritocracia en términos de la recompensa percibida. Acorde con la hipótesis POUM \citep{Benabou2001}, se esperaba que mayores expectativas de estatus social para los hijos se asociara con mayor percepción de meritocracia. Sin embargo, los resultados del modelo 5 y 6 evidenciaron que un mayor estatus subjetivo para los hijos en el futuro implica que se percibe menor meritocracia en términos de las recompensa proveniente de los esfuerzos e inteligencia de los individuos, lo cual contradice la hipótesis propuesta inicialmente. 
+
+En definitiva, se concluye que la variable de estatus objetivo más importante es el nivel educacional, la cual se asocia significativamente con ambas dimensiones de percepción de meritocracia, pero en sentidos diferentes. Por otra parte, se evidenció que la variable subjetiva de estatus social más relevante es el estatus de los hijos en el futuro, debido a que mostró ser consistente en su asociación con las dos dimensiones de percepción de meritocracia. 
+
+Llegado a este punto, decidí poner a prueba la tercera hipótesis empleando las medidas de estatus objetivo y subjetivo más importante. Por lo tanto, me dispondré a comprobar si el efecto directo de la educación sobre la percepción de meritocracia es mediada por las expectativas de estatus para los hijos en el futuro.     
+
+\subsection[Análisis de Mediación]{Análisis de Mediación}
+
+Conforme a la tercera hipótesis ($H_3$), y en base a las especificaciones del \textbf{modelo 6}, llevé a cabo el análisis de mediación. Como se ha señalado en el apartado anterior, el análisis de regresión evidenció que la Educación es la variable de estatus objetivo más relevante en predecir la percepción de meritocracia. Por otra parte, el estatus subjetivo de los hijos corresponde a la variable subjetiva más consistente en términos empíricos. 
+
+Siguiendo a \cite{Jose2013}, la ventaja de emplear un análisis de mediación versa en la posiblidad de descomponer el coeficiente de un predictor en efectos \textbf{Directos} e \textbf{Indirectos}, a través de la incorporación de un tercer término denominado \textbf{Mediador}. La formalización de este tipo de modelos puede observarse en la ecuación de regresión \ref{eq1}:
+
+\begin{equation}
+\begin{aligned}
+\label{eq1}
+Y &= i_1+ \text{cX}+ e_1\\
+Y &= i_2+ \text{c'X} + \text{bM} + e_2 \\
+M &= i_3+ \text{aX}+ e_3
+\end{aligned}
+\end{equation}
+
+En esta ecuación $i_1$ es el intercepto, $c$ refiere al coeficiente de la relación entre el predictor y la variable dependiente; y $e_1$ es la varianza de $Y$ que no es explicada por $c$. Luego, es necesario estimar la relación de la variable mediadora con la variable dependiente, así también la relación del predictor $X$ con el mediador $M$. Los elementos más importantes son $a$, $b$, $c$ y $c'$. Esta estimación permite conocer el coeficiente de la asociación entre X e Y, término que es denotado por $c$ en el primer modelo, lo cual posteriormente se transforma en $c'$ en el modelo de mediación. Este término representa al coeficiente $c$ ajustado por la inclusión de la variable mediadora. 
+
+La relación original entre X e Y usualmente se denomina \textbf{efecto total}. El coeficiente $c'$ representa la relación entre X e Y, luego de remover el efecto indirecto, lo cual es denominado \textbf{Efecto Directo}. En este sentido, el coeficiente de la asociación entre X y M es denotado por $a$, mientras que el coeficiente de la asociación entre M e Y es denotado por $b$, lo cuales en conjunto dan cuenta del denominado \textbf{Efecto Indirecto}, el cual habitualmente se calcula a través del término multiplicativo $a \times b$ o también a través de la diferencia  $c - c'$.
+
+La estimación del efecto indirecto se realiza empleando los errores estándar calculados a través de un Test de Sobel \citep{Sobel1987,Rosseel2012}, el cual permite determinar si las diferencias entre $c$ y $c'$ son estadísticamente significativas. Esto va en la línea de una reciente recomendación publicada por los editores del \textit{American Sociological Review} \citep{Mustilloetal2018}, quienes sugieren que se debe avanzar en técnicas más precisas para determinar la significación estadística de un efecto indirecto, además de tomar en cuenta la validación de las mediciones empleadas en sociología.
+
+\newpage
+
+\subsection*{Resultados del análisis de mediación}
+
+En base a las especificaciones del Modelo 6, se estimó un modelo de mediación para dar cuenta el efecto directo e indirecto de la Educación sobre las variables latentes \textbf{Salir Adelante} y \textbf{Recompensa Percibida}, mediado a través del Estatus subjetivo de los hijos.  
+
+Los resultados de la Tabla \ref{table:med1} muestran que individuos de todos los grupos educacionales, respecto al grupo con educación primaria incompleta o menos, perciben mayor meritocracia en términos de la importancia de los factores individuales para salir adelante en la vida. Así mismo, esta relación es parcialmente explicada por el estatus subjetivo de los hijos en el futuro, lo cual es particularmente saliente para el grupo con educación primaria completa y secundaria baja, respecto del grupo con educación primaria incompleta o menos. 
+
+Se observa que en todos los grupos de educación, en comparación con quienes poseen educación primaria incompleta o menos, poseen un promedio más bajo en la variable recompensa percibida. En este sentido, la asociación se encuentra parcialmente explicada por el estatus subjetivo de los hijos en el futuro, lo cual sería más relevante en el grupo que declara tener educación primaria completa y secundaria baja, respecto del grupo con primaria incompleta o menos. El efecto indirecto de la educación en la Recompensa percibida para el grupo con educación Primaria o secundaria baja, evidencia que el estatus subjetivo de los hijos media el efecto de la educación en la percepción de meritocracia. No obstante, debido a la magnitud del coeficiente estandarizado ($\beta$ = -0.001, $p$<.01), sostengo que el efecto indirecto es bajo, y por tanto, tiene poca relevancia sustantiva.
+   
+%\input{tables/mediacion2}
+
+\input{tables/anexomed}
+
+Dicho lo anterior, estos resultados pueden explicarse por el hecho de que el grupo con educación primaria o secundaria baja, respecto del grupo con primaria incompleta o menos, en promedio, posee mayores expectativas de logro de estatus para sus hijos en el futuro. Así también, es posible evidenciar que los grupos con educación secundaria alta en adelante, no se distinguen significativamente respecto de la categoría más baja en términos del promedio de estatus subjetivo para sus hijos en el futuro (ver Anexo Tabla \ref{tab:pathbed}). 
+
+Una manera de aproximarnos a la fuerza del efecto indirecto es a través del ratio $\frac{\text{a} \times \text{b}}{\text{c}}$, lo cual permite determinar la proporción de la varianza total que es explicada por el efecto indirecto \citep{Jose2013}. Los resultados de la Tabla \ref{table:med1} sugieren que el efecto indirecto del grupo con educación primaria o secundaria baja, respecto a primaria incompleta o menos,  equivale a un 8\% del efecto total de la educación sobre la variable latente \textbf{Salir adelante}.
+
+El hecho de que el estatus subjetivo de los hijos opere como mediador del efecto del grupo con educación primaria o secundaria baja, puede deberse a que individuos con baja educación atribuyen mayor importancia para salir adelante a factores individuales, puesto que las oportunidades educativas representan el principal vehículo a través del cual sus hijos podrían expresar su talento, y como consecuencia de esto, acceder a una posición social más alta y a mejores condiciones de vida. 
+
+\newpage
+
+\section{Discusión}
+
+% INGRESOS
+En primera instancia sostuve que personas que ocupan una posición superior en la distribución de ingresos tenderían a percibir mayor meritocracia. Desde un enfoque de interés propio, individuos de mayores ingresos perciben más meritocracia debido a que las recompensan obtenidas son justas y legítimas producto de que son el resultado de su propio esfuerzo y talento \citep{Kunovich2007, Duru-bellat2012}. Los resultados del análisis sugieren que los ingresos no son relevantes en explicar cómo los individuos perciben el funcionamiento de la meritocracia en Chile. 
+
+Cuando se trata de ser ambicioso, educarse y trabajar duro, la percepción de meritocracia sigue una tendencia negativa cuando aumentan los ingresos. Esto va en la línea de lo propuesto por \cite{Solt2016}, quienes plantean que individuos de bajo estatus tienden a apoyar más la meritocracia debido a la toma de consciencia respecto de su condición de deprivación frente a grupos de mayor estatus, lo cual tiene como consecuencia el atribuir mayor importancia a la agencia individual en el proceso de salir adelante en la vida.
+
+Por un lado, la literatura comparada brinda evidencia a favor de las predicciones basadas en interés propio \citep{Kunovich2007,Duru-bellat2012}. Por otro lado, este estudio apunta en la dirección de la evidencia para el caso de Chile, donde mayores ingresos impactan positivamente la percepción de recompensa proveniente del esfuerzo y el talento, sin embargo se ha evidenciado que la asociación desaparece al incluir otras medidas de estatus \citep{Castillo2018}. Contra toda intuición inicial, los ingresos parecen no tener relevancia en cómo se percibe la meritocracia en una sociedad tan desigual como Chile. Dicho esto, una perspectiva basada en interés racional parece ser insuficiente para explicar la percepción de los individuos sobre el funcionamiento de la meritocracia.
+
+Se sabe que mayores ingresos tienen un efecto negativo en justificación del sistema en contextos desiguales \citep{Vargas-Salfate2018}, donde adscribir a la meritocracia juega un rol fundamental en la legitimación del sistema distributivo \citep{Day2017}. La relación entre ingresos y percepción de meritocracia conduce la discusión sobre cuáles mecanismos que explican el vínculo entre condición objetiva, y cómo esto afecta las apreciaciones subjetivas sobre la meritocracia.      
+
+% EDUCACION
+
+Desde las teorías reproduccionistas se ha argumentado que más educación implica adscribir fuertemente a los principios meritocráticos. En esta línea, se ha confirmado que individuos pertenecientes a grupos con mayor logro educativo perciben mayor meritocracia con respecto a la importancia que tiene ser ambicioso, educarse y trabajar duro. El logro educacional, representado a través de las credenciales educativas, es una manera medir de la inversión realizada en la formación \citep{Lampert2013}. Conforme a lo señalado por \cite{Bourdieu1981}, esta evidencia respalda la idea de que el nivel educacional contribuye a que los principios meritocráticos sean asimilados por los individuos, de modo que en la medida que aumenta el logro educacional, mayor importancia se le atribuye a la agencia individual en explicar la posición social \citep{Landerretche2011}.  
+
+Siguiendo a lo planteado por \cite{Duru-bellat2012}, individuos en posiciones de privilegio o dominantes tienden a justificar su posición social, ya sea por interés en mantener acceso a recursos (poder, dinero, etc.) Dicho lo anterior, una explicación alternativa puede ser el haber experimentado cambios en su posición social, lo cual implica que los individuos considera legítima la desigualdad debido a que se recompensa a quienes son meritorios \citep{Day2017}. Personas que han progresado económicamente  debido  a los retornos educativos, son proclives a justificar las diferencias sociales, debido a que la desigualdad económica es el resultado de una distribución justa, lo cual se explica porque hay quienes gozan de las recompensas de su trabajo, mientras que quienes se ubican en los estratos bajos de la jerarquía social se explicaría por la falta de esfuerzo \citep{Schneider2015}. 
+
+Otra situación plausible es que individuos con mayor educación sean conscientes del funcionamiento del sistema distributivo, y por tanto, desarrollen una visión crítica sobre la desigualdad social \citep{Duru-bellat2012}. Se evidenció que individuos con mayor logro educativo perciben que en Chile las personas son poco recompensadas por su esfuerzo y talento. A diferencia de atribuir mayor importancia a factores individuales, en Chile las personas tienden a estar desacuerdo con que las recompensas van en concordancia con el mérito realizado. 
+
+Desde la Teoría de la Equidad, \citet{Adams1965} sostiene percibir un desbalance entre esfuerzos y recompensa, es la antesala para experimentarían sentimientos de deprivación relativa \citep{Merton1968}. Por esta razón, en la medida que los individuos logran una mayor educación, la percepción de recompensa tiende a ser cada vez menor. Estos resultados van en la línea de lo evidenciado por \cite{Castillo2018}. Esto puede explicarse porque individuos con alta educación tienden a percibir mayores brechas salariales \citep{Castillo2012}, lo cual conduce a sentimientos de deprivación. Dicho lo anterior, esta evidencia respalda los postulados de la hipótesis de instrucción \citep{Duru-bellat2012}, de modo que individuos con mayor educación serían más conscientes de la desigualdad social, y en consecuencia tendrían una percepción negativa sobre el funcionamiento de la meritocracia en Chile.  
+
+% OCUPACION
+Desde una perspectiva de auto interés, se hipotetizó que posiciones de alto estatus en el mercado de trabajo implicaría mayor percepción de meritocracia. Se ha evidenciado que la ocupación de los individuos no se relaciona sustantivamente con la percepción de la meritocracia. En principio, los sugieren que individuos con ocupaciones de ``alto estatus'' atribuyen mayor importancia a factores individuales, sin embargo estos resultados son poco consistentes. En términos teóricos, se ha sugerido que la esfera productiva en donde los individuos realizan sus principales actividades y ponen en práctica sus habilidades, de modo tal que la ocupación permite acceder a un marco de experiencias distinto al de otros indicadores de estatus \citep{Svallfors2006}. Dicho esto, las recompensas que perciben son contrastadas con la información disponible sobre los salarios en el mercado \citep{Kulin2013}, cual puede conducir a sentimientos de insatisfacción en el caso de no verse recompensados adecuadamente \citep{Adams1965}. 
+
+Si bien los hallazgos no permiten adentrarse en una discusión fundada en evidencia estadísticamente relevante, el sentido de la asociación apunta en la dirección de hallazgos de estudios previos \citep{Sandoval2017}. Por otro lado, se observa que en grupos ocupacionales de mayor cualificación, los individuos tienden a desestimar que en Chile las personas son recompensadas por su esfuerzo y talento, lo cual contribuye a un argumento basado en sentimientos de deprivación relativa. En definitiva, argumentar que individuos con una posición más favorable en el mercado de trabajo afecta la percepción de meritocracia, parece ser un marco interpretativo poco adecuado para el caso de Chile.
+
+
+%------------------------------------------------------------------------------------------ 
+% ESTATUS SOCIAL SUBJETIVO
+
+La percepción del propio estatus social se basa en procesos de comparación con los grupos de referencia, lo cual sugiere que dicha percepción no está libre de sesgos \citep{Evans2004,Castillo2013,Lindemann2014}. Aquí he postulado una percepción de estatus más alta se asocia con mayor percepción de meritocracia. En primera instancia se evidenció que a mayor estatus subjetivo, se atribuye mayor importancia a ser ambiciosos, educarse y a trabajar duro. En base a un enfoque de interés propio, sujetos de mayor estatus perciben mayor meritocracia en la medida que creen que su posición social se explica por su agencia individual, lo cual parece ser consistente con el hecho de que el estatus subjetivo no se relacione con la recompensa percibida.   
+
+Se ha teorizado que las apreciaciones subjetivas de estatus social son, en parte, \emph{reflejo} de los del estatus objetivo \citep{Castillo2013,Schneider2015}. Desde la Teoría de Grupos de Referencia \citep{Evans1992,Evans2004,Evans2017} se postula que si bien las condiciones materiales ejercen influencia sobre las apreciaciones subjetivas, la formación del estatus subjetivo es una síntesis de la experiencia de \textit{ego} con el resultado de la comparación social \citep{festinger1954theory}. Dicho esto, aquí se postula que el estatus subjetivo propio pierde relevancia en la percepción de meritocracia al considerar el nivel educacional, el estatus de la familia de origen y de los hijos en el futuro.      
+
+Dicho lo anterior, sostengo que la escasa relación entre estatus subjetivo y recompensa percibida, denota la ausencia de sentimientos de deprivación relativa. Esto contribuye al argumento de que los individuos consideran legítima su posición social, lo cual se explica por una percepción favorable del sistema distributivo \citep{McCoy2007,Trump2017,Day2017}. En este sentido, en la medida que los individuos se perciben más alto en la jerarquía social, estos tenderían a estar satisfechos con el \textit{status quo} en términos de la distribución de los recursos en la sociedad. 
+
+
+%ESTATUS SUBJETIVO DINAMICO
+
+%\subsection*{Familia de origen} 
+
+Percibir que se proviene de una familia de alto estatus, tiene como consecuencia una menor percepción de meritocracia con respecto a los factores individuales en el proceso de surgir en la vida. Esto se puede explica porque provenir de que familias de alto estatus, ofrece mayores ventajas comparativas respecto a individuos de origen desaventajado \citep{Goldthorpe2003, Layte2017}. Esto se traduce en que familias con más recursos económicos y culturales tienen la capacidad de transmitir estas ventajas a sus hijos \citep{Bourdieu2009,Brand2010,Mare2011,Jennings2015}. Dicho lo anterior, parece razonable que individuos que atribuyen un mayor estatus a su familia de origen sean conscientes de los privilegios que esto implica en términos de las oportunidades de movilidad, lo cual conlleva que un logro de estatus bajo se explique por factores externos, tales como la falta oportunidades o la desigualdad económica. 
+
+Por el contrario, se ha evidenciado que una mayor percepción de estatus para la familia de origen va en consonancia con estar en desacuerdo con que en Chile las personas son recompensadas por su esfuerzo y talentos. Por un lado, se puede explicar porque individuos con un mayor logro de estatus tienden a justificar su posición en la estructura social en base a factores internos \citep{Schneider2015}. El estatus subjetivo propio, varía positivamente con el estatus de la familia, lo cual habla de un efecto ``espejo'' de la realidad de uno de sus grupos de referencia \citep{Castillo2012, Castillo2013}. Así, individuos que se perciben a sí mismos como \emph{móviles}, tienden a racionalizar las causas que explican su posición social, lo cual tiene como resultado la internalización de los principios meritocráticos \citep{Kelley2009}.  
+
+%\subsection*{Hijos en el futuro}
+
+En base a los postulados de la \textit{Prospective Upward Mobility Hypothesis} \citep{Benabou2001, Alesina2005}, se evidenció que mayores expectativas de estatus para los hijos en el futuro tiene como resultado que se atribuya mayor importancia a los factores individuales relacionados al mérito. Sabemos que las expectativas relacionadas con un mayor logro de estatus opera como refuerzo normativo respecto a explicaciones individualistas de fenómenos como la pobreza o la desigualdad \citep{Landerretche2011, Gugushvili2016}. En este marco, individuos que perciben un mayor logro de estatus para sus hijos, serían quienes detentan un fuerte anclaje normativo en los principios meritocráticos. Sostengo que la idea de mayor prosperidad futura, coincide teóricamente con la literatura que postula que una mayor adscripción a la ideología meritocrática es la \textit{antesala} para justificar la desigualdad social \citep{Day2017}.
+
+Por el contrario, individuos con mayores expectativas de logro de estatus para sus hijos en el futuro señalan estar en desacuerdo con que en Chile las personas son recompensadas por su esfuerzo y talentos. En un principio, esta evidencia resulta contraintuitiva, si consideramos los postulados de la hipótesis POUM, donde la redistribución es un contrasentido del mérito individual \citep{Jaime-Castillo2008}, lo cual permite concluir que mis resultados apuntan en la dirección contraria a lo hipotetizado en base a la evidencia previa. 
+
+Dicho lo anterior, es plausible considerar que las expectativas de logro de estatus futuro se sostengan en paralelo a la percepción de recompensa; me explico. Se ha evidenciado que individuos más educados tienden a disentir respecto a que en Chile se retribuye el mérito, así también mayor estatus de los hijos en el futuro se relaciona con atribuir mayor importancia a la agencia individual en el logro de estatus. En términos teóricos, es plausible que individuos que experimentan situaciones de inequidad \citep{Adams1965}, tiendan a ajustar sus expectativas sobre el futuro, independiente de su apreciación sobre la desigualdad económica \citep{Castillo2012,Trump2017}.
+%------------------------------------------------------------------------------------------
+% MEDIACION OBJETIVO-SUBJETIVO
+%\subsection*{Mediacion objetivo-subjetivo}
+
+El análisis de mediación, evidenció que el estatus subjetivo de los hijos explica parte del efecto directo de la educación sobre la percepción de meritocracia, lo cual es más relevante  para el grupo que detenta el nivel más bajo de educación. \cite{Evans2004} sostienen que el mecanismo que explica la percepción de desigualdad posee dos componentes. Por un lado está la experiencia provista por la realidad material de los individuos, mientras que las percepciones también son afectadas por lo que ellos denominan la \emph{homofilia} de sus grupos de referencia. En este sentido, de manera tentativa es posible que estos resultados se expliquen porque la educación posee el componente proveniente de la socialización, mientras que las expectativas de logro de estatus para sus hijos se explique por el efecto de la comparación con los grupos de referencia.   
+
+\cite{Evans2017} han evidenciado que individuos de mayor estatus tienden a percibir la sociedad como más igualitaria. En contextos con alta desigualdad como Chile, las oportunidades tienden a estar más segregadas, por lo tanto, que existan mayores expectativas de logro de estatus futuro en grupos con baja educación habla de una fuerte adscripción a los principios meritocráticos, independiente de la desigualdad que se percibe \citep{Castillo2012}, lo cual puede interpretarse como el resultado de un ajuste cognitivo que impacta positivamente las expectativas futuras \citep{Trump2017}.
+
+Antes de abordar las limitaciones e implicancias, es importante revisar el concepto de Percepción de Meritocracia. \cite{Castillo2018} sostienen la meritocracia puede entenderse desde una dimensión normativa y otra descriptiva. La primera hace referencia a las preferencias hacia los principios meritocráticos y la segunda refiere a cómo son percibidas las desigualdades en la sociedad, y en qué medida se explican por el funcionamiento del sistema meritocrático. Esta distinción es fundamental respecto a que cada variable latente empleada para medir ``Percepción de Meritocracia'' estaría estar más ``cargada'' hacia lo normativo o hacia lo descriptivo. Sin embargo, sostengo que la medición sigue manteniendo su robustez empírica y sobre todo conceptual.   
+
+\newpage
+\section{Conclusiones}
+
+El primer hallazgo proviene de la medición de la Percepción de Meritocracia. Se evidenció que la percepción de meritocracia puede ser abordada a través de dos dimensiones latentes. La primera constituye el grado de importancia que tienen en Chile los el tener ambición, educarse y el trabajo duro, en el proceso de surgir en la vida. La segunda dimensión representa al grado de acuerdo con que en Chile se recompensa el esfuerzo y el talento individual. Contra toda intuición inicial, se evidenció que atribuir mayor importancia a los factores individuales tiende a estar asociado negativamente con la percepción de que en Chile las personas son recompensadas por sus esfuerzos y habilidades. Por otro lado, quienes perciben menor recompensa, son aquellos individuos que atribuyen mayor importancia a la agencia individual para salir adelante en la vida. 
+
+Desde la perspectiva del interés propio, se ha planteado que la posición en la distribución de ingresos y en el mercado de trabajo son indicadores de las condiciones objetiva a las cuales se enfrentan los individuos. No obstante, los ingresos no afectan la percepción del funcionamiento de la meritocracia. Por el contrario, el nivel educacional se asocia fuertemente con la percepción de meritocracia. Dicho esto, la relación entre educación y meritocracia llama bastante la atención debido a que se ha postulado que las instituciones de educación representan el espacio social donde los principios meritocráticos son aprehendidos, evidenciando que individuos más educados son quienes más importancia atribuyen al mérito, pero que su vez son más críticos de la meritocracia. 
+
+De mis resultados llama la atención, en primer lugar, la falta asociación del estatus subjetivo propio con la percepción de meritocracia. Desde una perspectiva de interés racional, individuos que se perciben a sí mismos estratos altos de la jerarquía social debiesen percibir mayor meritocracia, lo cual se evidenció en principio, pero su efecto se anula al incorporar el estatus de la familia y de los hijos (Ver Anexo \ref{tab:anexo_ess}). Esto sugiere que las apreciaciones respecto del pasado y el futuro, tienen un peso importante en cómo los individuos perciben la meritocracia. 
+
+En segundo lugar, la asociación positiva del estatus subjetivo de la familia de origen con la recompensa percibida, sugiere que individuos provenientes de contextos más aventajados tienden a estar de acuerdo con las recompensas provenientes del mérito individual. Se ha dicho que la socialización familiar trasciende a través de la internalización de normas en los individuos, de modo que familias más aventajadas pueden ser el reflejo de un historial de movilidad ascendente, lo que favorecería una visión positiva de la desigualdad. Finalmente, mayores expectativas de logro de estatus para los hijos en el futuro impacta positivamente en la importancia atribuida a los factores individuales relacionados al mérito, lo cual habla de una percepción positiva de estructura de oportunidades en la sociedad. Por otro lado, estos individuos sostienen una visión crítica sobre de las recompensas asociadas al mérito individual. Lo interesante de este hallazgo es que podría significar que individuos con mayores expectativas, es decir lo de mayor estatus, tengan una visión próspera del futuro producto de su actual posición social, lo cual convive con sentimientos de insatisfacción sobre sus propias recompensas.   
+
+Exploré la relación entre el estatus objetivo, subjetivo y la percepción de meritocracia, evidenciando que el estatus subjetivo de los hijos explica una parte del efecto que tiene el grupo con educación más baja sobre la percepción de meritocracia. Esto indica que parte de la experiencia objetiva, se ve influenciada por un filtro o sesgo perceptual, lo cual conjuntamente afecta la percepción de los individuos en relación a la importancia que posee la agencia individual en el proceso de salir adelante en la vida.    
+
+%"Normative view of meritocracy"
+%
+%"materialistic justice related meritocracy evaluation"
+
+\newpage
+         
+\subsection*{Limitaciones, implicancias y agenda futura}	
+
+Por distintos motivos, esta tesis posee limitaciones que llaman a interpretar los resultados con cautela, pero que dejan planteadas algunas inquietudes que guiarán preguntas e hipótesis nuevas que podrán ser abordadas en investigación futura.
+
+La primera de las limitaciones se relaciona con el modelo de medición. Si me remito a la bondad de ajuste del modelo, una estructura de dos factores parece ser adecuada según los criterios convencionales. No obstante, esto no implica la ausencia de problemas. Si observamos la carga factorial del ítem \textbf{``En Chile, las personas son recompensadas por sus esfuerzos''}, es posible ver que estamos en presencia de un \textit{Heywood case}. Estos casos consisten en que una carga factorial posee una magnitud que supera límites normales (comunalidad > 1) y una varianza negativa, lo cual indica problemas de ajuste en el modelo de medición, que podrían conducir a conclusiones erróneas en base a las estimaciones de los modelos de ecuaciones estructurales. Como alternativa, estimé un modelo de medición que correlaciona los errores para ``Esfuerzo'' y ``Trabajo Duro''. Sin embargo, debido a que se recomienda tener un argumento sustantivo para realizar esta correlación, decidí mantener la estimación original, producto que este tipo de especificaciones deteriora el modelo al restringir los grados de libertad producto de la estimación del nuevo parámetro \citep{Brown2008}.
+
+La segunda limitación va en relación a la base de datos. Las variables Ingresos y Ocupación poseen cerca de un 40 \% de datos perdidos. Para el caso de los ingresos, construí una variable que agrupaba los ingresos en deciles, incluyendo una categoría para los individuos que no reportaron sus ingresos, con el objetivo de no perder esas observaciones. El principal problema de haber realizado esta agrupación radica en la imposibilidad de utilizar los ingresos como una variable contínua, lo que facilita la interpretación de las estimaciones. Desde el punto de vista sustantivo, si bien los ingresos no mostraron estar asociados con la percepción de meritocracia, es difícil saber con certeza si esto se debe a la operacionalización o si efectivamente no existe asociación entre los ingresos y la percepción de meritocracia. 
+
+En una línea similar, decidí agrupar los casos que no reportaron su ocupación. La falta de información en código CIUO impide la elaboración de indicadores como el \textit{International Socio-Economic Index} \citep{Ganzeboom1992}. Así también, imposibilita testear hipótesis en relación a la clase social basada en el esquema de Clase EGP \citep{Erikson1979}, lo cual habría permitido incorporar la relación de empleo y autoridad en análisis de la percepción de meritocracia.      
+
+Es necesario que futuras investigaciones aborden estas hipótesis utilizando otras fuentes de datos que no presenten problemas en relación a los datos perdidos. Una alternativa es emplear el módulo \textbf{Social Inequality V} del \textit{International Social Survey Programme} que está próximo a ser liberado durante el periodo 2019 -- 2020. Otra hipótesis interesante sería analizar el efecto de la movilidad subjetiva sobre la percepción de meritocracia, lo cual puede ser operacionalizado a través de la diferencia entre distintas medidas de estatus subjetivo, lo cual permite testear el efecto de la movilidad intergeneracional (presente - pasado) o una hipótesis  POUM (futuro - presente) sobre la percepción de meritocracia. 
+
+\cite{Solt2016} sostiene que la desigualdad de ingresos a nivel local modera la asociación entre los ingresos y el apoyo a los principios meritocráticos. En este sentido, una de las ventajas del diseño muestral de ELSOC es que permite testear hipótesis contextuales a nivel de comunas y regiones. Hasta ahora, esta dimensión ha sido poco explorada, por lo que me parece relevante preguntarse sobre cómo las características del contexto comunal o regional afectan las percepciones de los individuos. Es factible realizar estos análisis a través de los datos de la encuesta CASEN 2017, lo que deja planteada la posibilidad de avanzar en esta dirección.
+
+La investigación del Estatus Social Subjetivo como variable explicativa de otros fenómenos ha sido escasamente desarrollada. Así también, se sabe poco sobre los factores que determinan las preferencias y percepciones en la meritocracia. Tampoco se sabe mucho respecto a qué actitudes se ven influenciadas por estas percepciones. Dicho esto, ¿es la meritocracia una variable explicativa de otras actitudes? ¿Qué relación guardan las preferencias y percepciones meritocráticas con la justificación de la desigualdad o las preferencias redistributivas? En definitiva, los hallazgos de esta tesis aportan conocer lo que las personas perciben sobre la meritocracia en Chile. Más aún, ponen en cuestión la idea de que las personas se encuentran satisfechas con el actual sistema económico, pero aún así, paradójicamente, muestran ser fieles a la importancia del mérito en sus vidas. 
+
+Recientemente fue anunciado el proyecto de Ley de Admisión Justa por parte del gobierno de Sebastián Piñera, donde la Ministra de Educación, ha dicho: \textit{``queremos empezar a hacer justicia y a reconocer el esfuerzo y el mérito que hay atrás de cada una de esas familias. Nos parece que no reconocerlo es una injusticia''} \footnote{CNN Chile, \textit{``Presidente Piñera firmó proyecto de ley que busca perfeccionar el Sistema de Admisión Escolar''} Visitado el 10 de enero, 2019: https://bit.ly/2FiRmtz }. Este hecho es ilustrativo de la importancia que actualmente tiene en Chile el debate sobre las oportunidades educacionales y su relación con la meritocracia. Anteriormente fue la discusión por la Ley de Fin al lucro, selección y financiamiento compartido en los establecimientos educacionales, lo cual puso en el debate público el hecho de que el sistema educacional chileno tendía segregar y a reproducir las diferencias de origen \citep{Bellei2015}.    
+
+Los resultados de esta tesis deben ser interpretados considerando las limitaciones que fueron expuestas anteriormente. Además, existen nuevas interrogantes que deben ser abordadas en la investigación futura. Estas investigaciones deben avanzar en los aspectos relacionados con la validez de las medidas empleadas para estudiar la meritocracia subjetiva, así como también emplear mediciones que hayan estado validadas previamente o proponer otras nuevas. La percepción de meritocracia parece ser un tema específico, sin embargo deja abierta una algunas interrogantes, principalmente cuál sería su relación con fenómenos como la movilidad social, las preferencias redistributivas o la legitimación de brechas salariales.
+
+\newpage 
+\def\bibfont{\small}
+\bibliography{/Users/JC/Dropbox/Bibtex/zlibrary}
+\bibliographystyle{apalike}
+
+\appendix
+
+\section{Anexos}
+
+\input{tables/pathb}
+
+\newpage
+
+\newgeometry{
+	top=5mm,
+	left=0.5cm,
+	right=0.5cm,
+	bottom=0.5cm, 
+	footskip=2mm}
+\renewcommand{\arraystretch}{1}
+\renewcommand{\baselinestretch}{1} %Interlineado
+%\thispagestyle{empty}
+\input{tables/anexo_ess1}
+\restoregeometry
+
+\newgeometry{
+	top=2cm,
+	left=0.5cm,
+	right=0.5cm,
+	bottom=1cm, 
+	footskip=2mm}
+\renewcommand{\arraystretch}{1}
+\renewcommand{\baselinestretch}{1} %Interlineado
+%\thispagestyle{empty}
+\input{tables/anexo1b}
+\restoregeometry
+
+ 	
+\end{document}
