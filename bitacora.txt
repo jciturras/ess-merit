@@ -1,3 +1,72 @@
+## Meritocracy perception
+
+Merit is understood as the combination of effort and ability [@Sen2000]. Thus, the meritocratic ideal is focused on the individual, rather than structural factors in getting ahead in life [@mccall_exposure_2017].  In this regard, the measurement of meritocracy-related constructs has not been clear in distinguishing between descriptive and normative dimensions [@Castilloetal2019]. For instance, it is often to notice undifferentiated use of *Meritocratic Beliefs* [@mijs_how_2021a; @bernardo_meritocracy_2021] and *Perceived Meritocracy* [@Xian2017]. The lack of distinction can be problematic, especially when scrutinizing explanations on subjective views about meritocracy.  
+
+The concept of  _perception_ is understood as the subjective description of an object [@Aalberg2003]. In this regard, the descriptive (*how is*) dimension does not consider the normative evaluation of the object (*should be*). On the other hand, the normative dimension can be understood as preferences, influenced by previous beliefs and information affecting the evaluation of an object [@druckman_preference_2000]. In this regard, @Garcia2001 suggests perceived meritocracy is the degree to which individuals consider their society complies with the meritocratic principles. In other words, to what extent effort and talent are rewarded, indicating "how meritocracy is" rather than "how it should be". 
+
+## Status, Class and meritocracy perception
+
+### Status 
+
+From a rational self-interest approach [@Meltzer81] individuals in higher income positions perceived higher meritocracy because they accumulated economic resources due to effort and talent. Similarly, high status is associated with lower inequality perception [@Evans2017] and higher justification of income inequality [@Trump2017]. 
+
+Evidence suggests a positive relationship between income and perceptions of meritocracy regarding the importance of individual merit in getting ahead in life [@Reynolds2014; @Xian2017], as well as what extent individuals perceive intelligence and skills are rewarded [@Castilloetal2019; @Duru-bellat2012]. Nevertheless, there is mixed evidence regarding how lower-income individuals rationalise inequality and meritocracy. On the one hand, @Newman2015 found evidence in favour of the *activated conflict theory* demonstrating the poor hold lower beliefs in meritocracy in unequal localities, arguing economically heterogeneous contexts induce social comparisons leading to higher awareness about social status. On the other hand, following the *relative power theory*, @Solt2016 challenged the previous evidence showing the poor in unequal contexts to support meritocracy strongly. The authors suggest the rich hold higher power due to income and wealth concentration, allowing them to disseminate legitimising ideas about economic inequality. In this context, the poor are less critical towards dominant beliefs like meritocracy, but it also serves as a psychological mechanism for resilience deprivation [@Solt2016,p.4]. On top of this debate, @morris_paradox_2022 findings show firmer meritocracy beliefs among low-income individuals in highly unequal contexts, but the differences tend to fade as inequality declines.         
+
+The reviewed literature allows us to expect individuals with higher economic resources attribute more importance to merit and therefore perceive rewards in society are distributed according to it, which leads us to establish the following: 
+
+> $H_{\text{1a}}$: income is positively associated with perceived meritocracy.
+
+As income reflects an individual's economic resources, studies on social stratification have raised the importance of educational attainment on status achievement [@Goldthorpe2003]. In this line, research on meritocracy perception have discussed two theoretical approaches. On the one hand, the *reproductionist* approach [@Bourdieu2009; @bernstein_class_2003] supports the *socialisation* hypothesis, suggesting school socialisation operates as a normative reinforcement of meritocratic ideals, then educated individuals are more willing to support meritocracy as a legitimising mechanism [@Lampert2013]. On the other hand, the *instruction* hypothesis suggests perceived meritocracy tends to weaken in individuals with higher educational attainment because they would be more aware of the influence of structural factors on status achievement [@Duru-bellat2012] considering experiences of educational mobility [@Canales2015lse] and higher chances to engage with complex political ideas [@bubak_perceptions_2019].
+
+On the one hand, evidence in favour of the socialisation hypothesis has pointed out education is associated with higher importance of individual factors in getting ahead in life [@Xian2017; @Reynolds2014; @mijs_paradox_2021], but also as a determinant of wages [@Kunovich2007]. On the other hand, evidence in favour of the instruction hypothesis shows that individuals more educated individuals disagree that people are rewarded for their effort and talent [@Duru-bellat2012; @Castilloetal2019]. Additionally, the instructional hypothesis can be complemented by the fact that greater awareness of inequality may experience feelings of injustice and relative deprivation since individuals with the same educational attainment have access to unequal rewards [@Adams1965; @Smith-eta2020_relative-deprivation]. In this sense, it has been shown higher educational attainment is associated with higher perceived inequality [@Castillo2012a_justice]. Thus, this evidence lead us to suggest: 
+
+> $H_{\text{1b}}$: education is negatively associated with perceived meritocracy.
+
+### Class 
+
+The relationship between structural position and meritocracy has mainly focused on income and educational attainment, setting social class aside from the discussion. However, occupational class not only represent the synthesis of educational achievement and income levels [@Ganzeboom1992] but also represents a symbol of power and authority in contemporary societies [@Chan2004; @Chan2007]. Furthermore, studies on social mobility have shown the relevance of studying inequality through class schemes using occupation, autonomy and authority in the workspace as meaningful distinctions to categorise individuals [@Erikson1992; @Erikson2002]. In this sense, classes are relatively homogeneous groups regarding labour market position, authority and control over labour [@Connelly2016]. However, it has been argued that common characteristics do not preclude class heterogeneity in terms of cultural consumption behaviour or political preferences [@Chan2007; @Chan2004].
+
+The literature on distributive preferences has suggested social class reflects individuals' experience in the labour market regarding job opportunities and wages [@Svallfors2006]. In a similar vein, @Kulin2013 demonstrated lower classes being exposed to higher labour market risks, such as the likelihood of job loss and lower wages, led individuals in material deprivation and risk exposure, to demand more redistribution [@rehm_risks_2009]. 
+
+The literature has paid little attention to social class on meritocracy perception. For instance, @Smith2012 found that belonging to the emerging petty bourgeoisie is associated with higher levels of perceived meritocracy when compared to wage earners. These results align with the findings of @Sandoval2017, where skilled and service workers, compared to unskilled workers, attribute higher importance to effort to get ahead in life. However, a study on the relationship between social mobility and perceived meritocracy in Chile demonstrated upward-mobile individuals on the service class perceived lower meritocracy [@Canales2015lse].
+
+Social stratification research in Chile has shown regardless of the high-income inequality, social mobility is still high, mainly due to mobile individuals from lower-class origins to non-manual and service-class destinations [@Torche2005a]. However, regardless of the changes in the social structure, evidence shows that wages have remain relative stagnated and economic inequality has remained relatively stable [@EspinozaNunez2014]. In this regard, narratives of social mobility can be accompanied by frustrating income expectations or labour market discrimination experiences, which can lead to adverse perceptions toward meritocracy. For instance, a sense of frustration has been narrated by individuals with a lower-class background who have experienced upward social mobility [@barozet_clase_2011], pointing out that class background is a constant source of discrimination in the labour market [@cea_discriminacion_2020]. In this line, upward-mobile individual not always experience satisfactory outcomes, what contributes to increase their negative attitudes toward labor market constraints. Overall, we can hypothesis that:   
+
+> $H_{\text{1c}}$: Working in non-manual and service occupations is negatively associated with perceived meritocracy.
+
+## Subjective social status and meritocracy perception
+
+The literature on subjective meritocracy has paid more attention to the structural position of individuals as an explanatory factor for perceptions of meritocracy. However, how individuals experience social inequality is affected by the status of the individuals' or groups [@garcia-castro_perception_2022;@castillo_perception_2022]. For example, perceived economic inequality in everyday life diminishes justification of inequality and increases demand for redistribution [@garcia-castro_perceiving_2020]. Nevertheless, it has been demonstrated meritocracy primes reinforce negative evaluations of economically disadvantaged groups and strengthens internal attribution [@madeira_primes_2019].        
+
+Normative appraisals of qualitative or ascribed status characteristics such as gender or quantitative like income or educational level serve to explain status [@Jasso2001]. In this regard, social interactions serve as anchors through which individuals rationalise their societal position. The literature conceptualised it as subjective social status, understood as the perception of an individual or group's standing in the social hierarchy compared to a reference group, such as society itself [@slomczynski1987; @Evans2004] or local communities [@Condon2020]. A widely used measure is the MacArthur Scale of Subjective Social Status, in which individuals report social status on a ladder representing the strata of the social hierarchy [@adler_relationship_2000].
+
+The literature has shown a persistent bias toward the middle of the hierarchy, where low-status individuals tend to overestimate their position while high-status individuals underestimate it [@Lindemann2014]. In this regard, previous theoretical approaches have suggested that individuals are likely to compare themselves with people or groups perceived as similar. These reference groups contribute to diminishing cognitive dissonance and seek to assemble better estimations about their position in society [@festinger1954theory; @Merton1968].
+
+The reference group and reality blend hypothesis (R&R) [@KelleyEvans1995] suggest that perceptual biases are caused by an availability heuristic, which reduces cognitive dissonance in situations with limited information [@Evans2004]. In this line, the characteristics of the closest reference groups shape subjective estimates of social standing, in which the imagined ideas about society are influenced by the homophily of their close networks [@Evans1992; @Evans2017]. For instance, @son_cognitive_2021 reveals that being a member of an organisation or practising a hobby is information that shapes cognitive patterns of homophily. In other words, people consider individuals that share these attributes tend to be tied and considered as members of a similar group. In this regard, @kim_social_2021 have shown that individuals with networks concentrating on people with high-status occupations have higher subjective social status in Chinese society, where social capital is considered essential. 
+
+The link of subjective status with attitudes toward inequality has been little studied. For example, @Vargas-Salfate2018 found that higher subjective status is associated with higher system justification. Similarly, @Schneider2015 evidence a positive association of subjective status with the perceived justice income inequality and higher internal poverty attributions. In addition, @Castillo2018 found that higher subjective status is related to higher perceived meritocracy. Based on this evidence, our main prediction is:
+
+> $H_{\text{2}}$: subjective social status is positively associated with perceived meritocracy
+
+## Objective and subjective position on perceived meritocracy
+
+The R&R hypothesis suggests that both subjective and material experiences interact with each other [@Evans2017]. Studies have shown that status and class positively influence subjective status, but it is less understood how subjective status moderates the effect of objective experiences on perceived meritocracy.
+
+Higher-income individuals tend to have higher inconsistencies in perceived status [@Castillo2013]. For example, income, education, and occupational prestige have a positive non-linear relationship with subjective social status, with higher status individuals showing more variation in subjective status [@Andersson2018a]. Inconsistencies between income level and educational attainment have been linked to political preferences [@Kreckel1993, @Lenski1967], and discrepancies between class identity and social class may also influence political preferences [@Sosnaud2013], but these results are not consistently supported by socio-demographic controls.
+
+Studies on subjective social status as a moderating factor have primarily focused on its relationship to other subjective variables, rather than how it interacts with income or education. One study using data from the International Social Survey Programme (ISSP) found that higher perceptions of inequality lead to higher preferences for redistribution and lower perceptions of meritocracy, and that the relationship between inequality and meritocracy perception becomes weaker for those who perceive themselves as having a higher societal position [@Fatke2018]. Another study in European countries showed that economic inequality does not influence preferences for redistribution when controlled by perceived inequality, but is positively moderated by subjective status [@Bobzien2019]. A study on bachelor students with high subjective social status found that those who perceive themselves as having a higher status and greater meritocracy tend to justify higher levels of economic inequality [@bernardo_meritocracy_2021].
+
+Experiments have shown that manipulating individuals' perceptions of their social status can alter their attitudes towards inequality. For example, in Argentina, people in the lowest and highest income deciles tend to have the most bias, with those in the lowest stratum overestimating their position and those in the highest underestimating it. Manipulating this bias can change attitudes towards redistribution [@Cruces2011]. In Sweden, older, educated people with higher cognitive skills tend to be more accurate about their position in the income distribution. It is believed that those with strong meritocratic beliefs will not be affected by informational interventions and will have fewer preferences for redistribution [@karadja_richer_2017]. Reference groups can also influence perceptions of distributive justice. Misperception is generally higher in large reference groups than in small ones. When informed of their actual position, those who overestimate their position around the median of any reference group, especially those in the lowest income stratum, tend to increase their perception of inequality and injustice [@hvidberg_social_2020].
+
+Studies in Chile have found that three factors interact to shape perceptions of social status: socioeconomic status, economic and social capital, and moral perceptions of individual achievement [@macclure_naming_2020]. Individuals who identify as lower status tend to have low incomes, less education, and live in disadvantaged areas. However, some individuals who belong to middle or high socioeconomic strata may still identify as lower status due to living in affluent neighborhoods or having higher educational credentials, which symbolize higher social and cultural capital [@Mclure-etal2019, p. 18]. Those who identify as high status tend to consistently have higher socioeconomic status, with educational meritocracy often serving as a criterion for their social position [@Mclure-etal2019,p.19].
+
+Subjective social status can reflect an individual's position in the social structure as well as their experience of economic inequality through comparisons with nearby reference groups. Therefore, we predict that differences in subjective status can lead to differences in perceived meritocracy within socio-economic groups. Thus, we predict that:
+
+> $H_{\text{3}}$: The association of objective status and social class on perceived meritocracy is positively moderated by subjective social status.
+
+To summarise our hypothesis, Figure \@ref(fig:tmodel) depicts the theoretical model proposed in the study.
+
+
 
 - Paper de Mijs usa m?s controles de los que us? yo, deber?a incluir estatus ocupacional y religi?n.
 - La relaci?n de los distintos estatus subjetivos poseen distintos mecanismos, particularmente sobre las dos medidas de meritocracia empleadas en el estudio.
@@ -7,40 +76,40 @@
 economa moral y meritocracia.
 
 
-- En el estatus subjetivo de los hijos se reflejan los "futuros escenarios" en relación a la meritocracia. (Maldonado et al. 2019) 
+- En el estatus subjetivo de los hijos se reflejan los "futuros escenarios" en relaciï¿½n a la meritocracia. (Maldonado et al. 2019) 
 
 # Variables
 
-- Cambiar Ocupación por EGP con 7 categorías
+- Cambiar Ocupaciï¿½n por EGP con 7 categorï¿½as
 - Labores agricolas colapsar con Obrero no calificado
 - Autoempleo agricola colapsarlo con Autoempleo
 
 - update: EGP05
   - Servicios I+II respecto a Obrero no calificado ***
-  - Efecto desaparece al controlar por todo lo demás
+  - Efecto desaparece al controlar por todo lo demï¿½s
   - Quedarme con EGP05 para modelos finales
 
-# Metodología
+# Metodologï¿½a
 
-- Idea: Mediación usando Ola 1 y ola3
-- Usar Educación continua o categórica?:
+- Idea: Mediaciï¿½n usando Ola 1 y ola3
+- Usar Educaciï¿½n continua o categï¿½rica?:
 
   - Ajusta mejor con estimador ordinal
-  - Ajusta mejor con Educación Categórica. Continua no es significativa.
+  - Ajusta mejor con Educaciï¿½n Categï¿½rica. Continua no es significativa.
   
   
-# Presentación FACSO
+# Presentaciï¿½n FACSO
 
-- Ausencia de Correlación entre los ítems podría jugar en contra
+- Ausencia de Correlaciï¿½n entre los ï¿½tems podrï¿½a jugar en contra
 - Efectos distintos para cada variable latente
-- Argumentación para esos efectos ¿quedarme con una variable latente?
-- Ordinal Logit de lo ítems de meritocracia de Recomensa Percibida 
+- Argumentaciï¿½n para esos efectos ï¿½quedarme con una variable latente?
+- Ordinal Logit de lo ï¿½tems de meritocracia de Recomensa Percibida 
 
 # Controles nuevos:
 
-- Percepción de Desigualdad Salarial ln(Gerente/obrero) = Listo, es negativo y muy significativo
+- Percepciï¿½n de Desigualdad Salarial ln(Gerente/obrero) = Listo, es negativo y muy significativo
 
-- En base a MacClure 2012: Efecto "generación" nacimiento pre 1970 y post 1970
+- En base a MacClure 2012: Efecto "generaciï¿½n" nacimiento pre 1970 y post 1970
 
 
   
