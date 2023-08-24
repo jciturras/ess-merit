@@ -1,43 +1,54 @@
 ---
- title: "Subjective status, Social Class and meritocracy perception"
- # author: Julio Iturra ^[Bremen International Graduate School of Social Sciences (jiiturra@uni-bremen.de)]
- bibliography: "input/bib/ess-merit.bib"
- csl: "input/bib/apa6.csl"
- css: "input/css/custom.css"
- output:
-     bookdown::html_document2:
-          number_sections: false
-     bookdown::pdf_document2:
-         template: default
-         toc: false
-         number_sections: false
-     bookdown::word_document2:
-          toc: true
- geometry: margin=1in
- header-includes:
-   # - \usepackage[spanish,es-tabla,es-nodecimaldot]{babel} # para decimales con commas en vez de punto
-   - \usepackage{times}           # Times New Roman
-   - \usepackage{caption}
-   - \captionsetup[figure, table]{labelfont={bf},labelformat={default},labelsep=period}
-   - \usepackage{graphicx}
-   - \usepackage{float}
-   - \usepackage{booktabs}
-   - \usepackage{longtable}
-   - \usepackage{array}
-   - \usepackage{multirow}
-   - \usepackage{wrapfig}
-   - \usepackage{float}
-   - \usepackage{colortbl}
-   - \usepackage{pdflscape}
-   - \usepackage{tabu}
-   - \usepackage{threeparttable}
- linestretch: '1.5'
- fontsize: 12pt
- link-citations: yes
- linkcolor: blue
- editor_options:
-   chunk_output_type: inline
- abstract: "Perceived meritocracy is understood as how societies describe the functioning of meritocracy, the ideal that promotes the distribution of resources in society based on individual effort and ability. Said this, are subjective and objective positions associated with perceived meritocracy? To what extent is objective position's influence on meritocracy perception moderated by subjective status? To answer these questions, we use nationally representative data from the 2018 wave of the Longitudinal Social Survey of Chile (N = 2,652). Regression analysis show that subjective social status has a robust positive association with perceived meritocracy, in line with the hypothesis. However, both positive and negative associations of income and occupational social class on perceived meritocracy were not confirmed. However, the hypothesis for education was confirmed, where higher educational attainment is associated with lower perceived meritocracy. Finally, we found that subjective status increases perceived meritocracy for those with higher incomes, tertiary education, and higher occupational social class."  
+title: "Subjective status, Social Class and meritocracy perception"
+linestretch: '1.5'          # interlineado
+link-citations: yes         # citas linkeadas
+fontsize: 12pt
+linkcolor: blue
+author:
+- name: Julio Iturra ^[Corresponding author - jiturra@bigsss.uni-bremen.de]
+  affiliation: Bremen International Graduate School of Social Sciences
+- name: Juan Carlos Castillo
+  affiliation: Universidad de Chile
+bibliography: "input/bib/ess-merit.bib"
+csl: "input/bib/apa6.csl"
+css: "input/css/custom.css"
+output:
+  bookdown::word_document2:
+    reference_docx: input/template.docx
+    toc: false
+    number_sections: false
+  bookdown::html_document2:
+    number_sections: false
+  bookdown::pdf_document2:
+    template: null
+    toc: false
+    keep_tex: false
+    number_sections: false
+    pandoc_args:
+    - --template=input/mytemplate.tex #custom template para usar autores con afiliacion
+geometry: margin=1in
+header-includes:
+  # - \usepackage[spanish,es-tabla,es-nodecimaldot]{babel} # para decimales con commas en vez de punto
+  - \usepackage{times}           # Times New Roman
+  - \usepackage{caption}
+  - \hypersetup {colorlinks = true, linkcolor = blue, urlcolor = blue}  
+  - \captionsetup[figure, table]{labelfont={bf},labelformat={default},labelsep=period}
+  - \usepackage{graphicx}
+  - \usepackage{float}
+  - \usepackage{booktabs}
+  - \usepackage{longtable}
+  - \usepackage{array}
+  - \usepackage{multirow}
+  - \usepackage{wrapfig}
+  - \usepackage{float}
+  - \usepackage{colortbl}
+  - \usepackage{pdflscape}
+  - \usepackage{tabu}
+  - \usepackage{threeparttable}
+lang: en-US
+abstract: "Perceived meritocracy is understood as how societies describe the functioning of meritocracy, the ideal that promotes the distribution of resources in society based on individual effort and ability. Said this, are subjective and objective positions associated with perceived meritocracy? To what extent is objective position's influence on meritocracy perception moderated by subjective status? To answer these questions, we use nationally representative data from the 2018 wave of the Longitudinal Social Survey of Chile (N = 2,652). Regression analysis show that subjective social status has a robust positive association with perceived meritocracy, in line with the hypothesis. However, both positive and negative associations of income and occupational social class on perceived meritocracy were not confirmed. However, the hypothesis for education was confirmed, where higher educational attainment is associated with lower perceived meritocracy. Finally, we found that subjective status increases perceived meritocracy for those with higher incomes, tertiary education, and higher occupational social class."  
+keywords: subjective social status, meritocracy perception, social class
+classoption: a4paper
 ---
 
 ```{r render,include=FALSE, eval=FALSE}
@@ -83,7 +94,7 @@ The concept of  _perception_ is understood as the subjective description of an o
 
 ## Subjective social status 
 
-The literature on subjective meritocracy has paid more attention to the structural position of individuals as an explanatory factor for perceptions of meritocracy. How individuals experience social inequality is affected by the status of the individuals' or groups [@castillo_perception_2022]. For example, perceived economic inequality in everyday life diminishes justification of inequality and increases demand for redistribution [@garcia-castro_perceiving_2020]. Nevertheless, it has been demonstrated that meritocracy primes reinforce negative evaluations of economically disadvantaged groups and strengthens internal attribution [@madeira_primes_2019].        
+The literature on subjective meritocracy has paid more attention to the structural position of individuals for explaning the emergence of meritocracy perceptions, assuming that structural positions and groups stratify [@castillo_perception_2022]. For example, perceived economic inequality in everyday life diminishes justification of inequality and increases demand for redistribution [@garcia-castro_perceiving_2020]. Nevertheless, it has been demonstrated that meritocracy primes reinforce negative evaluations of economically disadvantaged groups and strengthens internal attribution [@madeira_primes_2019].        
 
 Normative appraisals of qualitative or ascribed status characteristics such as gender or quantitative like income or educational level serve to explain status [@Jasso2001]. In this regard, social interactions serve as anchors through which individuals rationalise their societal position. The literature conceptualised it as subjective social status, understood as the perception of an individual or group's standing in the social hierarchy compared to a reference group, such as society itself [@slomczynski1987; @Evans2004] or local communities [@Condon2020]. A widely used measure is the MacArthur Scale of Subjective Social Status, in which individuals report social status on a ladder representing the strata of the social hierarchy [@adler_relationship_2000].
 
@@ -141,10 +152,11 @@ Subjective social status can reflect an individual's position in the social stru
 
 To summarise our hypothesis, Figure \@ref(fig:tmodel) depicts the theoretical model proposed in the study.
 
-```{r tmodel, fig.cap='Theoretical model',out.height='40%', fig.align='center'}
+```{r tmodel, fig.cap='Theoretical model',out.height='30%', fig.align='center'}
  knitr::include_graphics(path = "input/images/scheme.PNG")
 ```
 
+\pagebreak
 # Data, variables and methods
 
 _Data_ 
@@ -292,11 +304,11 @@ Considering the dependent variable as a continuous, stepwise ordinary least squa
 ```{r plot-likert, fig.height=3, fig.width=10, fig.cap='Perceived meritocracy items'}
  load(here::here("input/data/proc/elsoc_w03.RData"))   
  pacman::p_load(dplyr,sjPlot,ggplot2)
+ elsoc_w03$Q05h[elsoc_w03$Q05h=="No responde"] <- NA
  
   elsoc_w03<- elsoc_w03 %>%
-    dplyr::select(meffort,mtalent,
-           inc10h.imp,edcine2,egpisko05,ess,lngap_perc,
-           sexo,edad,ppolcat) %>% 
+    dplyr::select(meffort,mtalent,inc10h.imp,edcine2,class6,class3,ess,
+                  egpisko05,Q05h,sexo,edad,ppolcat) %>% 
         na.omit() 
  dat_likert_s1 <-
    dplyr::select(elsoc_w03,meffort,mtalent)
@@ -384,13 +396,44 @@ Figure \@ref(fig:corr-mat) shows a positive correlation between perceived merito
 ## Multivariate analysis
 
 ```{r ols-merit, echo=FALSE, results='asis'}
-pacman::p_load(ordinal,texreg,dplyr) 
+pacman::p_load(ordinal,texreg,dplyr,forcats,sjPlot) 
 load(here::here("input/data/proc/elsoc_w03.RData"))
 elsoc_w03$merit <- (as.numeric(elsoc_w03$meffort)+as.numeric(elsoc_w03$mtalent))/2 
+elsoc_w03$class5 <- car::recode(
+  elsoc_w03$class11d,
+  as.factor = T,
+  levels = c(
+    'Service class (I - II)',
+    'Routine non-manual (IIIa+b)',
+    'Petty-bourgeoise (IVa+b+c)',
+    'Skilled manual workers and supv. (V+VI)',
+    'Non-skilled manual workers (VIIa+b)'
+  ),
+  "1:2='Service class (I - II)';
+   3:4='Routine non-manual (IIIa+b)';
+   5:7='Petty-bourgeoise (IVa+b+c)';
+   8:9='Skilled manual workers and supv. (V+VI)';
+   10:11='Non-skilled manual workers (VIIa+b)'"
+)
+elsoc_w03$Q05h[elsoc_w03$Q05h=="No responde"] <- NA
   elsoc_w03<- elsoc_w03 %>%
-    dplyr::select(merit,inc10h.imp,edcine2,egpisko05,ess,lngap_perc,
+    dplyr::select(merit,meffort,mtalent,inc10h.imp,edcine2,class6,class3,ess,egpisko05,Q05h,class5,
            sexo,edad,ppolcat) %>% 
         na.omit()
+  
+table(elsoc_w03$class5,elsoc_w03$egpisko05)  
+  
+elsoc_w03$ess_cwc <- mean(elsoc_w03$ess) - elsoc_w03$ess
+
+elsoc_w03$ess5 <- car::recode(elsoc_w03$ess,"0:2=1;2:3=2;4:5=3;6:7=4;8:10=5")
+
+table(elsoc_w03$class5)
+elsoc_w03$class6 <- fct_rev(elsoc_w03$class6)  
+elsoc_w03$class3 <- fct_rev(elsoc_w03$class3)  
+elsoc_w03$class5 <- fct_rev(elsoc_w03$class5)  
+table(elsoc_w03$Q05h)
+
+
 
  or01tal  <- lm(merit ~inc10h.imp+edad+sexo+ppolcat+lngap_perc,data= elsoc_w03)
  or02tal  <- lm(merit ~edcine2+edad+sexo+ppolcat+lngap_perc,data= elsoc_w03)
@@ -403,7 +446,21 @@ elsoc_w03$merit <- (as.numeric(elsoc_w03$meffort)+as.numeric(elsoc_w03$mtalent))
  or11tal  <- lm(merit ~inc10h.imp+edcine2+egpisko05+ess+egpisko05*ess+edad+sexo+ppolcat+lngap_perc,  data= elsoc_w03)
  or12tal  <- lm(merit ~inc10h.imp*ess+edcine2*ess+egpisko05*ess+ess+edad+sexo+ppolcat+lngap_perc,  data= elsoc_w03)
 
- # knitreg(l = list(or01tal,or02tal,or03tal,or05tal,or08tal,or09tal,or10tal,or11tal))
+tab_model(lm(merit ~Q05h+edad+sexo,data= elsoc_w03),
+              lm(merit ~edcine2+edad+sexo,data= elsoc_w03),
+              lm(merit ~class3+edad+sexo,data= elsoc_w03),
+              lm(merit ~Q05h+edcine2+class3+ess5+edad+sexo+ppolcat,data= elsoc_w03),
+              lm(merit ~Q05h*ess5+edcine2+class3+edad+sexo+ppolcat,  data= elsoc_w03),  
+              lm(merit ~Q05h+edcine2*ess5+class3+edad+sexo+ppolcat,  data= elsoc_w03),                
+              lm(merit ~Q05h+edcine2+class3*ess5+edad+sexo+ppolcat,  data= elsoc_w03),
+          show.ci = F,show.intercept = F,show.p = T,wrap.labels = 200,
+          digits.p = 2,digits = 2,p.style = c("stars"),
+          rm.terms = c("edad","sexoFemale"))
+
+  
+table(elsoc_w03$class3,elsoc_w03$ess5)
+
+  # knitreg(l = list(or01tal,or02tal,or03tal,or05tal,or08tal,or09tal,or10tal,or11tal))
 
  coef.names02 <-c("Subjective Social Status (SSS) ",
                   "Household Income Decile",

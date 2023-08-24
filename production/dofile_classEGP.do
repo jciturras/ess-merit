@@ -31,8 +31,5 @@ iscogen job88 = isco88(isco08), from(isco08)
 iscogen EGP = egp11(isco08 selfemp nempleados), from(isco88)
 tab EGP
 
-
-
-
 bro cod_m03 cod_m22 isco88 isco08 job88 selfemp nempleados egp11 egp7 egp EGP
  
